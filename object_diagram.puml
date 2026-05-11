@@ -1,0 +1,13 @@
+@startuml
+object "<u>Sim Manager : Student</u>" as s1 {
+    id = 12345
+    kierunek = "Informatyka"
+}
+
+object "<u>mona_lisa : Obraz</u>" as o1 {
+    tytul = "Mona Lisa"
+    rok = 1503
+}
+
+s1 -- o1 : ogląda >
+@enduml

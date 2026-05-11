@@ -1,0 +1,54 @@
+@startuml
+class org.sim.Biome {
++ int foodPerUpdate
++ int foodMax
++ float visionPenalty
++ int upperBorder
++ int lowerBorder
++ void SpawnFood()
+}
+
+
+class org.sim.Egg {
++ Genes gene
++ float TimeTilHatch
+}
+
+class org.sim.Fish {
++ Genes attributes
++ Sex sex
++ <<Create>> Fish()
++ void Update()
++ void Draw()
++ void CalculateFov()
+}
+
+
+class org.sim.Food {
++ FoodType Type
++ float Energy
+}
+
+class org.sim.SimManager {
++ {static} List<Entity> EntitiesToAdd
++ {static} void Main()
+}
+
+class org.sim.Entity {
++ Point position
++ void Update(Biome)
++ void Draw()
+}
+
+
+
+class org.sim.Genes {
++ Genes MutateGene(Genes)
+}
+
+
+
+org.sim.Food <|-- org.sim.Egg
+org.sim.Entity <|-- org.sim.Fish
+org.sim.Entity <|-- org.sim.Food
+@enduml
