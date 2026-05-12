@@ -1,0 +1,33 @@
+@startuml
+title Rozmnażanie Ryb
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+
+participant "Ryba Samica" as Samica
+entity "Jedzenie\n(glony, mięso, jaja)" as Jedzenie
+entity "Jajo" as Jajo
+participant "Ryba Samiec" as Samiec
+participant "Dziecko" as Dziecko
+
+Samica -> Jedzenie : jedzony
+Jedzenie --> Samica : energia
+
+Samiec -> Jedzenie : jedzony
+Jedzenie --> Samiec : energia
+
+== Proces Rozmnażania ==
+
+Samica -> Jajo : tworzy jajo
+Samiec -> Jajo : zapładnia
+
+activate Jajo
+    Samica -> Jajo : kopia genów
+    Samiec -> Jajo : dodaje geny
+
+    Jajo -> Jajo : geny mutują
+
+    Jajo -> Dziecko : kopiuje genom
+    Jajo -> Dziecko : wykluwa
+deactivate Jajo
+
+@enduml

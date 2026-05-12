@@ -14,15 +14,20 @@ class org.sim.Egg {
 + float TimeTilHatch
 }
 
+class org.sim.Meat {
+}
 class org.sim.Fish {
 + Genes attributes
 + Sex sex
-+ <<Create>> Fish()
 + void Update()
 + void Draw()
 + void CalculateFov()
 }
 
+class org.sim.Entity {
++ void Update()
++ void Draw()
+}
 
 class org.sim.Food {
 + FoodType Type
@@ -34,12 +39,6 @@ class org.sim.SimManager {
 + {static} void Main()
 }
 
-class org.sim.Entity {
-+ Point position
-+ void Update(Biome)
-+ void Draw()
-}
-
 
 
 class org.sim.Genes {
@@ -49,6 +48,7 @@ class org.sim.Genes {
 
 
 org.sim.Food <|-- org.sim.Egg
+org.sim.Food <|-- org.sim.Meat
 org.sim.Entity <|-- org.sim.Fish
 org.sim.Entity <|-- org.sim.Food
 @enduml

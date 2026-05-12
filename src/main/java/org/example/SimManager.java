@@ -7,6 +7,9 @@ public class SimManager {
     private static List<Entity> entities;
     private static List<Biome> biomes;
 
+    public int CanvasX;
+    public int CanvasY;
+
     public static void Main() {
         for (Biome b : biomes) {
             b.SpawnFood();
