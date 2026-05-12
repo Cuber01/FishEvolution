@@ -4,8 +4,7 @@ public class RND {
     // increaseTrue + decreaseTrue should be in the range -10 to 10
     public static boolean Chance(float increaseTrue, float decreaseTrue)
     {
-        float p = 0.5f + ((increaseTrue + decreaseTrue)/20);
-        return Math.random() < p;
+        return Math.random() < 0.5f + ((increaseTrue + decreaseTrue)/20);
     }
 
     public static float Scale(float value, float maxValue)
