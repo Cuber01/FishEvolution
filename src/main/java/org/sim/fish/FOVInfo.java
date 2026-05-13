@@ -9,9 +9,9 @@ import java.util.Dictionary;
 import java.util.Map;
 
 public class FOVInfo {
-    public Map<Entity, Float> FoodsDist;
-    public Map<Entity, Float> EggsDist;
-    public Map<Entity, Float> FishDist;
+    public Map<Food, Float> FoodsDist;
+    public Map<Egg, Float> EggsDist;
+    public Map<Fish, Float> FishDist;
 
     public boolean SawFood;
     public boolean SawEggs;
@@ -21,16 +21,16 @@ public class FOVInfo {
     {
         if(entity instanceof Egg)
         {
-            EggsDist.put(entity, PVector.sub(myPosition, theirPosition).magSq());
+            EggsDist.put((Egg)entity, PVector.sub(myPosition, theirPosition).magSq());
             SawEggs = true;
         } else if(entity instanceof Food)
         {
-            FoodsDist.put(entity, PVector.sub(myPosition, theirPosition).magSq());
+            FoodsDist.put((Food)entity, PVector.sub(myPosition, theirPosition).magSq());
             SawFood = true;
         }
         else if(entity instanceof Fish)
         {
-            FishDist.put(entity, PVector.sub(myPosition, theirPosition).magSq());
+            FishDist.put((Fish)entity, PVector.sub(myPosition, theirPosition).magSq());
             SawFish = true;
         }
     }

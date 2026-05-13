@@ -6,8 +6,6 @@ import org.sim.SimManager;
 import org.sim.State;
 import processing.core.PVector;
 
-import java.lang.reflect.Type;
-
 class SearchState extends State<Fish, FishStateTypes> {
     private PVector followPoint;
     private static final float distTolerance = 1f;
@@ -31,10 +29,11 @@ class SearchState extends State<Fish, FishStateTypes> {
         if (PVector.dist(actor.position, followPoint) < distTolerance) {
             rerollPoint();
         } else {
-            actor.position.add( followPoint.sub(actor.position)
+            actor.Velocity = ( followPoint.sub(actor.position)
                                            .normalize()
                                            .mult(actor.Attributes.Speed)
             );
+            actor.position.add(actor.Velocity);
         }
     }
 
