@@ -1,5 +1,7 @@
 package org.sim;
 
+import org.sim.fish.Fish;
+
 import java.util.List;
 
 public class SimManager {
@@ -7,8 +9,8 @@ public class SimManager {
     private static List<Entity> entities;
     private static List<Biome> biomes;
 
-    public int CanvasX;
-    public int CanvasY;
+    public static float CanvasX;
+    public static float CanvasY;
 
     public static void Main() {
         for (Biome b : biomes) {

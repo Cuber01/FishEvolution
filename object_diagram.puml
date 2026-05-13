@@ -46,27 +46,27 @@ object "plant_1 : Food" as plant_1 {
   Energy = 10.0
 }
 
-object "pos_male : Point" as pos_male {
+object "pos_male : PVector" as pos_male {
   X = 12.0
   Y = 24.0
 }
 
-object "pos_female : Point" as pos_female {
+object "pos_female : PVector" as pos_female {
   X = 18.0
   Y = 27.0
 }
 
-object "pos_egg : Point" as pos_egg {
+object "pos_egg : PVector" as pos_egg {
   X = 16.0
   Y = 25.0
 }
 
-object "pos_meat : Point" as pos_meat {
+object "pos_meat : PVector" as pos_meat {
   X = 8.0
   Y = 20.0
 }
 
-object "pos_plant : Point" as pos_plant {
+object "pos_plant : PVector" as pos_plant {
   X = 30.0
   Y = 40.0
 }
