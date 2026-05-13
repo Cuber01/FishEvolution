@@ -1,4 +1,4 @@
-package org.example;
+package org.sim;
 
 public class Genes {
     public final float Speed;

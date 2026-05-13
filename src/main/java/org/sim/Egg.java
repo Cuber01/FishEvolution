@@ -1,4 +1,4 @@
-package org.example;
+package org.sim;
 
 public class Egg extends Food {
     public Genes gene;

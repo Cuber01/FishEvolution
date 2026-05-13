@@ -1,4 +1,4 @@
-package org.example;
+package org.sim;
 
 public class Entity {
     public Point position;

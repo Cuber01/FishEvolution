@@ -1,12 +1,11 @@
-package org.example;
+package org.sim;
 
 import processing.core.PApplet;
 
-public class Test_Processing extends PApplet {
+public class ProcessingMain extends PApplet {
 
     public static void main(String[] args) {
-
-        PApplet.main("org.example.Test_Processing");
+        PApplet.main("org.sim.ProcessingMain");
     }
 
     @Override

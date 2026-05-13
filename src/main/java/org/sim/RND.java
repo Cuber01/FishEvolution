@@ -1,4 +1,4 @@
-package org.example;
+package org.sim;
 
 public class RND {
     // increaseTrue + decreaseTrue should be in the range -10 to 10
