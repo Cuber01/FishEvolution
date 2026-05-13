@@ -1,0 +1,53 @@
+package org.example;
+import processing.core.PApplet;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class Graphics extends PApplet {
+
+    private final int CanvasX=SimManager.CanvasX;
+    private final int CanvasY=SimManager.CanvasY;
+    public static List<Biome> biomes = new ArrayList<Biome>();
+    public static List<Entity> entities = new CopyOnWriteArrayList<>();
+
+    public Graphics(){};
+    public Graphics(List<Biome> biomes_to_setup){
+        biomes=biomes_to_setup;
+
+    }
+    @Override
+    public void settings() {
+
+        size(CanvasX, CanvasY);
+
+    }
+
+    @Override
+    public void setup() {
+        background(0);
+
+
+    }
+    public void draw(){
+        draw_biomes();
+
+
+    }
+    private void draw_biomes(){
+        for(Biome b : biomes){
+            fill(b.color.get(0),b.color.get(1),b.color.get(2));
+            noStroke();
+            rect(0,b.upperBorder,CanvasX,b.lowerBorder);
+
+        }
+    }
+    private void draw_entities(){
+        for(Entity e: entities){
+            noStroke();
+            rect(e.position.X,e.position.Y,3,3);
+        }
+    }
+
+}
