@@ -3,18 +3,16 @@ package org.sim.fish;
 import org.sim.*;
 import processing.core.PVector;
 
-import java.util.HashSet;
-import java.util.List;
-
 public class Fish extends Entity {
     public Genes Attributes;
     public FOVInfo InFOV;
     public PVector Velocity;
 
-    public PursueFood PursueFoodState;
+    public PursueFoodState PursueFoodState;
 
     public static final float StarvingEnergyMin = 10f; // Will eat eggs
     public static final float BreedingEnergyMin = 80f; // Will breed
+    public static final float MaxEnergy = 100f;
 
     public enum FishState {
         Searching,

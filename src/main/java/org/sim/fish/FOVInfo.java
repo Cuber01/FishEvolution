@@ -35,4 +35,20 @@ public class FOVInfo {
         }
     }
 
+    public boolean FishInFOV(Fish f)
+    {
+        if(!SawFish)
+        {
+            return false;
+        } else {
+            Float p = FishDist.get(f);
+            if(p == null)
+            {
+                return false;
+            } else {
+                return true;   
+            }
+        }
+    }
+
 }

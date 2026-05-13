@@ -3,7 +3,6 @@ package org.sim.fish;
 import org.sim.*;
 import processing.core.PVector;
 
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.Map;
 
 public class FleeState extends State<Fish, FishStateTypes> {
@@ -40,20 +39,13 @@ public class FleeState extends State<Fish, FishStateTypes> {
     @Override
     public void Update() {
         actor.Velocity = fleeDirection;
-        actor.position.add(actor.Velocity);
+        actor.Position.add(actor.Velocity);
 
-        if(!actor.InFOV.SawFish)
+        if(actor.InFOV.FishInFOV(predator))
         {
-            timeUntilLastSawPredator += 1;
+            fleeDirection = PVector.sub(actor.Position, predator.Position);
         } else {
-            Float p = actor.InFOV.FishDist.get(predator);
-            if(p == null)
-            {
-                timeUntilLastSawPredator += 1;
-            } else {
-                fleeDirection = predator.Velocity;
-                timeUntilLastSawPredator = 0;
-            }
+            timeUntilLastSawPredator += 1;
         }
     }
 

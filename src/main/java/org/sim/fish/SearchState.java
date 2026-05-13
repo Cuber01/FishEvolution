@@ -26,14 +26,14 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Update() {
-        if (PVector.dist(actor.position, followPoint) < distTolerance) {
+        if (PVector.dist(actor.Position, followPoint) < distTolerance) {
             rerollPoint();
         } else {
-            actor.Velocity = ( followPoint.sub(actor.position)
+            actor.Velocity = ( followPoint.sub(actor.Position)
                                            .normalize()
                                            .mult(actor.Attributes.Speed)
             );
-            actor.position.add(actor.Velocity);
+            actor.Position.add(actor.Velocity);
         }
     }
 
@@ -49,11 +49,22 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public FishStateTypes CheckTransitions() {
-        if( (actor.InFOV.SawFood && actor.Energy < Fish.BreedingEnergyMin) ||
-            (actor.InFOV.SawEggs && actor.Energy <= Fish.StarvingEnergyMin ))
+        if( (actor.InFOV.SawFood && actor.Energy < Fish.BreedingEnergyMin))
         {
+            actor.PursueFoodState.TargetType = EntityTypes.Food;
+            return FishStateTypes.PursuingFood;
+        } else if ((actor.InFOV.SawEggs && actor.Energy <= Fish.StarvingEnergyMin))
+        {
+            actor.PursueFoodState.TargetType = EntityTypes.Egg;
+            return FishStateTypes.PursuingFood;
+        } else if ((actor.InFOV.SawFish && RND.Chance(actor.Attributes.Aggressiveness
+                                                      + actor.Attributes.PlantToMeatDigestion,
+                                            Fish.MaxEnergy-actor.Energy)))
+        {
+            actor.PursueFoodState.TargetType = EntityTypes.Fish;
             return FishStateTypes.PursuingFood;
         }
+
 
         if (actor.InFOV.SawFish && RND.Chance(
                  actor.HP / actor.Attributes.MaxHP,
