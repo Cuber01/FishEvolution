@@ -2,8 +2,6 @@ package org.example;
 
 import processing.core.PApplet;
 
-
-
 public class Test_Processing extends PApplet {
 
     public static void main(String[] args) {

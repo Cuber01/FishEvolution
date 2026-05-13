@@ -26,12 +26,12 @@ public class Genes {
 
     public Genes MutateGenes(Genes otherGene)
     {
-        float newSpeed = mutateAttribute(this.Speed, otherGene.Speed, 10f);
-        float newMaxHP = mutateAttribute(this.MaxHP, otherGene.MaxHP, 10f);
-        float newDamage = mutateAttribute(this.Damage, otherGene.Damage, 10f);
-        float newVision = mutateAttribute(this.Vision, otherGene.Vision, 10f);
-        float newAggressiveness = mutateAttribute(this.Aggressiveness, otherGene.Aggressiveness, 1f);
-        float newPlantToMeatDigestion = mutateAttribute(this.PlantToMeatDigestion, otherGene.PlantToMeatDigestion, 1f);
+        float newSpeed = mutateAttribute(this.Speed, otherGene.Speed, 5f);
+        float newMaxHP = mutateAttribute(this.MaxHP, otherGene.MaxHP, 5f);
+        float newDamage = mutateAttribute(this.Damage, otherGene.Damage, 5f);
+        float newVision = mutateAttribute(this.Vision, otherGene.Vision, 5f);
+        float newAggressiveness = mutateAttribute(this.Aggressiveness, otherGene.Aggressiveness, 0.1f);
+        float newPlantToMeatDigestion = mutateAttribute(this.PlantToMeatDigestion, otherGene.PlantToMeatDigestion, 0.1f);
 
         return new Genes(newSpeed, newMaxHP, newDamage, newVision, newAggressiveness, newPlantToMeatDigestion);
     }

@@ -2,6 +2,11 @@ plugins {
     id 'java'
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
@@ -14,6 +19,11 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     implementation 'org.processing:core:4.5.2'
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://p5.org/maven" }
 }
 
 test {
