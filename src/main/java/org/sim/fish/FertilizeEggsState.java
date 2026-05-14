@@ -1,11 +1,16 @@
 package org.sim.fish;
 
 import org.sim.Egg;
+import org.sim.Entity;
 import org.sim.SimManager;
 import org.sim.State;
 
+import java.lang.annotation.Target;
+import java.util.Map;
+
 public class FertilizeEggsState extends State<Fish, FishStateTypes> {
     private boolean finished = false;
+    private Egg target;
 
     public FertilizeEggsState(Fish actor) {
         super(actor);
@@ -13,11 +18,27 @@ public class FertilizeEggsState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Enter() {
+        Map<Egg, Float> map = actor.InFOV.EggsDist;
+        float bestDist = Float.POSITIVE_INFINITY;
+
+        for (Egg egg : map.keySet()) {
+            Float d = map.get(egg);
+            if (d < bestDist) {
+                bestDist = d;
+                target = egg;
+            }
+        }
     }
 
     @Override
     public void Update() {
+        actor.Velocity = target.Position.sub(actor.Position).normalize().mult(actor.Attributes.Speed);
+        actor.Position.add(actor.Velocity);
 
+        if(target.Position.sub(actor.Position).magSq() < 1) {
+            target.Fertilize(actor.Attributes);
+            finished = true;
+        }
     }
 
     @Override
@@ -27,6 +48,7 @@ public class FertilizeEggsState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Exit() {
+        target = null;
         finished = false;
     }
 
