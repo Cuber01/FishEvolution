@@ -22,20 +22,20 @@ public class PursueFoodState extends State<Fish, FishStateTypes> {
     public void Enter() {
         switch (TargetType) {
             case Fish:
-                findClosestInMap(actor.InFOV.FishDist, EntityTypes.Fish, Fish.class);
+                findClosestInMap(actor.InFOV.FishDist, EntityTypes.Fish);
                 break;
 
             case Egg:
-                findClosestInMap(actor.InFOV.EggsDist, EntityTypes.Egg, Egg.class);
+                findClosestInMap(actor.InFOV.EggsDist, EntityTypes.Egg);
                 break;
 
             case Food:
-                findClosestInMap(actor.InFOV.FoodsDist, EntityTypes.Food, Food.class);
+                findClosestInMap(actor.InFOV.FoodsDist, EntityTypes.Food);
                 break;
         }
     }
 
-    private void findClosestInMap(Map<?, Float> map, EntityTypes type, Class<?> entityClass) {
+    private void findClosestInMap(Map<?, Float> map, EntityTypes type) {
         float bestDist = Float.POSITIVE_INFINITY;
 
         for (Object obj : map.keySet()) {

@@ -4,6 +4,7 @@ import processing.core.PVector;
 
 public class Entity {
     public PVector Position;
+    public static final float DistTolerance = 1f;
     public boolean Dead = false;
     // public Texture texture
 

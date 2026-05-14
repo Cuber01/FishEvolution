@@ -1,14 +1,11 @@
 package org.sim.fish;
 
-import org.sim.RND;
-import org.sim.Sex;
-import org.sim.SimManager;
-import org.sim.State;
+import org.sim.*;
 import processing.core.PVector;
 
 class SearchState extends State<Fish, FishStateTypes> {
     private PVector followPoint;
-    private static final float distTolerance = 1f;
+
 
 
     public SearchState(Fish actor) {
@@ -26,7 +23,7 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Update() {
-        if (PVector.dist(actor.Position, followPoint) < distTolerance) {
+        if (PVector.dist(actor.Position, followPoint) < Entity.DistTolerance) {
             rerollPoint();
         } else {
             actor.Velocity = ( followPoint.sub(actor.Position)
