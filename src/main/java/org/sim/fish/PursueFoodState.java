@@ -14,8 +14,8 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
     public EntityTypes TargetType;
     public Entity Target;
 
-    public PursueFoodState(Fish actor) {
-        super(actor);
+    public PursueFoodState(Fish actor, FishStateTypes type) {
+        super(actor, type);
     }
 
     @Override

@@ -11,8 +11,8 @@ class FleeState extends State<Fish, FishStateTypes> {
     private PVector fleeDirection;
     private Fish predator = null;
 
-    public FleeState(Fish actor) {
-        super(actor);
+    public FleeState(Fish actor, FishStateTypes type) {
+        super(actor, type);
     }
 
     @Override

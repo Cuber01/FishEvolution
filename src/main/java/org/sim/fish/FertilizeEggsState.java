@@ -1,19 +1,15 @@
 package org.sim.fish;
 
 import org.sim.Egg;
-import org.sim.Entity;
-import org.sim.SimManager;
 import org.sim.State;
-
-import java.lang.annotation.Target;
 import java.util.Map;
 
 class FertilizeEggsState extends State<Fish, FishStateTypes> {
     private boolean finished = false;
     private Egg target;
 
-    public FertilizeEggsState(Fish actor) {
-        super(actor);
+    public FertilizeEggsState(Fish actor, FishStateTypes type) {
+        super(actor, type);
     }
 
     @Override

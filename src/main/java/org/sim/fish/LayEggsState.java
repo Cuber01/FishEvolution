@@ -7,8 +7,8 @@ import java.util.Map;
 class LayEggsState extends State<Fish, FishStateTypes> {
     private boolean finished = false;
 
-    public LayEggsState(Fish actor) {
-        super(actor);
+    public LayEggsState(Fish actor, FishStateTypes type) {
+        super(actor, type);
     }
 
     @Override
