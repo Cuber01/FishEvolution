@@ -9,7 +9,7 @@ public class Graphics extends PApplet {
 
     private final int CanvasX=SimManager.CanvasX;
     private final int CanvasY=SimManager.CanvasY;
-    public static List<Entity> entities = new CopyOnWriteArrayList<>();
+
 
     public Graphics(){}
 
@@ -25,6 +25,7 @@ public class Graphics extends PApplet {
         background(0);
         SimManager manager = new SimManager(this);
         manager.Setup();
+
     }
     public void draw(){
         //draw_biomes();
@@ -39,13 +40,7 @@ public class Graphics extends PApplet {
 
         }
     }
-    private void draw_entities(){
-        for(Entity e: entities){
-            noStroke();
-            rect(e.position.X,e.position.Y,3,3);
-        }
-    }
-    public void draw_ent(Point p){
+    public void draw_entity(Point p){
         fill(255,0,0);
         rect(p.X,p.Y,10,10);
     }

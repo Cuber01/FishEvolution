@@ -14,6 +14,6 @@ public class Entity {
 
     public void Update(Biome currentBiome) {}
     public void Draw() {
-        graphics_handle.draw_ent(position);
+        graphics_handle.draw_entity(position);
     }
 }
