@@ -41,8 +41,14 @@ public class Graphics extends PApplet {
 
         }
     }
+
     public void draw_entity(PVector p){
         fill(255,0,0);
+        rect(p.x,p.y,10,10);
+    }
+
+    public void draw_fish(PVector p){
+        fill(0,255,0);
         rect(p.x,p.y,10,10);
     }
 }

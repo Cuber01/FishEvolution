@@ -24,6 +24,11 @@ public class Fish extends Entity {
     public int HP;
     public float Energy;
 
+    public Fish(Graphics graphicsHandle)
+    {
+        this.graphics_handle = graphicsHandle;
+    }
+
     @Override
     public void Update(Biome currentBiome)
     {
@@ -57,7 +62,8 @@ public class Fish extends Entity {
         currentState.Update();
     }
 
-    @Override public void Draw()
+    @Override
+    public void Draw()
     {
         currentState.Draw();
     }
