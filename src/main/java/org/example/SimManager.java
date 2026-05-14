@@ -2,14 +2,19 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SimManager {
-    public static List<Entity> EntitiesToAdd;
-    private static List<Entity> entities;
+    public static List<Entity> EntitiesToAdd = new ArrayList<>(0);
+    private static List<Entity> entities = new CopyOnWriteArrayList<>();
     private static List<Biome> biomes = new ArrayList<Biome>();
     private static Graphics graphics_handle;
+
+    private static double timePerTick = 1000000000.0 / 60.0; //main loop speed
+
     public static int CanvasX=1200;
     public static int CanvasY=800;
+
     public SimManager(Graphics gm){
         graphics_handle=gm;
     }
@@ -21,10 +26,26 @@ public class SimManager {
         graphics_handle.draw_biomes(biomes);
         Entity example = new Entity(graphics_handle);
         example.position=new Point(100,100);
-        example.Draw();
+        entities.add(example);
 
+
+        MainLoop();
     }
-    public static void Main() {
+    public static void MainLoop() {
+        long lastTime = System.nanoTime();
+        double delta = 0;
+        while (true) {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / timePerTick;
+            lastTime = now;
+
+            if (delta >= 1) {
+                update();
+                delta--;
+            }
+        }
+    }
+    private static void update(){
 
         for (Biome b : biomes) {
             b.SpawnFood();
@@ -38,16 +59,15 @@ public class SimManager {
                 f.CalculateFov();
             }
         }
-
+        //graphics_handle.draw_biomes(biomes);
         for (Entity e : entities) {
-            e.Update(biomes.get(0)); // TODO get current biome
+            //e.Update(biomes.get(0)); // TODO get current biome
 
             e.Draw();
         }
 
-        entities.addAll(EntitiesToAdd);
+        //entities.addAll(EntitiesToAdd);
         EntitiesToAdd.clear();
-        Graphics.entities=entities;
     }
 
 }
