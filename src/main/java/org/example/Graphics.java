@@ -1,7 +1,7 @@
 package org.example;
 import processing.core.PApplet;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -9,14 +9,10 @@ public class Graphics extends PApplet {
 
     private final int CanvasX=SimManager.CanvasX;
     private final int CanvasY=SimManager.CanvasY;
-    public static List<Biome> biomes = new ArrayList<Biome>();
     public static List<Entity> entities = new CopyOnWriteArrayList<>();
 
-    public Graphics(){};
-    public Graphics(List<Biome> biomes_to_setup){
-        biomes=biomes_to_setup;
+    public Graphics(){}
 
-    }
     @Override
     public void settings() {
 
@@ -27,15 +23,15 @@ public class Graphics extends PApplet {
     @Override
     public void setup() {
         background(0);
-
-
+        SimManager manager = new SimManager(this);
+        manager.Setup();
     }
     public void draw(){
-        draw_biomes();
+        //draw_biomes();
 
 
     }
-    private void draw_biomes(){
+    public void draw_biomes(List<Biome> biomes){
         for(Biome b : biomes){
             fill(b.color.get(0),b.color.get(1),b.color.get(2));
             noStroke();
@@ -49,5 +45,8 @@ public class Graphics extends PApplet {
             rect(e.position.X,e.position.Y,3,3);
         }
     }
-
+    public void draw_ent(Point p){
+        fill(255,0,0);
+        rect(p.X,p.Y,10,10);
+    }
 }
