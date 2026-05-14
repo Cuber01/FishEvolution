@@ -1,5 +1,8 @@
 package org.sim;
 
+import org.sim.fish.Fish;
+import processing.core.PVector;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -25,7 +28,7 @@ public class SimManager {
         biomes.add(test_biome2);
         graphics_handle.draw_biomes(biomes);
         Entity example = new Entity(graphics_handle);
-        example.position=new Point(100,100);
+        example.Position=new PVector(100,100);
         entities.add(example);
 
 
@@ -52,13 +55,13 @@ public class SimManager {
         }
 
         // Multithread?
-        for (Entity e : entities) {
-            if(e instanceof Fish)
-            {
-                Fish f = (Fish)e;
-                f.CalculateFov();
-            }
-        }
+//        for (Entity e : entities) {
+//            if(e instanceof Fish)
+//            {
+//                Fish f = (Fish)e;
+//                f.CalculateFov();
+//            }
+//        }
         //graphics_handle.draw_biomes(biomes);
         for (Entity e : entities) {
             //e.Update(biomes.get(0)); // TODO get current biome

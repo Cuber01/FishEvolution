@@ -1,5 +1,6 @@
 package org.sim;
 import processing.core.PApplet;
+import processing.core.PVector;
 
 
 import java.util.List;
@@ -40,8 +41,8 @@ public class Graphics extends PApplet {
 
         }
     }
-    public void draw_entity(Point p){
+    public void draw_entity(PVector p){
         fill(255,0,0);
-        rect(p.X,p.Y,10,10);
+        rect(p.x,p.y,10,10);
     }
 }

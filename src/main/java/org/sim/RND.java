@@ -1,5 +1,7 @@
 package org.sim;
 
+import processing.core.PVector;
+
 public class RND {
     // increaseTrue + decreaseTrue should be in the range -10 to 10
     public static boolean Chance(float increaseTrue, float decreaseTrue)
@@ -15,6 +17,19 @@ public class RND {
     public static float Scale(float value, float maxValue, float modifier)
     {
         return Scale(value, maxValue) * modifier;
+    }
+
+    public static PVector RandomVector2(float minX, float maxX, float minY, float maxY)
+    {
+        float startX = Math.min(minX, maxX);
+        float endX = Math.max(minX, maxX);
+        float startY = Math.min(minY, maxY);
+        float endY = Math.max(minY, maxY);
+
+        float x = startX + (float) Math.random() * (endX - startX);
+        float y = startY + (float) Math.random() * (endY - startY);
+
+        return new PVector(x, y);
     }
 
     /*
