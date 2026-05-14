@@ -1,9 +1,9 @@
-package org.example;
+package org.sim;
 
 
 
 public class Entity {
-    Graphics graphics_handle;
+    org.sim.Graphics graphics_handle;
     public Entity(){}
     public Entity(Graphics parent){
         graphics_handle=parent;

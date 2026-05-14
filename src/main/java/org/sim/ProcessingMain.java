@@ -1,10 +1,8 @@
-package org.example;
+package org.sim;
 
 import processing.core.PApplet;
 
-
-
-public class Test_Processing extends PApplet {
+public class ProcessingMain extends PApplet {
 
 
 
