@@ -4,7 +4,7 @@ import org.sim.*;
 
 import java.util.Map;
 
-public class LayEggsState extends State<Fish, FishStateTypes> {
+class LayEggsState extends State<Fish, FishStateTypes> {
     private boolean finished = false;
 
     public LayEggsState(Fish actor) {

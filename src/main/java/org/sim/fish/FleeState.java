@@ -5,7 +5,7 @@ import processing.core.PVector;
 
 import java.util.Map;
 
-public class FleeState extends State<Fish, FishStateTypes> {
+class FleeState extends State<Fish, FishStateTypes> {
     public static int timeUntilStopsFleeing = 10;
     private int timeUntilLastSawPredator = 0;
     private PVector fleeDirection;

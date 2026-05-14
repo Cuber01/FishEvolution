@@ -6,8 +6,6 @@ import processing.core.PVector;
 class SearchState extends State<Fish, FishStateTypes> {
     private PVector followPoint;
 
-
-
     public SearchState(Fish actor) {
         super(actor);
     }

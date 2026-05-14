@@ -8,7 +8,7 @@ import org.sim.State;
 import java.lang.annotation.Target;
 import java.util.Map;
 
-public class FertilizeEggsState extends State<Fish, FishStateTypes> {
+class FertilizeEggsState extends State<Fish, FishStateTypes> {
     private boolean finished = false;
     private Egg target;
 

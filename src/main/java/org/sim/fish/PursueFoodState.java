@@ -7,7 +7,7 @@ import org.sim.Egg;
 
 import java.util.Map;
 
-public class PursueFoodState extends State<Fish, FishStateTypes> {
+class PursueFoodState extends State<Fish, FishStateTypes> {
     public static int timeUntilStopsPursuing = 10;
     private int timeUntilLastSawFood = 0;
 
