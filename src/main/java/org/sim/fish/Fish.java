@@ -27,13 +27,23 @@ public class Fish extends Entity {
     public float HP;
     public float Energy = 50f;
 
-    public Fish(PVector position, Graphics graphicsHandle, Genes genes, Sex sex)
+    public Fish(Graphics graphicsHandle, PVector position, Genes genes, Sex sex)
     {
         this.Position = position;
         this.graphics_handle = graphicsHandle;
         this.Attributes = genes;
         this.sex = sex;
         this.HP = genes.MaxHP;
+        currentState.Enter();
+    }
+
+    public Fish(Graphics graphicsHandle)
+    {
+        this.graphics_handle = graphicsHandle;
+        this.Position = RND.RandomVector2(0, SimManager.CanvasX, 0, SimManager.CanvasY);
+        this.Attributes = new Genes();
+        this.sex = Math.random() > 0.5 ? Sex.Male : Sex.Female;
+        this.HP = Attributes.MaxHP;
         currentState.Enter();
     }
 

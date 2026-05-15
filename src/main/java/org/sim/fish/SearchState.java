@@ -21,7 +21,7 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Update() {
-        if (PVector.dist(actor.Position, followPoint) < Entity.DistTolerance) {
+        if (PVector.dist(actor.Position, followPoint) < Entity.DistTolerance * actor.Attributes.Speed) {
             rerollPoint();
         } else {
             actor.Velocity = ( PVector.sub(followPoint, actor.Position)

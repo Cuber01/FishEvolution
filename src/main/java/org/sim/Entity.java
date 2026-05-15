@@ -6,7 +6,7 @@ import processing.core.PVector;
 
 public class Entity {
     public PVector Position;
-    public static final float DistTolerance = 1f;
+    public static final float DistTolerance = 1.2f;
     public boolean Dead = false;
     public org.sim.Graphics graphics_handle;
     public Entity(){}

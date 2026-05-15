@@ -53,7 +53,7 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
         actor.Position.add(actor.Velocity);
 
         // TODO add proper eating and damaging fish
-        if(PVector.sub(Target.Position, actor.Position).magSq() < Entity.DistTolerance) {
+        if(PVector.sub(Target.Position, actor.Position).magSq() < Entity.DistTolerance * actor.Attributes.Speed) {
             actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion);
             Target.Dead = true;
             SimManager.EntitiesToRemove.add(Target);
