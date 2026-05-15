@@ -5,6 +5,8 @@ import processing.core.PVector;
 
 import java.util.Map;
 
+import static processing.core.PApplet.sq;
+
 class PursueFoodState extends State<Fish, FishStateTypes> {
     public final static int timeUntilStopsPursuing = 10;
     private int timeUntilLastSawFood = 0;
@@ -53,10 +55,8 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
         actor.Position.add(actor.Velocity);
 
         // TODO add proper eating and damaging fish
-        if(PVector.sub(Target.Position, actor.Position).magSq() < Entity.DistTolerance * actor.Attributes.Speed) {
-            actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion);
-            Target.Dead = true;
-            SimManager.EntitiesToRemove.add(Target);
+        if(PVector.sub(Target.Position, actor.Position).magSq() < sq(Entity.DistTolerance * actor.Attributes.Speed)) {
+            actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, actor.Attributes.Damage);
         } else if (TargetType == EntityTypes.Fish && !actor.InFOV.FishInFOV((Fish) Target)) {
             timeUntilLastSawFood += 1;
         }
@@ -76,7 +76,7 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
 
     @Override
     public FishStateTypes CheckTransitions() {
-        if (Target.Dead || timeUntilLastSawFood > timeUntilStopsPursuing)
+        if (Target.IsDead || timeUntilLastSawFood > timeUntilStopsPursuing)
         {
             return FishStateTypes.Searching;
         }

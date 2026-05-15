@@ -10,8 +10,9 @@ public class Meat extends Food {
     }
 
     @Override
-    public float Bite(float plantToMeatDigestion)
+    public float Bite(float plantToMeatDigestion, float damage)
     {
+        Die();
         return Energy * plantToMeatDigestion;
     }
 }

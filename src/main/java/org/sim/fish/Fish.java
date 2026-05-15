@@ -3,6 +3,7 @@ package org.sim.fish;
 import org.sim.*;
 import processing.core.PVector;
 
+import javax.smartcardio.ATR;
 import java.util.List;
 
 public class Fish extends Entity {
@@ -34,6 +35,7 @@ public class Fish extends Entity {
         this.Attributes = genes;
         this.sex = sex;
         this.HP = genes.MaxHP;
+        this.Energy = MaxEnergy;
         currentState.Enter();
     }
 
@@ -44,6 +46,7 @@ public class Fish extends Entity {
         this.Attributes = new Genes();
         this.sex = Math.random() > 0.5 ? Sex.Male : Sex.Female;
         this.HP = Attributes.MaxHP;
+        this.Energy = MaxEnergy;
         currentState.Enter();
     }
 
@@ -79,6 +82,16 @@ public class Fish extends Entity {
             currentState.Enter();
         }
 
+        handleEnergy();
+    }
+
+    private void handleEnergy()
+    {
+        Energy -= Attributes.GetGeneticEnergyUpkeep();
+        if(Energy < 0)
+        {
+            Die();
+        }
     }
 
     public void CalculateFOV(List<Entity> entities)
@@ -93,6 +106,21 @@ public class Fish extends Entity {
                 InFOV.AddEntry(entity, squaredDist);
             }
         }
+    }
+
+    @Override
+    public float Bite(float plantToMeatDigestion, float damage)
+    {
+        HP -= damage;
+        if (HP <= 0)
+        {
+            Die();
+        }
+
+        float energyLost = Energy * Math.min( damage / Attributes.MaxHP, 0.8f);
+        Energy -= energyLost;
+
+        return plantToMeatDigestion * energyLost;
     }
 
     @Override

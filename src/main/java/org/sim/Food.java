@@ -14,8 +14,9 @@ public class Food extends Entity {
     }
 
     @Override
-    public float Bite(float plantToMeatDigestion)
+    public float Bite(float plantToMeatDigestion, float damage)
     {
+        Die();
         return Energy * (1-plantToMeatDigestion);
     }
 }
