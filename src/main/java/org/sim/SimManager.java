@@ -30,7 +30,7 @@ public class SimManager {
         biomes.add(test_biome1);
         biomes.add(test_biome2);
 
-        Fish example = new Fish(new PVector(50,50), graphics_handle, new Genes(1,1,1,100,0.5f,0), Sex.Male);
+        Fish example = new Fish(new PVector(50,50), graphics_handle, new Genes(1,1,1,100,0.5f,0), Sex.Female);
         entities.add(example);
     }
 
