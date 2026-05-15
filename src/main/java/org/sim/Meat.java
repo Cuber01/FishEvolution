@@ -8,4 +8,10 @@ public class Meat extends Food {
     {
         super(graphicsHandle, position, energy);
     }
+
+    @Override
+    public float Bite(float plantToMeatDigestion)
+    {
+        return Energy * plantToMeatDigestion;
+    }
 }

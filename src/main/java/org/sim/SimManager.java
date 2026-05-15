@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SimManager {
     public static List<Entity> EntitiesToAdd = new ArrayList<>(0);
+    public static List<Entity> EntitiesToRemove = new ArrayList<>(0);
     private static final List<Entity> entities = new CopyOnWriteArrayList<>();
     private static final List<Biome> biomes = new ArrayList<Biome>();
     private static Graphics graphics_handle;
@@ -29,7 +30,7 @@ public class SimManager {
         biomes.add(test_biome1);
         biomes.add(test_biome2);
 
-        Fish example = new Fish(new PVector(50,50), graphics_handle, new Genes(1,1,1,10,0.5f,0), Sex.Male);
+        Fish example = new Fish(new PVector(50,50), graphics_handle, new Genes(1,1,1,100,0.5f,0), Sex.Male);
         entities.add(example);
     }
 
@@ -49,9 +50,18 @@ public class SimManager {
 
         for (Entity e : entities) {
             e.Update(biomes.get(0)); // TODO get current biome
+            if(e instanceof Fish) // TODO this is expensive and dumb
+            {
+                ((Fish)e).CalculateFOV(entities);
+            }
         }
 
         entities.addAll(EntitiesToAdd);
+        for(Entity e : EntitiesToRemove)
+        {
+            entities.remove(e);
+        }
+        EntitiesToRemove.clear();
         EntitiesToAdd.clear();
 
         graphics_handle.background(0);
@@ -61,8 +71,6 @@ public class SimManager {
         for (Entity e : entities) {
             e.Draw();
         }
-
-
     }
 
 }

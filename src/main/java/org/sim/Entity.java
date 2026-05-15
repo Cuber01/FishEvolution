@@ -15,11 +15,14 @@ public class Entity {
         graphics_handle=parent;
     }
 
-    // public Texture texture
-
     public void Update(Biome currentBiome) {}
 
     public void Draw() {
         graphics_handle.draw_entity(Position);
+    }
+
+    public float Bite(float plantToMeatDigestion)
+    {
+        return -1;
     }
 }

@@ -1,15 +1,12 @@
 package org.sim.fish;
 
-import org.sim.Entity;
-import org.sim.State;
-import org.sim.Food;
-import org.sim.Egg;
+import org.sim.*;
 import processing.core.PVector;
 
 import java.util.Map;
 
 class PursueFoodState extends State<Fish, FishStateTypes> {
-    public static int timeUntilStopsPursuing = 10;
+    public final static int timeUntilStopsPursuing = 10;
     private int timeUntilLastSawFood = 0;
 
     public EntityTypes TargetType;
@@ -56,8 +53,10 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
         actor.Position.add(actor.Velocity);
 
         // TODO add proper eating and damaging fish
-        if(Target.Position.sub(actor.Position).magSq() < 1) {
+        if(PVector.sub(Target.Position, actor.Position).magSq() < Entity.DistTolerance) {
+            actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion);
             Target.Dead = true;
+            SimManager.EntitiesToRemove.add(Target);
         } else if (TargetType == EntityTypes.Fish && !actor.InFOV.FishInFOV((Fish) Target)) {
             timeUntilLastSawFood += 1;
         }
@@ -72,6 +71,7 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
     public void Exit() {
         Target = null;
         TargetType = null;
+        timeUntilLastSawFood = 0;
     }
 
     @Override

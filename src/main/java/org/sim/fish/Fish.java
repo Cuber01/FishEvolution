@@ -3,6 +3,8 @@ package org.sim.fish;
 import org.sim.*;
 import processing.core.PVector;
 
+import java.util.List;
+
 public class Fish extends Entity {
     public Genes Attributes;
     public FOVInfo InFOV = new FOVInfo();
@@ -66,6 +68,21 @@ public class Fish extends Entity {
             currentState.Enter();
         }
 
+    }
+
+    public void CalculateFOV(List<Entity> entities)
+    {
+        InFOV.Reset();
+
+        for(Entity entity : entities)
+        {
+            // TODO: use just dist?
+            if(entity != this &&
+               entity.Position.dist(this.Position) < Attributes.VisionRange)
+            {
+                InFOV.AddEntry(entity, this.Position, entity.Position);
+            }
+        }
     }
 
     @Override

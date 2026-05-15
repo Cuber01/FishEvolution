@@ -19,4 +19,8 @@ public class Egg extends Food {
         gene = gene.MutateGenes(fatherGenes);
     }
 
+    public float Bite(float plantToMeatDigestion)
+    {
+        return Energy;
+    }
 }

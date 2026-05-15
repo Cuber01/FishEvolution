@@ -12,4 +12,10 @@ public class Food extends Entity {
         this.Position = position;
         this.Energy = energy;
     }
+
+    @Override
+    public float Bite(float plantToMeatDigestion)
+    {
+        return Energy * (1-plantToMeatDigestion);
+    }
 }

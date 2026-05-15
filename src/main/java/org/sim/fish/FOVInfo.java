@@ -9,13 +9,13 @@ import java.util.Dictionary;
 import java.util.Map;
 
 public class FOVInfo {
-    public Map<Food, Float> FoodsDist;
-    public Map<Egg, Float> EggsDist;
-    public Map<Fish, Float> FishDist;
+    public Map<Food, Float> FoodsDist = new java.util.HashMap<>();
+    public Map<Egg, Float> EggsDist = new java.util.HashMap<>();
+    public Map<Fish, Float> FishDist = new java.util.HashMap<>();
 
-    public boolean SawFood;
-    public boolean SawEggs;
-    public boolean SawFish;
+    public boolean SawFood = false;
+    public boolean SawEggs = false;
+    public boolean SawFish = false;
 
     public void AddEntry(Entity entity, PVector myPosition, PVector theirPosition)
     {
@@ -33,6 +33,16 @@ public class FOVInfo {
             FishDist.put((Fish)entity, PVector.sub(myPosition, theirPosition).magSq());
             SawFish = true;
         }
+    }
+
+    public void Reset()
+    {
+        FoodsDist.clear();
+        EggsDist.clear();
+        FishDist.clear();
+        SawFood = false;
+        SawEggs = false;
+        SawFish = false;
     }
 
     public boolean FishInFOV(Fish f)

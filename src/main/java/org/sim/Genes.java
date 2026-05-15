@@ -4,7 +4,7 @@ public class Genes {
     public final float Speed;
     public final float MaxHP;
     public final float Damage;
-    public final float Vision;
+    public final float VisionRange;
 
     // These values are 0-1
     public final float Aggressiveness;
@@ -19,7 +19,7 @@ public class Genes {
         this.Speed = Speed;
         this.MaxHP = MaxHp;
         this.Damage = Damage;
-        this.Vision = Vision;
+        this.VisionRange = Vision;
         this.Aggressiveness = Aggressiveness;
         this.PlantToMeatDigestion = PlantToMeatDigestion;
     }
@@ -29,7 +29,7 @@ public class Genes {
         float newSpeed = mutateAttribute(this.Speed, otherGene.Speed, 5f);
         float newMaxHP = mutateAttribute(this.MaxHP, otherGene.MaxHP, 5f);
         float newDamage = mutateAttribute(this.Damage, otherGene.Damage, 5f);
-        float newVision = mutateAttribute(this.Vision, otherGene.Vision, 5f);
+        float newVision = mutateAttribute(this.VisionRange, otherGene.VisionRange, 5f);
         float newAggressiveness = mutateAttribute(this.Aggressiveness, otherGene.Aggressiveness, 0.1f);
         float newPlantToMeatDigestion = mutateAttribute(this.PlantToMeatDigestion, otherGene.PlantToMeatDigestion, 0.1f);
 

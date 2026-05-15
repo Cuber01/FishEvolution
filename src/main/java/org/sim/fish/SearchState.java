@@ -44,7 +44,7 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public FishStateTypes CheckTransitions() {
-        if( (actor.InFOV.SawFood && actor.Energy < Fish.BreedingEnergyMin))
+        if( (actor.InFOV.SawFood) )
         {
             actor.PursueFoodState.TargetType = EntityTypes.Food;
             return FishStateTypes.PursuingFood;
