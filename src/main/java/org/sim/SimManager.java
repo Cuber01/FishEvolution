@@ -9,7 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SimManager {
     public static List<Entity> EntitiesToAdd = new ArrayList<>(0);
-    private static List<Entity> entities = new CopyOnWriteArrayList<>();
+    public static List<Entity> entities = new CopyOnWriteArrayList<>();
     private static List<Biome> biomes = new ArrayList<Biome>();
     private static Graphics graphics_handle;
 
@@ -30,9 +30,9 @@ public class SimManager {
         Fish example = new Fish();
         example.Position=new PVector(100,100);
         entities.add(example);
-
-
-        MainLoop();
+    }
+    public void Update() {
+        update();
     }
     public static void MainLoop() {
         long lastTime = System.nanoTime();
@@ -48,31 +48,10 @@ public class SimManager {
             }
         }
     }
+
+
     private static void update(){
-        //For some reason its not working
-        if(graphics_handle.mousePressed && graphics_handle.mouseButton == Graphics.LEFT){
-            int mouseX=graphics_handle.mouseX;
-            int mouseY=graphics_handle.mouseY;
-            PVector mousePos = new PVector(mouseX, mouseY);
-            Fish nearestFish = null;
-            float minDistance = Float.MAX_VALUE;
 
-            for (Entity e : entities) {
-                if (e instanceof Fish) {
-                    Fish f = (Fish) e;
-
-                    float d = mousePos.dist(f.Position);
-
-                    if (d < minDistance) {
-                        minDistance = d;
-                        nearestFish = f;
-                    }
-                }
-            }
-            if (nearestFish != null) {
-                graphics_handle.stats_display(mouseX, mouseY, nearestFish);
-            }
-        }
         for (Biome b : biomes) {
             b.SpawnFood();
         }

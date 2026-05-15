@@ -10,12 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import static org.sim.SimManager.entities;
+
 public class Graphics extends PApplet {
 
     private final int CanvasX=SimManager.CanvasX;
     private final int CanvasY=SimManager.CanvasY;
     //public List<Entity> entities_to_draw = new ArrayList<>();
-    PImage fish_searching,fish_fleeing,fish_pursuing,fish_reproducing,img;
+    private PImage fish_searching, fish_fleeing, fish_pursuing, fish_reproducing;
+    private PImage img;
+    private SimManager manager;
 
     public Graphics(){}
 
@@ -28,21 +32,22 @@ public class Graphics extends PApplet {
 
     @Override
     public void setup() {
-        //fish_searching=loadImage("fish1.png");
-//        fish_fleeing=loadImage("fish4.png");
-//        fish_pursuing=loadImage("fish3.png");
-//        fish_reproducing=loadImage("fish2.png");
+        // preload images once
+        fish_searching = loadImage("fish1.png");
+        fish_reproducing = loadImage("fish2.png");
+        fish_pursuing = loadImage("fish3.png");
+        fish_fleeing = loadImage("fish4.png");
+
         background(0);
-        SimManager manager = new SimManager(this);
-
-
+        manager = new SimManager(this);
         manager.Setup();
 
         //manager.Setup();
 
     }
     public void draw(){
-
+        background(0);
+        if (manager != null) manager.Update();
     }
     public void draw_biomes(List<Biome> biomes){
         for(Biome b : biomes){
@@ -67,48 +72,89 @@ public class Graphics extends PApplet {
         }
     }
     private void draw_fish(Fish f){
-        if (f.currentState.AssociatedType == FishStateTypes.Searching) {
-            img=loadImage("fish4.png");
-            //image(img, f.Position.x, f.Position.y);
-            fill(0,255,0);
-            rect(f.Position.x,f.Position.y,20,20);
+        PImage sprite = null;
+        if (f.currentState != null && f.currentState.AssociatedType != null) {
+            switch (f.currentState.AssociatedType) {
+                case Searching:
+                    sprite = fish_searching;
+                    break;
+                case PursuingFood:
+                    sprite = fish_pursuing;
+                    break;
+                case Fleeing:
+                    sprite = fish_fleeing;
+                    break;
+                case FertilizingEggs:
+                case LayingEggs:
+                    sprite = fish_reproducing;
+                    break;
+                default:
+                    sprite = fish_searching;
+            }
+        }
 
-            return;
-        }
-        if (f.currentState.AssociatedType == FishStateTypes.PursuingFood) {
-            //img=loadImage("fish2.png");
-            //image(img, f.Position.x, f.Position.y);
-            fill(0,255,255);
-            rect(f.Position.x,f.Position.y,20,20);
-            return;
-        }
-        if (f.currentState.AssociatedType == FishStateTypes.Fleeing) {
-            //img=loadImage("fish3.png");
-            //(img, f.Position.x, f.Position.y);
-            fill(100,0,255);
-            rect(f.Position.x,f.Position.y,20,20);
-            return;
-        }
-        if (f.currentState.AssociatedType == FishStateTypes.FertilizingEggs || f.currentState.AssociatedType == FishStateTypes.LayingEggs) {
-            //img=loadImage("fish1.png");
-            //image(img, f.Position.x, f.Position.y);
-                fill(100,255,100);
+        if (sprite != null) {
+            image(sprite, f.Position.x, f.Position.y);
+        } else {
+            // fallback
+            fill(0,255,0);
             rect(f.Position.x,f.Position.y,20,20);
         }
     }
     private void draw_food(Food f){
-        if(f instanceof Egg){
-            fill(0,0,0);
-            noStroke();
-            rect(f.Position.x,f.Position.y,10,10);
-            return;
+        PImage sprite = null;
+        if (f instanceof Egg) {
+            // you can provide an egg sprite if available, otherwise draw fallback
+            sprite = null;
+        } else if (f instanceof Meat) {
+            sprite = null;
         }
-        if(f instanceof Meat){
-            fill(255,0,0);
-            noStroke();
-            rect(f.Position.x,f.Position.y,10,10);
+
+        if (sprite != null) {
+            image(sprite, f.Position.x, f.Position.y);
+        } else {
+            if (f instanceof Egg) {
+                fill(0,0,0);
+                noStroke();
+                rect(f.Position.x,f.Position.y,10,10);
+            } else if (f instanceof Meat) {
+                fill(255,0,0);
+                noStroke();
+                rect(f.Position.x,f.Position.y,10,10);
+            } else {
+                fill(200);
+                noStroke();
+                rect(f.Position.x,f.Position.y,8,8);
+            }
         }
     }
+
+    public void mousePressed()
+    {
+        if(mouseButton == RIGHT) return;
+
+        PVector mousePos = new PVector(mouseX, mouseY);
+        Fish nearestFish = null;
+        float minDistance = Float.MAX_VALUE;
+
+        for (Entity e : entities) {
+            if (e instanceof Fish) {
+                Fish f = (Fish) e;
+
+                float d = mousePos.dist(f.Position);
+
+                if (d < minDistance) {
+                    minDistance = d;
+                    nearestFish = f;
+                }
+            }
+        }
+
+        if (nearestFish != null) {
+            stats_display(mouseX, mouseY, nearestFish);
+        }
+    }
+
     public void stats_display(int x,int y,Fish f) {
         System.out.println("iubdoew9uoewu");
     }
