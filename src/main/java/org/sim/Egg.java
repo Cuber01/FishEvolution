@@ -6,8 +6,9 @@ public class Egg extends Food {
     public Genes gene;
     public float TimeTilHatch;
 
-    public Egg(PVector position, Genes motherGenes, float timeTilHatch)
+    public Egg(Graphics graphicsHandle, PVector position, Genes motherGenes, float timeTilHatch)
     {
+        super(graphicsHandle, position, 10f);
         this.Position = position;
         this.gene = motherGenes;
         this.TimeTilHatch = timeTilHatch;

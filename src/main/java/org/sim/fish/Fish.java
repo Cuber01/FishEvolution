@@ -5,8 +5,8 @@ import processing.core.PVector;
 
 public class Fish extends Entity {
     public Genes Attributes;
-    public FOVInfo InFOV;
-    public PVector Velocity;
+    public FOVInfo InFOV = new FOVInfo();
+    public PVector Velocity = new PVector();
 
     // TODO Make this private
     public final PursueFoodState PursueFoodState = new PursueFoodState(this, FishStateTypes.PursuingFood);
@@ -20,18 +20,25 @@ public class Fish extends Entity {
     public static final float BreedingEnergyMin = 80f; // Will breed
     public static final float MaxEnergy = 100f;
 
-    public Sex Gender;
-    public int HP;
-    public float Energy;
+    public Sex sex;
+    public float HP;
+    public float Energy = 50f;
 
-    public Fish(Graphics graphicsHandle)
+    public Fish(PVector position, Graphics graphicsHandle, Genes genes, Sex sex)
     {
+        this.Position = position;
         this.graphics_handle = graphicsHandle;
+        this.Attributes = genes;
+        this.sex = sex;
+        this.HP = genes.MaxHP;
+        currentState.Enter();
     }
 
     @Override
     public void Update(Biome currentBiome)
     {
+        currentState.Update();
+
         FishStateTypes newState = currentState.CheckTransitions();
         if (newState != currentState.AssociatedType) {
             currentState.Exit();
@@ -59,13 +66,13 @@ public class Fish extends Entity {
             currentState.Enter();
         }
 
-        currentState.Update();
     }
 
     @Override
     public void Draw()
     {
-        currentState.Draw();
+        graphics_handle.draw_fish(Position);
+        //currentState.Draw();
     }
 
 
