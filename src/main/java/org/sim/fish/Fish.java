@@ -21,6 +21,7 @@ public class Fish extends Entity {
     public static final float StarvingEnergyMin = 10f; // Will eat eggs
     public static final float BreedingEnergyMin = 80f; // Will breed
     public static final float MaxEnergy = 100f;
+    public static final float ReproductionEnergyUse = 50f;
 
     public Sex sex;
     public float HP;
@@ -76,11 +77,10 @@ public class Fish extends Entity {
 
         for(Entity entity : entities)
         {
-            // TODO: use just dist?
-            if(entity != this &&
-               entity.Position.dist(this.Position) < Attributes.VisionRange)
+            float squaredDist = PVector.sub(entity.Position, this.Position).magSq();
+            if(entity != this && squaredDist < Attributes.VisionRange*Attributes.VisionRange)
             {
-                InFOV.AddEntry(entity, this.Position, entity.Position);
+                InFOV.AddEntry(entity, squaredDist);
             }
         }
     }

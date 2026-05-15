@@ -17,20 +17,20 @@ public class FOVInfo {
     public boolean SawEggs = false;
     public boolean SawFish = false;
 
-    public void AddEntry(Entity entity, PVector myPosition, PVector theirPosition)
+    public void AddEntry(Entity entity, float distanceSquared)
     {
         if(entity instanceof Egg)
         {
-            EggsDist.put((Egg)entity, PVector.sub(myPosition, theirPosition).magSq());
+            EggsDist.put((Egg)entity, distanceSquared);
             SawEggs = true;
         } else if(entity instanceof Food)
         {
-            FoodsDist.put((Food)entity, PVector.sub(myPosition, theirPosition).magSq());
+            FoodsDist.put((Food)entity, distanceSquared);
             SawFood = true;
         }
         else if(entity instanceof Fish)
         {
-            FishDist.put((Fish)entity, PVector.sub(myPosition, theirPosition).magSq());
+            FishDist.put((Fish)entity, distanceSquared);
             SawFish = true;
         }
     }
