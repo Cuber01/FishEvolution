@@ -32,7 +32,7 @@ class FleeState extends State<Fish, FishStateTypes> {
         }
 
         // TODO check: It is likely acceptable to operate on data from last frame regarding velocity here
-        fleeDirection = predator.Velocity.mult(-1);
+        fleeDirection = PVector.mult(predator.Velocity, -1);
     }
 
     // TODO check for bounds and bounce off them

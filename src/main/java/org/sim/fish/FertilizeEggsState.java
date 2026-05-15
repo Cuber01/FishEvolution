@@ -2,6 +2,8 @@ package org.sim.fish;
 
 import org.sim.Egg;
 import org.sim.State;
+import processing.core.PVector;
+
 import java.util.Map;
 
 class FertilizeEggsState extends State<Fish, FishStateTypes> {
@@ -31,7 +33,7 @@ class FertilizeEggsState extends State<Fish, FishStateTypes> {
         actor.Velocity = target.Position.sub(actor.Position).normalize().mult(actor.Attributes.Speed);
         actor.Position.add(actor.Velocity);
 
-        if(target.Position.sub(actor.Position).magSq() < 1) {
+        if(PVector.sub(target.Position, actor.Position).magSq() < 1) {
             target.Fertilize(actor.Attributes);
             finished = true;
         }

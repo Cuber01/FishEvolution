@@ -4,6 +4,7 @@ import org.sim.Entity;
 import org.sim.State;
 import org.sim.Food;
 import org.sim.Egg;
+import processing.core.PVector;
 
 import java.util.Map;
 
@@ -51,7 +52,7 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Update() {
-        actor.Velocity = Target.Position.sub(actor.Position).normalize().mult(actor.Attributes.Speed);
+        actor.Velocity = PVector.sub(Target.Position, actor.Position).normalize().mult(actor.Attributes.Speed);
         actor.Position.add(actor.Velocity);
 
         // TODO add proper eating and damaging fish

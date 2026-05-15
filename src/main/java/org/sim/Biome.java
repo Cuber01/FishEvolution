@@ -16,17 +16,23 @@ public class Biome {
 
     public List<Integer> color = new ArrayList<>(3);
     public int foodPerUpdate = 1;
-    public int foodMax;
+    public int foodMax = 10;
+    public int foodSpawned = 0;
 
     public float visionPenalty;
     public int upperBorder;
     public int lowerBorder;
 
     public void SpawnFood(Graphics graphicsHandle) {
+        if(foodSpawned >= foodMax) return;
+
         for(int i = 0; i < foodPerUpdate; i++)
         {
             SimManager.EntitiesToAdd.add(new Food(graphicsHandle,
                     RND.RandomVector2(0, SimManager.CanvasX, upperBorder, lowerBorder), 10f));
+            foodSpawned++;
         }
+
+
     }
 }
