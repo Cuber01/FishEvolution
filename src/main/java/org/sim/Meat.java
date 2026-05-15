@@ -8,7 +8,9 @@ public class Meat extends Food {
 
     public Meat(Graphics graphicsHandle, PVector position, float energy)
     {
-        super(graphicsHandle, position, energy + DefaultEnergy);
+        this.graphics_handle = graphicsHandle;
+        this.Position= position;
+        this.Energy = energy + DefaultEnergy;
     }
 
     // TODO Allow fish to eat just a fragment of food if they're near max?

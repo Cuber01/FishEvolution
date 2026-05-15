@@ -1,7 +1,6 @@
 package org.sim;
 
 import org.sim.fish.Fish;
-import processing.core.PVector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class SimManager {
 
     public static void Update(){
         for (Biome b : biomes) {
-            b.SpawnFood(graphics_handle);
+            b.SpawnPlants(graphics_handle);
         }
 
         // Multithread?

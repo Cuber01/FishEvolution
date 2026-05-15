@@ -1,6 +1,5 @@
 package org.sim;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,26 +12,28 @@ public class Biome {
         color.add(colorB);
     }
 
-
     public List<Integer> color = new ArrayList<>(3);
-    public int foodPerUpdate = 1;
-    public int foodMax = 10;
-    public int foodSpawned = 0;
+
+    public float plantEnergy = 10;
+    public float energyMax = 100;
+    public float energySpawned = 0;
 
     public float visionPenalty;
     public int upperBorder;
     public int lowerBorder;
 
-    public void SpawnFood(Graphics graphicsHandle) {
-        if(foodSpawned >= foodMax) return;
+    public void SpawnPlants(Graphics graphicsHandle) {
+        if(energySpawned >= energyMax) return;
 
-        for(int i = 0; i < foodPerUpdate; i++)
-        {
-            SimManager.EntitiesToAdd.add(new Food(graphicsHandle,
-                    RND.RandomVector2(0, SimManager.CanvasX, upperBorder, lowerBorder), 10f));
-            foodSpawned++;
-        }
+        SimManager.EntitiesToAdd.add(new Plant(graphicsHandle,
+                RND.RandomVector2(0, SimManager.CanvasX, upperBorder, lowerBorder),
+                this,
+                plantEnergy));
+        energySpawned += plantEnergy;
+    }
 
-
+    public void PlantEaten(float energy)
+    {
+        energySpawned -= energy;
     }
 }
