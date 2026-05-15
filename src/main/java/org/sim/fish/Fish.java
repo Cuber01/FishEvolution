@@ -124,6 +124,13 @@ public class Fish extends Entity {
     }
 
     @Override
+    public void Die()
+    {
+        super.Die();
+        SimManager.EntitiesToAdd.add(new Meat(graphics_handle, Position, Energy));
+    }
+
+    @Override
     public void Draw()
     {
         graphics_handle.draw_fish(Position);

@@ -3,10 +3,22 @@ package org.sim;
 import processing.core.PVector;
 
 public class Meat extends Food {
+    public static final float DefaultEnergy = 10f;
+    public static final float drowningSpeed = 1f;
 
     public Meat(Graphics graphicsHandle, PVector position, float energy)
     {
-        super(graphicsHandle, position, energy);
+        super(graphicsHandle, position, energy + DefaultEnergy);
+    }
+
+    // TODO Allow fish to eat just a fragment of food if they're near max?
+    @Override
+    public void Update(Biome biome)
+    {
+        if(Position.y + 2 < SimManager.CanvasY)
+        {
+            Position.y += drowningSpeed;
+        }
     }
 
     @Override
