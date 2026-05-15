@@ -3,7 +3,6 @@ package org.sim.fish;
 import org.sim.*;
 import processing.core.PVector;
 
-import javax.smartcardio.ATR;
 import java.util.List;
 
 public class Fish extends Entity {
@@ -17,7 +16,7 @@ public class Fish extends Entity {
     private final LayEggsState LayEggs = new LayEggsState(this, FishStateTypes.LayingEggs);
     private final FleeState Flee = new FleeState(this, FishStateTypes.Fleeing);
     private final SearchState Search = new SearchState(this, FishStateTypes.Searching);
-    private State<Fish, FishStateTypes> currentState = Search;
+    public State<Fish, FishStateTypes> CurrentState = Search;
 
     public static final float StarvingEnergyMin = 10f; // Will eat eggs
     public static final float BreedingEnergyMin = 80f; // Will breed
@@ -36,7 +35,7 @@ public class Fish extends Entity {
         this.sex = sex;
         this.HP = genes.MaxHP;
         this.Energy = MaxEnergy;
-        currentState.Enter();
+        CurrentState.Enter();
     }
 
     public Fish(Graphics graphicsHandle)
@@ -47,39 +46,40 @@ public class Fish extends Entity {
         this.sex = Math.random() > 0.5 ? Sex.Male : Sex.Female;
         this.HP = Attributes.MaxHP;
         this.Energy = MaxEnergy;
-        currentState.Enter();
+        CurrentState.Enter();
     }
 
     @Override
     public void Update(Biome currentBiome)
     {
-        currentState.Update();
+        if(IsDead) return;
 
-        FishStateTypes newState = currentState.CheckTransitions();
-        if (newState != currentState.AssociatedType) {
-            currentState.Exit();
+        CurrentState.Update();
+        FishStateTypes newState = CurrentState.CheckTransitions();
+        if (newState != CurrentState.AssociatedType) {
+            CurrentState.Exit();
             switch (newState) {
                 case Searching:
-                    currentState = Search;
+                    CurrentState = Search;
                     break;
 
                 case PursuingFood:
-                    currentState = PursueFoodState;
+                    CurrentState = PursueFoodState;
                     break;
 
                 case FertilizingEggs:
-                    currentState = FertilizeEggs;
+                    CurrentState = FertilizeEggs;
                     break;
 
                 case LayingEggs:
-                    currentState = LayEggs;
+                    CurrentState = LayEggs;
                     break;
 
                 case Fleeing:
-                    currentState = Flee;
+                    CurrentState = Flee;
                     break;
             }
-            currentState.Enter();
+            CurrentState.Enter();
         }
 
         handleEnergy();

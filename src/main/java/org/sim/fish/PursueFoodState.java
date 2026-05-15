@@ -54,12 +54,51 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
         actor.Velocity = PVector.sub(Target.Position, actor.Position).normalize().mult(actor.Attributes.Speed);
         actor.Position.add(actor.Velocity);
 
-        // TODO add proper eating and damaging fish
-        if(PVector.sub(Target.Position, actor.Position).magSq() < sq(Entity.DistTolerance * actor.Attributes.Speed)) {
+        if (TargetType == EntityTypes.Fish) {
+            if(!actor.InFOV.FishInFOV((Fish) Target))
+            {
+                timeUntilLastSawFood += 1;
+            } else if (reachedFood())
+            {
+                resolveFishEncounter();
+            }
+        } else if (reachedFood())
+        {
             actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, actor.Attributes.Damage);
-        } else if (TargetType == EntityTypes.Fish && !actor.InFOV.FishInFOV((Fish) Target)) {
-            timeUntilLastSawFood += 1;
         }
+    }
+
+    private void resolveFishEncounter()
+    {
+        Fish prey = (Fish)Target;
+
+        // TODO it would be nice if fish reacted to being attacked with fight or flee behavior
+        if(prey.CurrentState instanceof PursueFoodState p && p.Target == actor)
+        {
+            // Combat
+
+            float myRatio = actor.Attributes.Damage / prey.HP;
+            float enemyRatio = prey.Attributes.Damage / actor.HP;
+            if(myRatio > enemyRatio)
+            {
+                // TODO apply some damage to victor?
+                actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, prey.HP);
+            } else {
+                prey.Energy += actor.Bite(actor.Attributes.PlantToMeatDigestion, actor.HP);
+            }
+
+        } else if (prey.CurrentState.AssociatedType == FishStateTypes.Fleeing)
+        {
+            // Chase
+            actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, actor.Attributes.Damage/2);
+        } else {
+            // Harassment
+            actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, actor.Attributes.Damage);
+        }
+    }
+
+    private boolean reachedFood() {
+        return PVector.sub(Target.Position, actor.Position).magSq() < sq(Entity.DistTolerance * actor.Attributes.Speed);
     }
 
     @Override
@@ -76,7 +115,7 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
 
     @Override
     public FishStateTypes CheckTransitions() {
-        if (Target.IsDead || timeUntilLastSawFood > timeUntilStopsPursuing)
+        if (Target.IsDead || timeUntilLastSawFood > timeUntilStopsPursuing || actor.Energy >= Fish.MaxEnergy)
         {
             return FishStateTypes.Searching;
         }
