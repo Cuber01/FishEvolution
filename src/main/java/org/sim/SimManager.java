@@ -1,6 +1,7 @@
 package org.sim;
 
 import org.sim.fish.Fish;
+import processing.core.PVector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class SimManager {
     public static List<Entity> EntitiesToAdd = new ArrayList<>(0);
     public static List<Entity> EntitiesToRemove = new ArrayList<>(0);
-    private static final List<Entity> entities = new CopyOnWriteArrayList<>();
+    private static final List<Entity> entities = new ArrayList<>();
     private static final List<Biome> biomes = new ArrayList<Biome>();
     private static Graphics graphics_handle;
 
@@ -37,9 +38,26 @@ public class SimManager {
         entities.add(new Fish(graphics_handle));
         entities.add(new Fish(graphics_handle));
         entities.add(new Fish(graphics_handle));
+        MainLoop();
+    }
+    public static void MainLoop() {
+        long lastTime = System.nanoTime();
+        double delta = 0;
+        while (true) {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / timePerTick;
+            lastTime = now;
+
+            if (delta >= 1) {
+                update();
+                delta--;
+            }
+        }
     }
 
-    public static void Update(){
+
+    private static void update(){
+
         for (Biome b : biomes) {
             b.SpawnPlants(graphics_handle);
         }
@@ -66,16 +84,13 @@ public class SimManager {
         {
             entities.remove(e);
         }
+
         EntitiesToRemove.clear();
         EntitiesToAdd.clear();
 
         graphics_handle.background(0);
-
         graphics_handle.draw_biomes(biomes);
-
-        for (Entity e : entities) {
-            e.Draw();
-        }
+        graphics_handle.draw_entities(entities);
     }
 
 }

@@ -3,7 +3,6 @@ package org.sim.fish;
 import org.sim.*;
 import processing.core.PVector;
 
-import java.util.List;
 
 public class Fish extends Entity {
     public Genes Attributes;
