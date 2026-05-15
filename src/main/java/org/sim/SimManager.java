@@ -27,7 +27,7 @@ public class SimManager {
         biomes.add(test_biome1);
         biomes.add(test_biome2);
         graphics_handle.draw_biomes(biomes);
-        Entity example = new Entity(graphics_handle);
+        Fish example = new Fish();
         example.Position=new PVector(100,100);
         entities.add(example);
 
@@ -49,7 +49,30 @@ public class SimManager {
         }
     }
     private static void update(){
+        //For some reason its not working
+        if(graphics_handle.mousePressed && graphics_handle.mouseButton == Graphics.LEFT){
+            int mouseX=graphics_handle.mouseX;
+            int mouseY=graphics_handle.mouseY;
+            PVector mousePos = new PVector(mouseX, mouseY);
+            Fish nearestFish = null;
+            float minDistance = Float.MAX_VALUE;
 
+            for (Entity e : entities) {
+                if (e instanceof Fish) {
+                    Fish f = (Fish) e;
+
+                    float d = mousePos.dist(f.Position);
+
+                    if (d < minDistance) {
+                        minDistance = d;
+                        nearestFish = f;
+                    }
+                }
+            }
+            if (nearestFish != null) {
+                graphics_handle.stats_display(mouseX, mouseY, nearestFish);
+            }
+        }
         for (Biome b : biomes) {
             b.SpawnFood();
         }
@@ -62,15 +85,16 @@ public class SimManager {
 //                f.CalculateFov();
 //            }
 //        }
-        //graphics_handle.draw_biomes(biomes);
+        graphics_handle.draw_biomes(biomes);
         for (Entity e : entities) {
             //e.Update(biomes.get(0)); // TODO get current biome
 
-            e.Draw();
+            //e.Draw();
         }
 
         //entities.addAll(EntitiesToAdd);
         EntitiesToAdd.clear();
+        graphics_handle.draw_entities(entities);
     }
 
 }

@@ -14,7 +14,7 @@ public class Fish extends Entity {
     private final LayEggsState LayEggs = new LayEggsState(this, FishStateTypes.LayingEggs);
     private final FleeState Flee = new FleeState(this, FishStateTypes.Fleeing);
     private final SearchState Search = new SearchState(this, FishStateTypes.Searching);
-    private State<Fish, FishStateTypes> currentState = Search;
+    public State<Fish, FishStateTypes> currentState = Search;
 
     public static final float StarvingEnergyMin = 10f; // Will eat eggs
     public static final float BreedingEnergyMin = 80f; // Will breed
@@ -25,8 +25,7 @@ public class Fish extends Entity {
     public float Energy;
 
     @Override
-    public void Update(Biome currentBiome)
-    {
+    public void Update(Biome currentBiome) {
         FishStateTypes newState = currentState.CheckTransitions();
         if (newState != currentState.AssociatedType) {
             currentState.Exit();
@@ -56,11 +55,4 @@ public class Fish extends Entity {
 
         currentState.Update();
     }
-
-    @Override public void Draw()
-    {
-        currentState.Draw();
-    }
-
-
 }
