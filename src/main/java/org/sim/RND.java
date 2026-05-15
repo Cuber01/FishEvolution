@@ -32,6 +32,11 @@ public class RND {
         return new PVector(x, y);
     }
 
+    public static float RandomFloat(float min, float max)
+    {
+        return min + (float) Math.random() * (max - min);
+    }
+
     /*
     Chance function probability table
     -10 -> 0%

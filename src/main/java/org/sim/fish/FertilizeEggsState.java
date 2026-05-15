@@ -1,8 +1,13 @@
 package org.sim.fish;
 
 import org.sim.Egg;
+import org.sim.Entity;
 import org.sim.State;
+import processing.core.PVector;
+
 import java.util.Map;
+
+import static processing.core.PApplet.sq;
 
 class FertilizeEggsState extends State<Fish, FishStateTypes> {
     private boolean finished = false;
@@ -31,7 +36,7 @@ class FertilizeEggsState extends State<Fish, FishStateTypes> {
         actor.Velocity = target.Position.sub(actor.Position).normalize().mult(actor.Attributes.Speed);
         actor.Position.add(actor.Velocity);
 
-        if(target.Position.sub(actor.Position).magSq() < 1) {
+        if(PVector.sub(target.Position, actor.Position).magSq() < sq(Entity.DistTolerance * actor.Attributes.Speed)) {
             target.Fertilize(actor.Attributes);
             finished = true;
         }
@@ -39,7 +44,7 @@ class FertilizeEggsState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Draw() {
-
+        actor.graphics_handle.draw_fish(actor.Position);
     }
 
     @Override

@@ -21,10 +21,10 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Update() {
-        if (PVector.dist(actor.Position, followPoint) < Entity.DistTolerance) {
+        if (PVector.dist(actor.Position, followPoint) < Entity.DistTolerance * actor.Attributes.Speed) {
             rerollPoint();
         } else {
-            actor.Velocity = ( followPoint.sub(actor.Position)
+            actor.Velocity = ( PVector.sub(followPoint, actor.Position)
                                            .normalize()
                                            .mult(actor.Attributes.Speed)
             );
@@ -34,7 +34,7 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Draw() {
-
+        actor.graphics_handle.draw_fish(actor.Position);
     }
 
     @Override
@@ -44,7 +44,7 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public FishStateTypes CheckTransitions() {
-        if( (actor.InFOV.SawFood && actor.Energy < Fish.BreedingEnergyMin))
+        if( (actor.InFOV.SawFood && actor.Energy < Fish.BreedingEnergyMin) )
         {
             actor.PursueFoodState.TargetType = EntityTypes.Food;
             return FishStateTypes.PursuingFood;
@@ -54,7 +54,7 @@ class SearchState extends State<Fish, FishStateTypes> {
             return FishStateTypes.PursuingFood;
         } else if ((actor.InFOV.SawFish && RND.Chance(actor.Attributes.Aggressiveness
                                                       + actor.Attributes.PlantToMeatDigestion,
-                                            Fish.MaxEnergy-actor.Energy)))
+                                            actor.Attributes.MaxHP-actor.HP)))
         {
             actor.PursueFoodState.TargetType = EntityTypes.Fish;
             return FishStateTypes.PursuingFood;
@@ -70,14 +70,14 @@ class SearchState extends State<Fish, FishStateTypes> {
             return FishStateTypes.Fleeing;
         }
 
-        if ( actor.Gender == Sex.Male
+        if ( actor.sex == Sex.Male
              && actor.InFOV.SawEggs
              && actor.Energy >= Fish.BreedingEnergyMin)
         {
             return FishStateTypes.FertilizingEggs;
         }
 
-        if ( actor.Gender == Sex.Female
+        if ( actor.sex == Sex.Female
              && actor.Energy >= Fish.BreedingEnergyMin)
         {
             return FishStateTypes.LayingEggs;

@@ -32,13 +32,13 @@ class FleeState extends State<Fish, FishStateTypes> {
         }
 
         // TODO check: It is likely acceptable to operate on data from last frame regarding velocity here
-        fleeDirection = predator.Velocity.mult(-1);
+        fleeDirection = PVector.mult(predator.Velocity, -1).normalize();
     }
 
     // TODO check for bounds and bounce off them
     @Override
     public void Update() {
-        actor.Velocity = fleeDirection;
+        actor.Velocity = PVector.mult(fleeDirection, actor.Attributes.Speed);
         actor.Position.add(actor.Velocity);
 
         if(actor.InFOV.FishInFOV(predator))
