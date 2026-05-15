@@ -18,7 +18,7 @@ public class Fish extends Entity {
     private final SearchState Search = new SearchState(this, FishStateTypes.Searching);
     public State<Fish, FishStateTypes> CurrentState = Search;
 
-    public static final float StarvingEnergyMin = 10f; // Will eat eggs
+    public static final float StarvingEnergyMin = 20f; // Will eat eggs
     public static final float BreedingEnergyMin = 80f; // Will breed
     public static final float MaxEnergy = 100f;
     public static final float ReproductionEnergyUse = 50f;
@@ -91,6 +91,12 @@ public class Fish extends Entity {
         if(Energy < 0)
         {
             Die();
+        }
+
+        if(HP < Attributes.MaxHP && Energy > StarvingEnergyMin)
+        {
+            HP += 0.1f;
+            Energy -= 1f;
         }
     }
 

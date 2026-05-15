@@ -54,7 +54,7 @@ class SearchState extends State<Fish, FishStateTypes> {
             return FishStateTypes.PursuingFood;
         } else if ((actor.InFOV.SawFish && RND.Chance(actor.Attributes.Aggressiveness
                                                       + actor.Attributes.PlantToMeatDigestion,
-                                            Fish.MaxEnergy-actor.Energy)))
+                                            actor.Attributes.MaxHP-actor.HP)))
         {
             actor.PursueFoodState.TargetType = EntityTypes.Fish;
             return FishStateTypes.PursuingFood;
