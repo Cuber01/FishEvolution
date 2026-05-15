@@ -33,11 +33,6 @@ class SearchState extends State<Fish, FishStateTypes> {
     }
 
     @Override
-    public void Draw() {
-        actor.graphics_handle.draw_fish(actor.Position);
-    }
-
-    @Override
     public void Exit() {
 
     }

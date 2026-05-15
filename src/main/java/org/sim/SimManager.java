@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SimManager {
-    public static List<Entity> EntitiesToAdd = new ArrayList<>(0);
-    public static List<Entity> EntitiesToRemove = new ArrayList<>(0);
-    private static final List<Entity> entities = new ArrayList<>();
-    private static final List<Biome> biomes = new ArrayList<Biome>();
+    public static ArrayList<Entity> EntitiesToAdd = new ArrayList<>(0);
+    public static ArrayList<Entity> EntitiesToRemove = new ArrayList<>(0);
+    public static final ArrayList<Entity> entities = new ArrayList<>();
+    private static final ArrayList<Biome> biomes = new ArrayList<Biome>();
     private static Graphics graphics_handle;
 
     private static double timePerTick = 1000000000.0 / 60.0; //main loop speed
@@ -40,7 +40,8 @@ public class SimManager {
         entities.add(new Fish(graphics_handle));
         MainLoop();
     }
-    public static void MainLoop() {
+
+    public void MainLoop() {
         long lastTime = System.nanoTime();
         double delta = 0;
         while (true) {
@@ -49,14 +50,14 @@ public class SimManager {
             lastTime = now;
 
             if (delta >= 1) {
-                update();
+                Update();
                 delta--;
             }
         }
     }
 
 
-    private static void update(){
+    public void Update(){
 
         for (Biome b : biomes) {
             b.SpawnPlants(graphics_handle);

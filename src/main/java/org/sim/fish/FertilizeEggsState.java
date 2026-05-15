@@ -43,11 +43,6 @@ class FertilizeEggsState extends State<Fish, FishStateTypes> {
     }
 
     @Override
-    public void Draw() {
-        actor.graphics_handle.draw_fish(actor.Position);
-    }
-
-    @Override
     public void Exit() {
         target = null;
         finished = false;

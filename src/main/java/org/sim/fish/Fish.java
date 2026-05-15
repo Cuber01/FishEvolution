@@ -2,7 +2,7 @@ package org.sim.fish;
 
 import org.sim.*;
 import processing.core.PVector;
-
+import java.util.ArrayList;
 
 public class Fish extends Entity {
     public Genes Attributes;
@@ -99,7 +99,7 @@ public class Fish extends Entity {
         }
     }
 
-    public void CalculateFOV(List<Entity> entities)
+    public void CalculateFOV(ArrayList<Entity> entities)
     {
         InFOV.Reset();
 
@@ -133,13 +133,6 @@ public class Fish extends Entity {
     {
         super.Die();
         SimManager.EntitiesToAdd.add(new Meat(graphics_handle, Position, Energy));
-    }
-
-    @Override
-    public void Draw()
-    {
-        graphics_handle.draw_fish(Position);
-        //currentState.Draw();
     }
 
 

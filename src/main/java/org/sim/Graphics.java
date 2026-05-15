@@ -6,7 +6,7 @@ import processing.core.PImage;
 import processing.core.PVector;
 
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import static org.sim.SimManager.entities;
@@ -24,9 +24,7 @@ public class Graphics extends PApplet {
 
     @Override
     public void settings() {
-
         size(CanvasX, CanvasY);
-
     }
 
     @Override
@@ -42,10 +40,12 @@ public class Graphics extends PApplet {
         manager.Setup();
 
     }
+
     public void draw(){
         background(0);
         manager.Update();
     }
+
     public void draw_biomes(List<Biome> biomes){
         for(Biome b : biomes){
             if (b.color != null && b.color.size() >= 3) {
@@ -70,10 +70,10 @@ public class Graphics extends PApplet {
 
         }
     }
-    private void draw_fish(Fish f){
+    public void draw_fish(Fish f){
         PImage sprite = null;
-        if (f.currentState != null && f.currentState.AssociatedType != null) {
-            switch (f.currentState.AssociatedType) {
+        if (f.CurrentState != null && f.CurrentState.AssociatedType != null) {
+            switch (f.CurrentState.AssociatedType) {
                 case Searching:
                     sprite = fish_searching;
                     break;

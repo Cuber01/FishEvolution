@@ -101,10 +101,7 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
         return PVector.sub(Target.Position, actor.Position).magSq() < sq(Entity.DistTolerance * actor.Attributes.Speed);
     }
 
-    @Override
-    public void Draw() {
 
-    }
 
     @Override
     public void Exit() {

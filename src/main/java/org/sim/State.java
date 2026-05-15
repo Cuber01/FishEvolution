@@ -12,7 +12,6 @@ public abstract class State<T, E> {
 
     public abstract void Enter();
     public abstract void Update();
-    public abstract void Draw();
     public abstract void Exit();
     public abstract E CheckTransitions();
 

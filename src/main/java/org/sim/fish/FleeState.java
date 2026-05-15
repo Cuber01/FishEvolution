@@ -49,10 +49,7 @@ class FleeState extends State<Fish, FishStateTypes> {
         }
     }
 
-    @Override
-    public void Draw() {
 
-    }
 
     @Override
     public void Exit() {
