@@ -38,23 +38,22 @@ public class SimManager {
         entities.add(new Fish(graphics_handle));
         entities.add(new Fish(graphics_handle));
         entities.add(new Fish(graphics_handle));
-        MainLoop();
     }
 
-    public void MainLoop() {
-        long lastTime = System.nanoTime();
-        double delta = 0;
-        while (true) {
-            long now = System.nanoTime();
-            delta += (now - lastTime) / timePerTick;
-            lastTime = now;
-
-            if (delta >= 1) {
-                Update();
-                delta--;
-            }
-        }
-    }
+//    public void MainLoop() {
+//        long lastTime = System.nanoTime();
+//        double delta = 0;
+//        while (true) {
+//            long now = System.nanoTime();
+//            delta += (now - lastTime) / timePerTick;
+//            lastTime = now;
+//
+//            if (delta >= 1) {
+//                Update();
+//                delta--;
+//            }
+//        }
+//    }
 
 
     public void Update(){

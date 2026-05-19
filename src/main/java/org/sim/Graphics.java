@@ -35,6 +35,13 @@ public class Graphics extends PApplet {
         fish_pursuing = loadImage("fish3.png");
         fish_fleeing = loadImage("fish4.png");
 
+        if (fish_searching == null) println("WARNING: fish1.png not found");
+        if (fish_reproducing == null) println("WARNING: fish2.png not found");
+        if (fish_pursuing == null) println("WARNING: fish3.png not found");
+        if (fish_fleeing == null) println("WARNING: fish4.png not found");
+
+
+
         background(0);
         manager = new SimManager(this);
         manager.Setup();
@@ -73,23 +80,13 @@ public class Graphics extends PApplet {
     public void draw_fish(Fish f){
         PImage sprite = null;
         if (f.CurrentState != null && f.CurrentState.AssociatedType != null) {
-            switch (f.CurrentState.AssociatedType) {
-                case Searching:
-                    sprite = fish_searching;
-                    break;
-                case PursuingFood:
-                    sprite = fish_pursuing;
-                    break;
-                case Fleeing:
-                    sprite = fish_fleeing;
-                    break;
-                case FertilizingEggs:
-                case LayingEggs:
-                    sprite = fish_reproducing;
-                    break;
-                default:
-                    sprite = fish_searching;
-            }
+            sprite = switch (f.CurrentState.AssociatedType) {
+                case Searching -> fish_searching;
+                case PursuingFood -> fish_pursuing;
+                case Fleeing -> fish_fleeing;
+                case FertilizingEggs, LayingEggs -> fish_reproducing;
+                default -> fish_searching;
+            };
         }
 
         if (sprite != null) {
@@ -103,7 +100,6 @@ public class Graphics extends PApplet {
     private void draw_food(Food f){
         PImage sprite = null;
         if (f instanceof Egg) {
-            // you can provide an egg sprite if available, otherwise draw fallback
             sprite = null;
         } else if (f instanceof Meat) {
             sprite = null;
