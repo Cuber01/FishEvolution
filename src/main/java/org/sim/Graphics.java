@@ -16,7 +16,7 @@ public class Graphics extends PApplet {
     private final int CanvasX=SimManager.CanvasX;
     private final int CanvasY=SimManager.CanvasY;
     //public List<Entity> entities_to_draw = new ArrayList<>();
-    private PImage fish_searching, fish_fleeing, fish_pursuing, fish_reproducing;
+    private PImage fish_searching, fish_fleeing, fish_pursuing, fish_reproducing,egg,meat,glon;
     private PImage img;
     private SimManager manager;
 
@@ -30,10 +30,13 @@ public class Graphics extends PApplet {
     @Override
     public void setup() {
         // preload images once
-        fish_searching = loadImage("fish1.png");
-        fish_reproducing = loadImage("fish2.png");
-        fish_pursuing = loadImage("fish3.png");
-        fish_fleeing = loadImage("fish4.png");
+        fish_searching = loadImage("fish1 mini.png");
+        fish_reproducing = loadImage("fish3 mini.png");
+        fish_pursuing = loadImage("fish2 mini.png");
+        fish_fleeing = loadImage("fish 4 mini.png");
+        egg = loadImage("egg.png");
+        meat = loadImage("meat.png");
+        glon = loadImage("glon.png");
 
         background(0);
         manager = new SimManager(this);
@@ -84,6 +87,8 @@ public class Graphics extends PApplet {
                     sprite = fish_fleeing;
                     break;
                 case FertilizingEggs:
+                    sprite = fish_reproducing;
+                    break;
                 case LayingEggs:
                     sprite = fish_reproducing;
                     break;
@@ -104,11 +109,11 @@ public class Graphics extends PApplet {
         PImage sprite = null;
         if (f instanceof Egg) {
             // you can provide an egg sprite if available, otherwise draw fallback
-            sprite = null;
+            sprite = egg;
         } else if (f instanceof Meat) {
-            sprite = null;
+            sprite = meat;
         } else if (f instanceof Plant) {
-            sprite = null;
+            sprite = glon;
         }
 
         if (sprite != null) {

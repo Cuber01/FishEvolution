@@ -31,33 +31,8 @@ public class SimManager {
         biomes.add(test_biome1);
         biomes.add(test_biome2);
         biomes.add(test_biome3);
+        for(int i=0;i<100;i++) entities.add(new Fish(graphics_handle));
 
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
-        entities.add(new Fish(graphics_handle));
         //MainLoop();
         graphics_handle.draw();
     }
