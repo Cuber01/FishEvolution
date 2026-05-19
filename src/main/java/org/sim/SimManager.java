@@ -14,6 +14,7 @@ public class SimManager {
     private static final ArrayList<Biome> biomes = new ArrayList<Biome>();
     private static Graphics graphics_handle;
 
+    private int fish_count;
     private static double timePerTick = 1000000000.0 / 60.0; //main loop speed
 
     public static int CanvasX=1200;
@@ -25,9 +26,10 @@ public class SimManager {
 
     public void Setup()
     {
+
         Biome test_biome1 =new Biome(0,200,1,100,200);
         Biome test_biome2 =new Biome(200,400,15, 73, 79);
-        Biome test_biome3 =new Biome(400,800,0, 0, 0);
+        Biome test_biome3 =new Biome(400,800,20, 0, 0);
         biomes.add(test_biome1);
         biomes.add(test_biome2);
         biomes.add(test_biome3);
@@ -54,7 +56,7 @@ public class SimManager {
 
 
     public void Update(){
-
+        fish_count=0;
         for (Biome b : biomes) {
             b.SpawnPlants(graphics_handle);
         }
@@ -73,6 +75,7 @@ public class SimManager {
             if(e instanceof Fish) // TODO this is expensive and dumb
             {
                 ((Fish)e).CalculateFOV(entities);
+                fish_count++;
             }
         }
 
@@ -86,8 +89,12 @@ public class SimManager {
         EntitiesToAdd.clear();
 
         graphics_handle.background(0);
+
         graphics_handle.draw_biomes(biomes);
+        graphics_handle.draw_info(fish_count);
         graphics_handle.draw_entities(entities);
+
+
     }
 
 }

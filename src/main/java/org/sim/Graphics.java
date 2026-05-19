@@ -1,6 +1,5 @@
 package org.sim;
 import org.sim.fish.Fish;
-import org.sim.fish.FishStateTypes;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -19,12 +18,13 @@ public class Graphics extends PApplet {
     private PImage fish_searching, fish_fleeing, fish_pursuing, fish_reproducing,egg,meat,glon;
     private PImage img;
     private SimManager manager;
-
+    private boolean is_selected =false;
+    private Fish selected_fish;
     public Graphics(){}
 
     @Override
     public void settings() {
-        size(CanvasX, CanvasY);
+        size(CanvasX+200, CanvasY);
     }
 
     @Override
@@ -160,12 +160,31 @@ public class Graphics extends PApplet {
             }
         }
 
-        if (nearestFish != null) {
+        if (nearestFish != null && minDistance<100) {
             stats_display(mouseX, mouseY, nearestFish);
+        }else is_selected=false;
+    }
+    public void draw_info(int fish_count){
+        textSize(20);
+        fill(255,0,0);
+        text("fish alivie: "+fish_count, CanvasX+10, 20);
+        //text(fish_count, CanvasX+40, 40);
+        if(is_selected){
+            if(selected_fish.IsDead) is_selected=false;
+            fill(0,255,255);
+            rect(selected_fish.Position.x,selected_fish.Position.y,20,20);
+            textSize(15);
+            fill(255,255,255);
+            text("selected fish:", CanvasX+5, 100);
+            textSize(12);
+            text("Sex:"+selected_fish.sex, CanvasX+5, 120);
+            text("Energy:"+selected_fish.Energy, CanvasX+5, 140);
+            text("State:"+selected_fish.CurrentState.AssociatedType, CanvasX+5, 160);
         }
     }
-
     public void stats_display(int x,int y,Fish f) {
-        System.out.println("iubdoew9uoewu");
+
+        is_selected =true;
+        selected_fish=f;
     }
 }
