@@ -107,17 +107,23 @@ public class Graphics extends PApplet {
             sprite = null;
         } else if (f instanceof Meat) {
             sprite = null;
+        } else if (f instanceof Plant) {
+            sprite = null;
         }
 
         if (sprite != null) {
             image(sprite, f.Position.x, f.Position.y);
         } else {
             if (f instanceof Egg) {
-                fill(0,0,0);
+                fill(255,255,255);
                 noStroke();
                 rect(f.Position.x,f.Position.y,10,10);
             } else if (f instanceof Meat) {
                 fill(255,0,0);
+                noStroke();
+                rect(f.Position.x,f.Position.y,10,10);
+            } else if (f instanceof Plant) {
+                fill(0,255,0);
                 noStroke();
                 rect(f.Position.x,f.Position.y,10,10);
             } else {

@@ -27,8 +27,10 @@ public class SimManager {
     {
         Biome test_biome1 =new Biome(0,200,1,100,200);
         Biome test_biome2 =new Biome(200,400,15, 73, 79);
+        Biome test_biome3 =new Biome(400,800,0, 0, 0);
         biomes.add(test_biome1);
         biomes.add(test_biome2);
+        biomes.add(test_biome3);
 
         entities.add(new Fish(graphics_handle));
         entities.add(new Fish(graphics_handle));
@@ -38,7 +40,26 @@ public class SimManager {
         entities.add(new Fish(graphics_handle));
         entities.add(new Fish(graphics_handle));
         entities.add(new Fish(graphics_handle));
-        MainLoop();
+
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        entities.add(new Fish(graphics_handle));
+        //MainLoop();
+        graphics_handle.draw();
     }
 
     public void MainLoop() {
