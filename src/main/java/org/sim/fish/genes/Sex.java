@@ -1,4 +1,4 @@
-package org.sim;
+package org.sim.fish.genes;
 
 public enum Sex {
     Male,

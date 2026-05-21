@@ -1,5 +1,7 @@
-package org.sim;
+package org.sim.food;
 
+import org.sim.Biome;
+import org.sim.Graphics;
 import processing.core.PVector;
 
 public class Plant extends Food {

@@ -1,4 +1,6 @@
-package org.sim;
+package org.sim.food;
+
+import org.sim.Entity;
 
 public class Food extends Entity {
     public FoodType Type;

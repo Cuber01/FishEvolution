@@ -1,5 +1,7 @@
 package org.sim;
 
+import org.sim.food.Plant;
+
 import java.awt.*;
 
 public class Biome {

@@ -1,6 +1,6 @@
 package org.sim.fish;
 
-import org.sim.Egg;
+import org.sim.food.Egg;
 import org.sim.Entity;
 import org.sim.State;
 import processing.core.PVector;

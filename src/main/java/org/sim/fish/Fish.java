@@ -1,10 +1,14 @@
 package org.sim.fish;
 
 import org.sim.*;
+import org.sim.fish.genes.Genes;
+import org.sim.fish.genes.Sex;
+import org.sim.food.Meat;
 import processing.core.PVector;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Fish extends Entity {
+public class Fish extends Entity implements IProfilable {
     public Genes Attributes;
     public FOVInfo InFOV = new FOVInfo();
     public PVector Velocity = new PVector();
@@ -135,5 +139,13 @@ public class Fish extends Entity {
         SimManager.EntitiesToAdd.add(new Meat(graphics_handle, Position, Energy));
     }
 
-
+    @Override
+    public List<String> GetProfile() {
+        List<String> info = new ArrayList<>();
+        info.add("Sex: " + sex);
+        info.add("HP: " + HP);
+        info.add("Energy: " + Energy);
+        info.add("State: " + CurrentState.AssociatedType);
+        return info;
+    }
 }

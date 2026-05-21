@@ -1,5 +1,9 @@
-package org.sim;
+package org.sim.food;
 
+import org.sim.fish.genes.Genes;
+import org.sim.Graphics;
+import org.sim.fish.genes.Sex;
+import org.sim.SimManager;
 import org.sim.fish.Fish;
 import processing.core.PVector;
 

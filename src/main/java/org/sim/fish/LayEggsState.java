@@ -1,6 +1,7 @@
 package org.sim.fish;
 
 import org.sim.*;
+import org.sim.food.Egg;
 
 import static org.sim.fish.Fish.ReproductionEnergyUse;
 

@@ -4,7 +4,9 @@ import processing.core.PApplet;
 
 public class ProcessingMain extends PApplet {
 
-
+    public static void main(String[] args) {
+        processing.core.PApplet.main("org.sim.Graphics");
+    }
 
     @Override
     public void settings() {

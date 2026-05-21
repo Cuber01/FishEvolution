@@ -1,6 +1,12 @@
-package org.sim;
+package org.sim.fish.genes;
 
-public class Genes {
+import org.sim.IProfilable;
+import org.sim.RND;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Genes implements IProfilable {
     public final float Speed;
     public final float MaxHP;
     public final float Damage;
@@ -64,5 +70,17 @@ public class Genes {
     private static float mutateAttribute(float attributeA, float attributeB, float mutationWeight)
     {
         return (attributeA + attributeB) / 2 + ((float)(Math.random() - 0.5f) * mutationWeight);
+    }
+
+    @Override
+    public List<String> GetProfile() {
+        List<String> info = new ArrayList<>();
+        info.add("Speed: " + String.format("%.2f", Speed));
+        info.add("MaxHP: " + String.format("%.2f", MaxHP));
+        info.add("Damage: " + String.format("%.2f", Damage));
+        info.add("Vision: " + String.format("%.2f", VisionRange));
+        info.add("Aggressiveness: " + String.format("%.2f", Aggressiveness));
+        info.add("PlantToMeatDigestion: " + String.format("%.2f", PlantToMeatDigestion));
+        return info;
     }
 }

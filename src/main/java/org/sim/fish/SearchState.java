@@ -1,6 +1,7 @@
 package org.sim.fish;
 
 import org.sim.*;
+import org.sim.fish.genes.Sex;
 import processing.core.PVector;
 
 class SearchState extends State<Fish, FishStateTypes> {

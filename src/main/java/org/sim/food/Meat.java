@@ -1,5 +1,7 @@
-package org.sim;
+package org.sim.food;
 
+import org.sim.Graphics;
+import org.sim.SimManager;
 import processing.core.PVector;
 
 public class Meat extends Food {

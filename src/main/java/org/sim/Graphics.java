@@ -1,5 +1,9 @@
 package org.sim;
 import org.sim.fish.Fish;
+import org.sim.food.Egg;
+import org.sim.food.Food;
+import org.sim.food.Meat;
+import org.sim.food.Plant;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.core.PVector;
@@ -165,7 +169,7 @@ public class Graphics extends PApplet {
     public void draw_info(int fish_count){
         textSize(20);
         fill(255,0,0);
-        text("fish alivie: "+fish_count, CanvasX+10, 20);
+        text("fish alive: "+fish_count, CanvasX+10, 20);
         //text(fish_count, CanvasX+40, 40);
         if(is_selected){
             if(selected_fish.IsDead) is_selected=false;

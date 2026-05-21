@@ -4,7 +4,7 @@ plugins {
 }
 
 application {
-    mainClass = 'org.sim.Main'
+    mainClass = 'org.sim.ProcessingMain'
 }
 
 java {

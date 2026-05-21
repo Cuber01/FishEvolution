@@ -1,11 +1,9 @@
 package org.sim.fish;
 
-import org.sim.Egg;
+import org.sim.food.Egg;
 import org.sim.Entity;
-import org.sim.Food;
-import processing.core.PVector;
+import org.sim.food.Food;
 
-import java.util.Dictionary;
 import java.util.Map;
 
 public class FOVInfo {

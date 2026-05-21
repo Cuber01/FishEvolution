@@ -1,4 +1,4 @@
-package org.sim;
+package org.sim.food;
 
 public enum FoodType {
     Egg,
