@@ -57,7 +57,7 @@ class FertilizeEggsState extends State<Fish, FishStateTypes> {
         {
             return FishStateTypes.Searching;
         }
-        return FishStateTypes.LayingEggs;
+        return FishStateTypes.FertilizingEggs;
     }
 
 }

@@ -39,6 +39,13 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public FishStateTypes CheckTransitions() {
+        if ( actor.sex == Sex.Male
+                && actor.InFOV.SawUnfertilizedEggs
+                && actor.Energy >= Fish.BreedingEnergyMin)
+        {
+            return FishStateTypes.FertilizingEggs;
+        }
+
         if( (actor.InFOV.SawFood && actor.Energy < Fish.BreedingEnergyMin) )
         {
             actor.PursueFoodState.TargetType = EntityTypes.Food;
@@ -63,13 +70,6 @@ class SearchState extends State<Fish, FishStateTypes> {
                 )
         {
             return FishStateTypes.Fleeing;
-        }
-
-        if ( actor.sex == Sex.Male
-             && actor.InFOV.SawUnfertilizedEggs
-             && actor.Energy >= Fish.BreedingEnergyMin)
-        {
-            return FishStateTypes.FertilizingEggs;
         }
 
         if ( actor.sex == Sex.Female

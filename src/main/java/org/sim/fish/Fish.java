@@ -89,7 +89,7 @@ public class Fish extends Entity {
         Energy -= Attributes.GetGeneticEnergyUpkeep();
         if(Energy < 0)
         {
-            //Die();
+            Die();
         }
 
         if(HP < Attributes.MaxHP && Energy > StarvingEnergyMin)

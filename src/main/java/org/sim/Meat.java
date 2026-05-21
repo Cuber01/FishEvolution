@@ -4,7 +4,7 @@ import processing.core.PVector;
 
 public class Meat extends Food {
     public static final float DefaultEnergy = 10f;
-    public static final float drowningSpeed = 1f;
+    public static final float drowningSpeed = 0.7f;
 
     public Meat(Graphics graphicsHandle, PVector position, float energy)
     {
@@ -17,7 +17,7 @@ public class Meat extends Food {
     @Override
     public void Update(Biome biome)
     {
-        if(Position.y + 2 < SimManager.CanvasY)
+        if(Position.y + 10 < SimManager.CanvasY)
         {
             Position.y += drowningSpeed;
         }
