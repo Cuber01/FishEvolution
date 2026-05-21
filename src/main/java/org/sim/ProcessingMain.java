@@ -16,17 +16,14 @@ public class ProcessingMain extends PApplet {
     @Override
     public void setup() {
         background(0);
-
     }
 
     @Override
     public void draw() {
         fill(255, 0, 0);
-        //ellipse(mouseX, mouseY, 50, 50);
         rectangle a=new rectangle(0,0,mouseX,mouseY,mouseX%255);
         a.draw();
     }
-
 
     class rectangle {
         float x, y, a, b;

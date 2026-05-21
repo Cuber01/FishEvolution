@@ -90,12 +90,14 @@ public class Fish extends Entity implements IProfilable {
 
     private void handleEnergy()
     {
+        // Energy use
         Energy -= Attributes.GetGeneticEnergyUpkeep();
         if(Energy < 0)
         {
             Die();
         }
 
+        // Regeneration
         if(HP < Attributes.MaxHP && Energy > StarvingEnergyMin)
         {
             HP += 0.1f;

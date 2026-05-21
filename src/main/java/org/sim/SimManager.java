@@ -27,12 +27,12 @@ public class SimManager {
 
     public void Setup()
     {
-        Biome test_biome1 =new Biome(0,200, new Color(1,100,200), 400, 10);
+        //Biome test_biome1 =new Biome(0,200, new Color(1,100,200), 400, 10);
         Biome test_biome2 =new Biome(200,600, new Color(15, 73, 79), 10, 10);
-        Biome test_biome3 =new Biome(600,800, new Color(20, 10, 30), 100, 25);
-        biomes.add(test_biome1);
+        //Biome test_biome3 =new Biome(600,800, new Color(20, 10, 30), 100, 25);
+        //biomes.add(test_biome1);
         biomes.add(test_biome2);
-        biomes.add(test_biome3);
+        //biomes.add(test_biome3);
         for(int i=0;i<100;i++) entities.add(new Fish(graphics_handle));
 
         //MainLoop();
