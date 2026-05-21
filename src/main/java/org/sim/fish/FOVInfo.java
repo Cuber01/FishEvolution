@@ -15,6 +15,7 @@ public class FOVInfo {
 
     public boolean SawFood = false;
     public boolean SawEggs = false;
+    public boolean SawUnfertilizedEggs = false;
     public boolean SawFish = false;
 
     public void AddEntry(Entity entity, float distanceSquared)
@@ -23,6 +24,12 @@ public class FOVInfo {
         {
             EggsDist.put((Egg)entity, distanceSquared);
             SawEggs = true;
+
+            if(!((Egg) entity).Fertilized)
+            {
+                SawUnfertilizedEggs = true;
+            }
+
         } else if(entity instanceof Food)
         {
             FoodsDist.put((Food)entity, distanceSquared);
@@ -43,6 +50,7 @@ public class FOVInfo {
         SawFood = false;
         SawEggs = false;
         SawFish = false;
+        SawUnfertilizedEggs = false;
     }
 
     public boolean FishInFOV(Fish f)

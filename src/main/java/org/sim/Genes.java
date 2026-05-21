@@ -24,6 +24,11 @@ public class Genes {
         this.PlantToMeatDigestion = PlantToMeatDigestion;
     }
 
+    public Genes Copy()
+    {
+        return new Genes(this.Speed, this.MaxHP, this.Damage, this.VisionRange, this.Aggressiveness, this.PlantToMeatDigestion);
+    }
+
     public Genes()
     {
         this.Speed = RND.RandomFloat(1f, 3f);

@@ -66,7 +66,7 @@ class SearchState extends State<Fish, FishStateTypes> {
         }
 
         if ( actor.sex == Sex.Male
-             && actor.InFOV.SawEggs
+             && actor.InFOV.SawUnfertilizedEggs
              && actor.Energy >= Fish.BreedingEnergyMin)
         {
             return FishStateTypes.FertilizingEggs;

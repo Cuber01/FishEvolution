@@ -19,7 +19,6 @@ public class Entity {
 
     public void Update(Biome currentBiome) {}
 
-
     public float Bite(float plantToMeatDigestion, float damage)
     {
         return -1;

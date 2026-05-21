@@ -1,24 +1,50 @@
 package org.sim;
 
+import org.sim.fish.Fish;
 import processing.core.PVector;
 
 public class Egg extends Food {
     public Genes gene;
     public float TimeTilHatch;
     public static final float DefaultEnergy = 20f;
+    public boolean Fertilized;
 
     public Egg(Graphics graphicsHandle, PVector position, Genes motherGenes, float timeTilHatch)
     {
         this.graphics_handle = graphicsHandle;
-        this.Position = position;
-        this.gene = motherGenes;
+        this.Position = position.copy();
+        this.gene = motherGenes.Copy();
         this.TimeTilHatch = timeTilHatch;
         this.Energy = DefaultEnergy;
     }
 
+    @Override
+    public void Update(Biome currentBiome)
+    {
+        if(Fertilized)
+        {
+            TimeTilHatch -= 1;
+            if(TimeTilHatch <= 0)
+            {
+                Hatch();
+            }
+        }
+
+    }
+
     public void Fertilize(Genes fatherGenes)
     {
+        if(Fertilized) return;
+
         gene = gene.MutateGenes(fatherGenes);
+        Fertilized = true;
+    }
+
+    public void Hatch()
+    {
+        SimManager.EntitiesToAdd.add(new Fish(graphics_handle, Position.copy(), gene,
+                Math.random() > 0.5 ? Sex.Male : Sex.Female));
+        Die();
     }
 
     @Override
