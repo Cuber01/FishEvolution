@@ -1,28 +1,28 @@
 package org.sim;
 
 import org.sim.fish.Fish;
-import processing.core.PVector;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SimManager {
     public static ArrayList<Entity> EntitiesToAdd = new ArrayList<>(0);
     public static ArrayList<Entity> EntitiesToRemove = new ArrayList<>(0);
-    public static final ArrayList<Entity> entities = new ArrayList<>();
+    public static final ArrayList<Entity> Entities = new ArrayList<>();
     private static final ArrayList<Biome> biomes = new ArrayList<Biome>();
     private static Graphics graphics_handle;
+    private final SimDataMonitor dataMonitor;
 
-    private int fish_count;
+    public static int Ticks = 0;
+    public static int FishCount;
     private static double timePerTick = 1000000000.0 / 60.0; //main loop speed
 
     public static int CanvasX=1200;
     public static int CanvasY=800;
 
-    public SimManager(Graphics gm) {
+    public SimManager(Graphics gm, SimDataMonitor dataMonitor) {
         graphics_handle=gm;
+        this.dataMonitor = dataMonitor;
     }
 
     public void Setup()
@@ -33,7 +33,7 @@ public class SimManager {
         biomes.add(shallow);
         biomes.add(middle);
         biomes.add(deep);
-        for(int i=0;i<100;i++) entities.add(new Fish(graphics_handle));
+        for(int i=0;i<100;i++) Entities.add(new Fish(graphics_handle));
 
         //MainLoop();
         graphics_handle.draw();
@@ -56,43 +56,54 @@ public class SimManager {
 
 
     public void Update(){
-        fish_count=0;
+        FishCount = 0;
+        Ticks += 1;
+
         for (Biome b : biomes) {
             b.SpawnPlants(graphics_handle);
         }
 
-        // Multithread?
-//        for (Entity e : entities) {
-//            if(e instanceof Fish)
-//            {
-//                Fish f = (Fish)e;
-//                f.CalculateFov();
-//            }
-//        }
-
-        for (Entity e : entities) {
+        // Multithread fov?
+        for (Entity e : Entities) {
             e.Update(); // TODO get current biome
             if(e instanceof Fish) // TODO this is expensive and dumb
             {
-                ((Fish)e).CalculateFOV(entities);
-                fish_count++;
+                ((Fish)e).CalculateFOV(Entities);
+                FishCount++;
             }
         }
 
-        entities.addAll(EntitiesToAdd);
+        Entities.addAll(EntitiesToAdd);
         for(Entity e : EntitiesToRemove)
         {
-            entities.remove(e);
+            Entities.remove(e);
         }
 
         EntitiesToRemove.clear();
         EntitiesToAdd.clear();
 
+        FishCount = 0;
+        for (Entity e : Entities) {
+            if (e instanceof Fish) {
+                FishCount++;
+            }
+        }
+
+        if(Ticks % SimDataMonitor.GatheringFrequency == 0)
+        {
+            dataMonitor.GatherData();
+        }
+
+        if (FishCount == 0) {
+            dataMonitor.ExportCsv("simulation_data.csv");
+            return;
+        }
+
         graphics_handle.background(0);
 
         graphics_handle.draw_biomes(biomes);
-        graphics_handle.draw_info(fish_count);
-        graphics_handle.draw_entities(entities);
+        graphics_handle.draw_info(FishCount);
+        graphics_handle.draw_entities(Entities);
 
 
     }

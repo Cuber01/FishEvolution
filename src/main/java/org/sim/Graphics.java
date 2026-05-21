@@ -12,7 +12,7 @@ import processing.core.PVector;
 
 import java.util.List;
 
-import static org.sim.SimManager.entities;
+import static org.sim.SimManager.Entities;
 
 public class Graphics extends PApplet {
 
@@ -22,6 +22,7 @@ public class Graphics extends PApplet {
     private PImage fish_searching, fish_fleeing, fish_pursuing, fish_reproducing,egg,meat,glon;
     private PImage img;
     private SimManager manager;
+    private final SimDataMonitor dataMonitor = new SimDataMonitor();
     private boolean is_selected =false;
     private Fish selected_fish;
     public Graphics(){}
@@ -42,8 +43,10 @@ public class Graphics extends PApplet {
         meat = loadImage("meat.png");
         glon = loadImage("glon.png");
 
+        dataMonitor.BuildHeader();
+
         background(0);
-        manager = new SimManager(this);
+        manager = new SimManager(this, dataMonitor);
         manager.Setup();
 
     }
@@ -157,7 +160,7 @@ public class Graphics extends PApplet {
         Fish nearestFish = null;
         float minDistance = Float.MAX_VALUE;
 
-        for (Entity e : entities) {
+        for (Entity e : Entities) {
             if (e instanceof Fish) {
                 Fish f = (Fish) e;
 
@@ -210,5 +213,11 @@ public class Graphics extends PApplet {
     public void stats_display(int x,int y,Fish f) {
         is_selected =true;
         selected_fish=f;
+    }
+
+    @Override
+    public void dispose() {
+        dataMonitor.ExportCsv("raport.csv");
+        super.dispose();
     }
 }
