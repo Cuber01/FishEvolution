@@ -2,6 +2,8 @@ package org.sim.fish;
 
 import org.sim.*;
 
+import static org.sim.fish.Fish.ReproductionEnergyUse;
+
 
 class LayEggsState extends State<Fish, FishStateTypes> {
     private boolean finished = false;
@@ -15,8 +17,8 @@ class LayEggsState extends State<Fish, FishStateTypes> {
         // TODO: Variable time til hatch?
         // TODO: Laying eggs should take time — in nature some fish spawn eggs quickly and some slowly
         // Idea for attribute: Time spent by mother on laying eggs vs time spend by the egg to hatch?
-        SimManager.EntitiesToAdd.add(new Egg(actor.graphics_handle, actor.Position, actor.Attributes, 10f));
-        actor.Energy -= Fish.ReproductionEnergyUse;
+        SimManager.EntitiesToAdd.add(new Egg(actor.graphics_handle, actor.Position, actor.Attributes, 10f, ReproductionEnergyUse));
+        actor.Energy -= ReproductionEnergyUse;
         finished = true;
     }
 

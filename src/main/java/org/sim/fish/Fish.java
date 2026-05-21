@@ -33,7 +33,7 @@ public class Fish extends Entity {
         this.Attributes = genes;
         this.sex = sex;
         this.HP = genes.MaxHP;
-        this.Energy = MaxEnergy;
+        this.Energy = ReproductionEnergyUse;
         CurrentState.Enter();
     }
 

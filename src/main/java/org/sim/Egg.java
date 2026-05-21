@@ -9,13 +9,13 @@ public class Egg extends Food {
     public static final float DefaultEnergy = 20f;
     public boolean Fertilized;
 
-    public Egg(Graphics graphicsHandle, PVector position, Genes motherGenes, float timeTilHatch)
+    public Egg(Graphics graphicsHandle, PVector position, Genes motherGenes, float timeTilHatch, float energy)
     {
         this.graphics_handle = graphicsHandle;
         this.Position = position.copy();
         this.gene = motherGenes.Copy();
         this.TimeTilHatch = timeTilHatch;
-        this.Energy = DefaultEnergy;
+        this.Energy = energy;
     }
 
     @Override
