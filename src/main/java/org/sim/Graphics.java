@@ -166,12 +166,13 @@ public class Graphics extends PApplet {
             stats_display(mouseX, mouseY, nearestFish);
         }else is_selected=false;
     }
+
     public void draw_info(int fish_count){
-        textSize(20);
+        textSize(25);
         fill(255,0,0);
         text("fish alive: "+fish_count, CanvasX+10, 20);
         //text(fish_count, CanvasX+40, 40);
-        if(is_selected){
+        if(is_selected) {
             if(selected_fish.IsDead) is_selected=false;
             fill(0,255,255);
             rect(selected_fish.Position.x,selected_fish.Position.y,20,20);
@@ -179,13 +180,26 @@ public class Graphics extends PApplet {
             fill(255,255,255);
             text("selected fish:", CanvasX+5, 100);
             textSize(12);
-            text("Sex:"+selected_fish.sex, CanvasX+5, 120);
-            text("Energy:"+selected_fish.Energy, CanvasX+5, 140);
-            text("State:"+selected_fish.CurrentState.AssociatedType, CanvasX+5, 160);
+            PVector lastOffset = drawProfile(selected_fish.GetProfile(), CanvasX+5, 120, 0, 20);
+            drawProfile(selected_fish.Attributes.GetProfile(), CanvasX+5+(int)lastOffset.x, 120+(int)lastOffset.y, 0, 20);
         }
     }
-    public void stats_display(int x,int y,Fish f) {
 
+    private PVector drawProfile(List<String> profile, int startX, int startY, int offsetX, int offsetY)
+    {
+        PVector currentOffset = new PVector();
+
+        for(String entry : profile)
+        {
+            text(entry, startX + currentOffset.x, startY + currentOffset.y);
+            currentOffset.x += offsetX;
+            currentOffset.y += offsetY;
+        }
+
+        return currentOffset;
+    }
+
+    public void stats_display(int x,int y,Fish f) {
         is_selected =true;
         selected_fish=f;
     }
