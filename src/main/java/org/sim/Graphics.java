@@ -78,6 +78,13 @@ public class Graphics extends PApplet {
     public void draw_fish(Fish f){
         PImage sprite = null;
         if (f.CurrentState != null && f.CurrentState.AssociatedType != null) {
+            sprite = switch (f.CurrentState.AssociatedType) {
+                case Searching -> fish_searching;
+                case PursuingFood -> fish_pursuing;
+                case Fleeing -> fish_fleeing;
+                case FertilizingEggs, LayingEggs -> fish_reproducing;
+                default -> fish_searching;
+            };
             switch (f.CurrentState.AssociatedType) {
                 case Searching:
                     sprite = fish_searching;
@@ -110,6 +117,7 @@ public class Graphics extends PApplet {
     private void draw_food(Food f){
         PImage sprite = null;
         if (f instanceof Egg) {
+            sprite = null;
             // you can provide an egg sprite if available, otherwise draw fallback
             sprite = egg;
         } else if (f instanceof Meat) {

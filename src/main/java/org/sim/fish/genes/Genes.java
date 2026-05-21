@@ -42,7 +42,7 @@ public class Genes implements IProfilable {
         this.Damage = RND.RandomFloat(0.5f, 2.5f);
         this.VisionRange = RND.RandomFloat(10f, 50f);
         this.Aggressiveness = RND.RandomFloat(0.0f, 1.0f);
-        this.PlantToMeatDigestion = RND.RandomFloat(0.0f, 1.0f);;
+        this.PlantToMeatDigestion = RND.RandomFloat(0.0f, 1.0f);
     }
 
     public Genes MutateGenes(Genes otherGene)
