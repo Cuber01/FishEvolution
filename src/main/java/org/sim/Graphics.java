@@ -51,9 +51,7 @@ public class Graphics extends PApplet {
 
     public void draw_biomes(List<Biome> biomes){
         for(Biome b : biomes){
-            if (b.color != null && b.color.size() >= 3) {
-                fill(b.color.get(0), b.color.get(1), b.color.get(2));
-            }
+            fill(b.Color.getRed(), b.Color.getGreen(), b.Color.getBlue());
             noStroke();
             float height = b.lowerBorder - b.upperBorder;
             rect(0, b.upperBorder, SimManager.CanvasX, height);

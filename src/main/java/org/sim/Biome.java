@@ -1,19 +1,17 @@
 package org.sim;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.*;
 
 public class Biome {
-    public Biome(int uborder,int lborder,int colorR,int colorG,int colorB){
-        lowerBorder=lborder;
-        upperBorder=uborder;
-        color.add(colorR);
-        color.add(colorG);
-        color.add(colorB);
+    public Biome(int upperBorder,int lowerBorder, Color color, float energyMax, float plantEnergy){
+        this.lowerBorder =lowerBorder;
+        this.upperBorder =upperBorder;
+        this.Color = color;
+        this.energyMax = energyMax;
+        this.plantEnergy = plantEnergy;
     }
 
-    public List<Integer> color = new ArrayList<>(3);
-
+    public Color Color;
     public float plantEnergy = 10;
     public float energyMax = 100;
     public float energySpawned = 0;

@@ -17,7 +17,7 @@ public class Entity {
 
     // public Texture texture
 
-    public void Update(Biome currentBiome) {}
+    public void Update() {}
 
     public float Bite(float plantToMeatDigestion, float damage)
     {

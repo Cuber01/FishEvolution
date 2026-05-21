@@ -3,6 +3,7 @@ package org.sim;
 import org.sim.fish.Fish;
 import processing.core.PVector;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -26,10 +27,9 @@ public class SimManager {
 
     public void Setup()
     {
-
-        Biome test_biome1 =new Biome(0,200,1,100,200);
-        Biome test_biome2 =new Biome(200,400,15, 73, 79);
-        Biome test_biome3 =new Biome(400,800,20, 0, 0);
+        Biome test_biome1 =new Biome(0,200, new Color(1,100,200), 400, 10);
+        Biome test_biome2 =new Biome(200,600, new Color(15, 73, 79), 10, 10);
+        Biome test_biome3 =new Biome(600,800, new Color(20, 10, 30), 100, 25);
         biomes.add(test_biome1);
         biomes.add(test_biome2);
         biomes.add(test_biome3);
@@ -39,20 +39,20 @@ public class SimManager {
         graphics_handle.draw();
     }
 
-    public void MainLoop() {
-        long lastTime = System.nanoTime();
-        double delta = 0;
-        while (true) {
-            long now = System.nanoTime();
-            delta += (now - lastTime) / timePerTick;
-            lastTime = now;
-
-            if (delta >= 1) {
-                Update();
-                delta--;
-            }
-        }
-    }
+//    public void MainLoop() {
+//        long lastTime = System.nanoTime();
+//        double delta = 0;
+//        while (true) {
+//            long now = System.nanoTime();
+//            delta += (now - lastTime) / timePerTick;
+//            lastTime = now;
+//
+//            if (delta >= 1) {
+//                Update();
+//                delta--;
+//            }
+//        }
+//    }
 
 
     public void Update(){
@@ -71,7 +71,7 @@ public class SimManager {
 //        }
 
         for (Entity e : entities) {
-            e.Update(biomes.get(0)); // TODO get current biome
+            e.Update(); // TODO get current biome
             if(e instanceof Fish) // TODO this is expensive and dumb
             {
                 ((Fish)e).CalculateFOV(entities);

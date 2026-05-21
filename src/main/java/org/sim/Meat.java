@@ -15,7 +15,7 @@ public class Meat extends Food {
 
     // TODO Allow fish to eat just a fragment of food if they're near max?
     @Override
-    public void Update(Biome biome)
+    public void Update()
     {
         if(Position.y + 10 < SimManager.CanvasY)
         {

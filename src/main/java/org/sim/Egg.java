@@ -19,7 +19,7 @@ public class Egg extends Food {
     }
 
     @Override
-    public void Update(Biome currentBiome)
+    public void Update()
     {
         if(Fertilized)
         {

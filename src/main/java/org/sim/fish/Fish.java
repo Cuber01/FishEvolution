@@ -49,7 +49,7 @@ public class Fish extends Entity {
     }
 
     @Override
-    public void Update(Biome currentBiome)
+    public void Update()
     {
         if(IsDead) return;
 
