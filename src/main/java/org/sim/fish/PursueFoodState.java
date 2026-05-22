@@ -10,6 +10,7 @@ import static processing.core.PApplet.sq;
 class PursueFoodState extends State<Fish, FishStateTypes> {
     public final static int timeUntilStopsPursuing = 10;
     private int timeUntilLastSawFood = 0;
+    private boolean ate = false;
 
     public EntityTypes TargetType;
     public Entity Target;
@@ -61,10 +62,12 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
             } else if (reachedFood())
             {
                 resolveFishEncounter();
+                ate = true;
             }
         } else if (reachedFood())
         {
             actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, actor.Attributes.Damage);
+            ate = true;
         }
     }
 
@@ -108,11 +111,12 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
         Target = null;
         TargetType = null;
         timeUntilLastSawFood = 0;
+        ate = false;
     }
 
     @Override
     public FishStateTypes CheckTransitions() {
-        if (Target.IsDead || timeUntilLastSawFood > timeUntilStopsPursuing || actor.Energy >= Fish.MaxEnergy)
+        if (Target.IsDead || timeUntilLastSawFood > timeUntilStopsPursuing || actor.Energy >= Fish.MaxEnergy || ate)
         {
             return FishStateTypes.Searching;
         }

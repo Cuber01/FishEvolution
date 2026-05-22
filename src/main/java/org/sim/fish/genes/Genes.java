@@ -63,7 +63,7 @@ public class Genes implements IProfilable {
         sum += Speed*Speed;
         sum += VisionRange/10;
         sum += MaxHP/2;
-        sum += Damage/2;
+        sum += Damage;
         return sum/100;
     }
 
