@@ -31,6 +31,7 @@ public class Egg extends Food {
             if(TimeTilHatch <= 0)
             {
                 Hatch();
+                return;
             }
         }
 
