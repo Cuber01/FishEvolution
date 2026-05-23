@@ -29,19 +29,15 @@ public class Genes implements IProfilable {
         this.VisionRange = Vision;
         this.Aggressiveness = Aggressiveness;
         this.PlantToMeatDigestion = PlantToMeatDigestion;
-        this.EggEnergy = EggEnergy;
-        this.EggChildren = EggChildren;
     }
 
     public Genes Copy()
     {
-        return new Genes(this.Speed, this.MaxHP, this.Damage, this.VisionRange, this.Aggressiveness, this.PlantToMeatDigestion, this.EggEnergy, this.EggChildren);
+        return new Genes(this.Speed, this.MaxHP, this.Damage, this.VisionRange, this.Aggressiveness, this.PlantToMeatDigestion);
     }
 
     public Genes()
     {
-        this.EggEnergy = RND.RandomFloat(Consts.GENE_EGG_ENERGY_MIN, Consts.GENE_EGG_ENERGY_MAX);
-        this.EggChildren = RND.RandomFloat(Consts.GENE_EGG_CHILDREN_MIN, Consts.GENE_EGG_CHILDREN_MAX);
         this.Speed = RND.RandomFloat(Consts.GENE_SPEED_MIN, Consts.GENE_SPEED_MAX);
         this.MaxHP = RND.RandomFloat(Consts.GENE_MAX_HP_MIN, Consts.GENE_MAX_HP_MAX);
         this.Damage = RND.RandomFloat(Consts.GENE_DAMAGE_MIN, Consts.GENE_DAMAGE_MAX);
@@ -58,10 +54,8 @@ public class Genes implements IProfilable {
         float newVision = mutateAttribute(this.VisionRange, otherGene.VisionRange, Consts.VISION_RANGE_MUTATION_WEIGHT);
         float newAggressiveness = mutateAttribute(this.Aggressiveness, otherGene.Aggressiveness, Consts.AGGRESSIVENESS_MUTATION_WEIGHT);
         float newPlantToMeatDigestion = mutateAttribute(this.PlantToMeatDigestion, otherGene.PlantToMeatDigestion, Consts.PLANT_TO_MEAT_DIGESTION_MUTATION_WEIGHT);
-        float newEggEnergy = mutateAttribute(this.EggEnergy, otherGene.EggEnergy, Consts.EGG_ENERGY_MUTATION_WEIGHT);
-        float newEggChildren = mutateAttribute(this.EggChildren, otherGene.EggChildren, Consts.EGG_CHILDREN_MUTATION_WEIGHT);
 
-        return new Genes(newSpeed, newMaxHP, newDamage, newVision, newAggressiveness, newPlantToMeatDigestion, newEggEnergy, newEggChildren);
+        return new Genes(newSpeed, newMaxHP, newDamage, newVision, newAggressiveness, newPlantToMeatDigestion);
     }
 
     public float GetGeneticEnergyUpkeep()

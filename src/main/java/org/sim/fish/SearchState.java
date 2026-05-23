@@ -46,7 +46,7 @@ class SearchState extends State<Fish, FishStateTypes> {
             return FishStateTypes.FertilizingEggs;
         }
 
-        if( (actor.InFOV.SawFood && actor.Energy < actor.Attributes.EggEnergy) )
+        if( (actor.InFOV.SawFood && actor.Energy < Fish.BreedingEnergyMin) )
         {
             actor.PursueFoodState.TargetType = EntityTypes.Food;
             return FishStateTypes.PursuingFood;
