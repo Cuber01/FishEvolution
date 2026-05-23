@@ -42,9 +42,34 @@ class FleeState extends State<Fish, FishStateTypes> {
 
         actor.Position.add(actor.Velocity);
 
-        if(actor.InFOV.FishInFOV(predator))
-        {
-            fleeDirection = PVector.sub(actor.Position, predator.Position);
+        float minX = 0f;
+        float minY = 0f;
+        float maxX = SimManager.CanvasX;
+        float maxY = SimManager.CanvasY;
+
+        if (actor.Position.x < minX) {
+            actor.Position.x = minX;
+            actor.Velocity.x = Math.abs(actor.Velocity.x);
+            fleeDirection.x = Math.abs(fleeDirection.x);
+        } else if (actor.Position.x > maxX) {
+            actor.Position.x = maxX;
+            actor.Velocity.x = -Math.abs(actor.Velocity.x);
+            fleeDirection.x = -Math.abs(fleeDirection.x);
+        }
+
+        if (actor.Position.y < minY) {
+            actor.Position.y = minY;
+            actor.Velocity.y = Math.abs(actor.Velocity.y);
+            fleeDirection.y = Math.abs(fleeDirection.y);
+        } else if (actor.Position.y > maxY) {
+            actor.Position.y = maxY;
+            actor.Velocity.y = -Math.abs(actor.Velocity.y);
+            fleeDirection.y = -Math.abs(fleeDirection.y);
+        }
+
+        if (actor.InFOV.FishInFOV(predator)) {
+            fleeDirection = PVector.sub(actor.Position, predator.Position).normalize();
+            actor.Velocity = PVector.mult(fleeDirection, actor.Attributes.Speed);
         } else {
             timeUntilLastSawPredator += 1;
         }
