@@ -1,5 +1,6 @@
 package org.sim.food;
 
+import org.sim.RND;
 import org.sim.fish.genes.Genes;
 import org.sim.Graphics;
 import org.sim.fish.genes.Sex;
@@ -55,7 +56,7 @@ public class Egg extends Food {
     public void Hatch()
     {
         SimManager.EntitiesToAdd.add(new Fish(graphics_handle, Position.copy(), gene,
-                Math.random() > 0.5 ? Sex.Male : Sex.Female));
+                RND.RandomBoolean() ? Sex.Male : Sex.Female));
         Die();
     }
 
