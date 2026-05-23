@@ -15,6 +15,7 @@ public class SimManager {
 
     public static int Ticks = 0;
     public static int FishCount;
+    public static boolean Paused = false;
 
     public static final int CanvasX = Consts.CANVAS_WIDTH;
     public static final int CanvasY = Consts.CANVAS_HEIGHT;
@@ -55,6 +56,14 @@ public class SimManager {
 
 
     public void Update(){
+        if (Paused) {
+            graphics_handle.background(0);
+            graphics_handle.draw_biomes(biomes);
+            graphics_handle.draw_info(FishCount);
+            graphics_handle.draw_entities(Entities);
+            return;
+        }
+
         FishCount = 0;
         Ticks += 1;
 

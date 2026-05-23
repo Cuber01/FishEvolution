@@ -18,13 +18,14 @@ public class Graphics extends PApplet {
 
     private final int CanvasX=SimManager.CanvasX;
     private final int CanvasY=SimManager.CanvasY;
-    //public List<Entity> entities_to_draw = new ArrayList<>();
     private PImage fish_searching, fish_fleeing, fish_pursuing, fish_reproducing,egg,meat,glon;
     private PImage img;
     private SimManager manager;
     private final SimDataMonitor dataMonitor = new SimDataMonitor();
     private boolean is_selected =false;
     private Fish selected_fish;
+    private boolean paused = false;
+    private float currentFrameRate = 60f;
     public Graphics(){}
 
     @Override
@@ -49,11 +50,33 @@ public class Graphics extends PApplet {
         manager = new SimManager(this, dataMonitor);
         manager.Setup();
 
+        frameRate(currentFrameRate);
     }
 
     public void draw(){
         background(0);
         manager.Update();
+
+        fill(255);
+        textSize(12);
+        String status = (SimManager.Paused ? "PAUSED" : "RUNNING") + " | FPS:" + (int) currentFrameRate;
+        text(status, 10, 15);
+    }
+
+    @Override
+    public void keyPressed() {
+        if (key == ' ') {
+            paused = !paused;
+            SimManager.Paused = paused;
+        }
+
+        if (keyCode == RIGHT) {
+            currentFrameRate = Math.min(240f, currentFrameRate + 10f);
+            frameRate(currentFrameRate);
+        } else if (keyCode == LEFT) {
+            currentFrameRate = Math.max(1f, currentFrameRate - 10f);
+            frameRate(currentFrameRate);
+        }
     }
 
     public void draw_biomes(List<Biome> biomes){
