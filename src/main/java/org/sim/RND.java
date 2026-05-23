@@ -2,11 +2,15 @@ package org.sim;
 
 import processing.core.PVector;
 
+import java.util.Random;
+
 public class RND {
+    private static final Random RANDOM = new Random(Consts.RANDOM_SEED);
+
     // increaseTrue + decreaseTrue should be in the range -10 to 10
     public static boolean Chance(float increaseTrue, float decreaseTrue)
     {
-        return Math.random() < 0.5f + ((increaseTrue + decreaseTrue)/20);
+        return RANDOM.nextFloat() < 0.5f + ((increaseTrue + decreaseTrue)/20);
     }
 
     public static float Scale(float value, float maxValue)
@@ -26,15 +30,20 @@ public class RND {
         float startY = Math.min(minY, maxY);
         float endY = Math.max(minY, maxY);
 
-        float x = startX + (float) Math.random() * (endX - startX);
-        float y = startY + (float) Math.random() * (endY - startY);
+        float x = startX + RANDOM.nextFloat() * (endX - startX);
+        float y = startY + RANDOM.nextFloat() * (endY - startY);
 
         return new PVector(x, y);
     }
 
     public static float RandomFloat(float min, float max)
     {
-        return min + (float) Math.random() * (max - min);
+        return min + RANDOM.nextFloat() * (max - min);
+    }
+
+    public static boolean RandomBoolean()
+    {
+        return RANDOM.nextBoolean();
     }
 
     /*

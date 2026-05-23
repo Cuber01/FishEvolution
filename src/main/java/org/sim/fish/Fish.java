@@ -46,7 +46,7 @@ public class Fish extends Entity implements IProfilable {
         this.graphics_handle = graphicsHandle;
         this.Position = RND.RandomVector2(0, SimManager.CanvasX, 0, SimManager.CanvasY);
         this.Attributes = new Genes();
-        this.sex = Math.random() > 0.5 ? Sex.Male : Sex.Female;
+        this.sex = RND.RandomBoolean() ? Sex.Male : Sex.Female;
         this.HP = Attributes.MaxHP;
         this.Energy = MaxEnergy;
         CurrentState.Enter();

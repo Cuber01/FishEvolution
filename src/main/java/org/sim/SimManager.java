@@ -15,10 +15,9 @@ public class SimManager {
 
     public static int Ticks = 0;
     public static int FishCount;
-    private static double timePerTick = 1000000000.0 / 60.0; //main loop speed
 
-    public static int CanvasX=1200;
-    public static int CanvasY=800;
+    public static final int CanvasX = Consts.CANVAS_WIDTH;
+    public static final int CanvasY = Consts.CANVAS_HEIGHT;
 
     public SimManager(Graphics gm, SimDataMonitor dataMonitor) {
         graphics_handle=gm;
@@ -27,13 +26,13 @@ public class SimManager {
 
     public void Setup()
     {
-        Biome shallow =new Biome(0,200, new Color(1,100,200), 6000, 20);
-        Biome middle =new Biome(200,600, new Color(15, 73, 79), 5000, 20);
-        Biome deep =new Biome(600,800, new Color(20, 10, 30), 1000, 25);
+        Biome shallow =new Biome(Consts.SHALLOW_BIOME_UPPER_BORDER, Consts.MIDDLE_BIOME_UPPER_BORDER, Consts.SHALLOW_BIOME_COLOR, Consts.SHALLOW_BIOME_ENERGY_MAX, Consts.SHALLOW_BIOME_PLANT_ENERGY);
+        Biome middle =new Biome(Consts.MIDDLE_BIOME_UPPER_BORDER, Consts.DEEP_BIOME_UPPER_BORDER, Consts.MIDDLE_BIOME_COLOR, Consts.MIDDLE_BIOME_ENERGY_MAX, Consts.MIDDLE_BIOME_PLANT_ENERGY);
+        Biome deep =new Biome(Consts.DEEP_BIOME_UPPER_BORDER, Consts.CANVAS_HEIGHT, Consts.DEEP_BIOME_COLOR, Consts.DEEP_BIOME_ENERGY_MAX, Consts.DEEP_BIOME_PLANT_ENERGY);
         biomes.add(shallow);
         biomes.add(middle);
         biomes.add(deep);
-        for(int i=0;i<100;i++) Entities.add(new Fish(graphics_handle));
+        for(int i=0;i<Consts.INITIAL_FISH_COUNT;i++) Entities.add(new Fish(graphics_handle));
 
         //MainLoop();
         graphics_handle.draw();
@@ -89,7 +88,7 @@ public class SimManager {
             }
         }
 
-        if(Ticks % SimDataMonitor.GatheringFrequency == 0)
+        if(Ticks % Consts.SIM_DATA_GATHERING_RATE == 0)
         {
             dataMonitor.GatherData();
         }

@@ -10,7 +10,7 @@ public class ProcessingMain extends PApplet {
 
     @Override
     public void settings() {
-        size(SimManager.CanvasX, SimManager.CanvasY);
+        size(Consts.CANVAS_WIDTH, Consts.CANVAS_HEIGHT);
     }
 
     @Override

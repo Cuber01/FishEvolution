@@ -1,5 +1,6 @@
 package org.sim.fish.genes;
 
+import org.sim.Consts;
 import org.sim.IProfilable;
 import org.sim.RND;
 
@@ -28,48 +29,54 @@ public class Genes implements IProfilable {
         this.VisionRange = Vision;
         this.Aggressiveness = Aggressiveness;
         this.PlantToMeatDigestion = PlantToMeatDigestion;
+        this.EggEnergy = EggEnergy;
+        this.EggChildren = EggChildren;
     }
 
     public Genes Copy()
     {
-        return new Genes(this.Speed, this.MaxHP, this.Damage, this.VisionRange, this.Aggressiveness, this.PlantToMeatDigestion);
+        return new Genes(this.Speed, this.MaxHP, this.Damage, this.VisionRange, this.Aggressiveness, this.PlantToMeatDigestion, this.EggEnergy, this.EggChildren);
     }
 
     public Genes()
     {
-        this.Speed = RND.RandomFloat(1f, 3f);
-        this.MaxHP = RND.RandomFloat(0.5f, 5f);
-        this.Damage = RND.RandomFloat(0.5f, 2.5f);
-        this.VisionRange = RND.RandomFloat(10f, 50f);
-        this.Aggressiveness = RND.RandomFloat(0.0f, 1.0f);
-        this.PlantToMeatDigestion = RND.RandomFloat(0.0f, 1.0f);
+        this.EggEnergy = RND.RandomFloat(Consts.GENE_EGG_ENERGY_MIN, Consts.GENE_EGG_ENERGY_MAX);
+        this.EggChildren = RND.RandomFloat(Consts.GENE_EGG_CHILDREN_MIN, Consts.GENE_EGG_CHILDREN_MAX);
+        this.Speed = RND.RandomFloat(Consts.GENE_SPEED_MIN, Consts.GENE_SPEED_MAX);
+        this.MaxHP = RND.RandomFloat(Consts.GENE_MAX_HP_MIN, Consts.GENE_MAX_HP_MAX);
+        this.Damage = RND.RandomFloat(Consts.GENE_DAMAGE_MIN, Consts.GENE_DAMAGE_MAX);
+        this.VisionRange = RND.RandomFloat(Consts.GENE_VISION_RANGE_MIN, Consts.GENE_VISION_RANGE_MAX);
+        this.Aggressiveness = RND.RandomFloat(Consts.GENE_AGGRESSIVENESS_MIN, Consts.GENE_AGGRESSIVENESS_MAX);
+        this.PlantToMeatDigestion = RND.RandomFloat(Consts.GENE_PLANT_TO_MEAT_DIGESTION_MIN, Consts.GENE_PLANT_TO_MEAT_DIGESTION_MAX);
     }
 
     public Genes MutateGenes(Genes otherGene)
     {
-        float newSpeed = mutateAttribute(this.Speed, otherGene.Speed, 2f);
-        float newMaxHP = mutateAttribute(this.MaxHP, otherGene.MaxHP, 2f);
-        float newDamage = mutateAttribute(this.Damage, otherGene.Damage, 2f);
-        float newVision = mutateAttribute(this.VisionRange, otherGene.VisionRange, 10f);
-        float newAggressiveness = mutateAttribute(this.Aggressiveness, otherGene.Aggressiveness, 0.1f);
-        float newPlantToMeatDigestion = mutateAttribute(this.PlantToMeatDigestion, otherGene.PlantToMeatDigestion, 0.1f);
+        float newSpeed = mutateAttribute(this.Speed, otherGene.Speed, Consts.SPEED_MUTATION_WEIGHT);
+        float newMaxHP = mutateAttribute(this.MaxHP, otherGene.MaxHP, Consts.MAX_HP_MUTATION_WEIGHT);
+        float newDamage = mutateAttribute(this.Damage, otherGene.Damage, Consts.DAMAGE_MUTATION_WEIGHT);
+        float newVision = mutateAttribute(this.VisionRange, otherGene.VisionRange, Consts.VISION_RANGE_MUTATION_WEIGHT);
+        float newAggressiveness = mutateAttribute(this.Aggressiveness, otherGene.Aggressiveness, Consts.AGGRESSIVENESS_MUTATION_WEIGHT);
+        float newPlantToMeatDigestion = mutateAttribute(this.PlantToMeatDigestion, otherGene.PlantToMeatDigestion, Consts.PLANT_TO_MEAT_DIGESTION_MUTATION_WEIGHT);
+        float newEggEnergy = mutateAttribute(this.EggEnergy, otherGene.EggEnergy, Consts.EGG_ENERGY_MUTATION_WEIGHT);
+        float newEggChildren = mutateAttribute(this.EggChildren, otherGene.EggChildren, Consts.EGG_CHILDREN_MUTATION_WEIGHT);
 
-        return new Genes(newSpeed, newMaxHP, newDamage, newVision, newAggressiveness, newPlantToMeatDigestion);
+        return new Genes(newSpeed, newMaxHP, newDamage, newVision, newAggressiveness, newPlantToMeatDigestion, newEggEnergy, newEggChildren);
     }
 
     public float GetGeneticEnergyUpkeep()
     {
         float sum = 0;
-        sum += Speed*Speed;
-        sum += VisionRange/10;
-        sum += MaxHP/2;
-        sum += Damage;
-        return sum/100;
+        sum += Speed * Consts.SPEED_COST_MODIFIER;
+        sum += VisionRange * Consts.VISION_RANGE_COST_MODIFIER;
+        sum += MaxHP * Consts.MAX_HP_COST_MODIFIER;
+        sum += Damage * Consts.DAMAGE_COST_MODIFIER;
+        return sum * Consts.GLOBAL_COST_MODIFIER;
     }
 
     private static float mutateAttribute(float attributeA, float attributeB, float mutationWeight)
     {
-        return (attributeA + attributeB) / 2 + ((float)(Math.random() - 0.5f) * mutationWeight);
+        return (attributeA + attributeB) / 2 + RND.RandomFloat(-mutationWeight, mutationWeight);
     }
 
     @Override

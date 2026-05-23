@@ -29,7 +29,7 @@ public class Graphics extends PApplet {
 
     @Override
     public void settings() {
-        size(CanvasX+200, CanvasY);
+        size(Consts.CANVAS_WIDTH + Consts.SIDEBAR_WIDTH, Consts.CANVAS_HEIGHT);
     }
 
     @Override
