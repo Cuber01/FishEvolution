@@ -10,7 +10,7 @@ import processing.core.PVector;
 
 public class Egg extends Food {
     public Genes gene;
-    public float TimeTilDecay = 100f;
+    public float TimeTilDecay = 500f;
     public float TimeTilHatch;
     public boolean Fertilized;
 
@@ -37,7 +37,7 @@ public class Egg extends Food {
         }
 
         TimeTilDecay -= 1;
-        if(TimeTilHatch <= 0)
+        if(TimeTilDecay <= 0)
         {
             SimManager.EntitiesToAdd.add(new Meat(graphics_handle, Position.copy(), Energy));
             Die();
