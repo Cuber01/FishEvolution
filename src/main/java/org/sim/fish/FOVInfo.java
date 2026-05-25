@@ -4,12 +4,13 @@ import org.sim.food.Egg;
 import org.sim.Entity;
 import org.sim.food.Food;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class FOVInfo {
-    public Map<Food, Float> FoodsDist = new java.util.HashMap<>();
-    public Map<Egg, Float> EggsDist = new java.util.HashMap<>();
-    public Map<Fish, Float> FishDist = new java.util.HashMap<>();
+    public Map<Food, Float> FoodsDist = new LinkedHashMap<>();
+    public Map<Egg, Float> EggsDist = new LinkedHashMap<>();
+    public Map<Fish, Float> FishDist = new LinkedHashMap<>();
 
     public boolean SawFood = false;
     public boolean SawEggs = false;

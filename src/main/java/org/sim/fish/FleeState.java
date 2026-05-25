@@ -23,16 +23,18 @@ class FleeState extends State<Fish, FishStateTypes> {
             if(entry.getKey().PursueFoodState.Target == actor)
             {
                 predator = entry.getKey();
+                break;
             }
         }
 
         // If a real predator was not found, our fish got scared for no reason and flees from a random fish
-        if(predator == null) {
-            predator = actor.InFOV.FishDist.entrySet().iterator().next().getKey();
+        if(predator == null)
+        {
+            predator = actor.InFOV.FishDist.keySet().iterator().next();
         }
 
-        // TODO check: It is likely acceptable to operate on data from last frame regarding velocity here
         fleeDirection = PVector.mult(predator.Velocity, -1).normalize();
+
         actor.Velocity = PVector.mult(fleeDirection, actor.Attributes.Speed);
     }
 

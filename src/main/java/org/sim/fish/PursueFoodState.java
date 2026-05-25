@@ -39,9 +39,9 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
     private void findClosestInMap(Map<?, Float> map, EntityTypes type) {
         float bestDist = Float.POSITIVE_INFINITY;
 
-        for (Object obj : map.keySet()) {
-            Entity ent = (Entity) obj;
-            Float d = map.get(ent);
+        for (Map.Entry<?, Float> entry : map.entrySet()) {
+            Entity ent = (Entity) entry.getKey();
+            Float d = entry.getValue();
             if (d < bestDist) {
                 bestDist = d;
                 Target = ent;

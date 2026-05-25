@@ -22,8 +22,9 @@ class FertilizeEggsState extends State<Fish, FishStateTypes> {
         Map<Egg, Float> map = actor.InFOV.EggsDist;
         float bestDist = Float.POSITIVE_INFINITY;
 
-        for (Egg egg : map.keySet()) {
-            Float d = map.get(egg);
+        for (Map.Entry<Egg, Float> entry : map.entrySet()) {
+            Egg egg = entry.getKey();
+            Float d = entry.getValue();
             if (d < bestDist) {
                 bestDist = d;
                 target = egg;
