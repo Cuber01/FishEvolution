@@ -14,9 +14,8 @@ public class Egg extends Food {
     public float TimeTilHatch;
     public boolean Fertilized;
 
-    public Egg(Processing graphicsHandle, PVector position, Genes motherGenes, float timeTilHatch, float energy)
+    public Egg(PVector position, Genes motherGenes, float timeTilHatch, float energy)
     {
-        this.graphics_handle = graphicsHandle;
         this.Position = position.copy();
         this.gene = motherGenes.Copy();
         this.TimeTilHatch = timeTilHatch;
@@ -39,7 +38,7 @@ public class Egg extends Food {
         TimeTilDecay -= 1;
         if(TimeTilDecay <= 0)
         {
-            SimManager.EntitiesToAdd.add(new Meat(graphics_handle, Position.copy(), Energy));
+            SimManager.EntitiesToAdd.add(new Meat(Position.copy(), Energy));
             Die();
         }
 
@@ -55,7 +54,7 @@ public class Egg extends Food {
 
     public void Hatch()
     {
-        SimManager.EntitiesToAdd.add(new Fish(graphics_handle, Position.copy(), gene,
+        SimManager.EntitiesToAdd.add(new Fish(Position.copy(), gene,
                 RND.RandomBoolean() ? Sex.Male : Sex.Female));
         Die();
     }

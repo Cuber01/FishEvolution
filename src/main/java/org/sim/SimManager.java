@@ -34,7 +34,7 @@ public class SimManager {
         biomes.add(middle);
         biomes.add(deep);
 
-        for(int i=0;i<Consts.INITIAL_FISH_COUNT;i++) Entities.add(new Fish(graphics_handle));
+        for(int i=0;i<Consts.INITIAL_FISH_COUNT;i++) Entities.add(new Fish());
     }
 
     public void Update(){
@@ -50,7 +50,7 @@ public class SimManager {
         Ticks += 1;
 
         for (Biome b : biomes) {
-            b.SpawnPlants(graphics_handle);
+            b.SpawnPlants();
         }
 
         // Multithread fov?

@@ -30,10 +30,9 @@ public class Fish extends Entity implements IProfilable {
     public float HP;
     public float Energy = 50f;
 
-    public Fish(Processing graphicsHandle, PVector position, Genes genes, Sex sex)
+    public Fish(PVector position, Genes genes, Sex sex)
     {
         this.Position = position;
-        this.graphics_handle = graphicsHandle;
         this.Attributes = genes;
         this.sex = sex;
         this.HP = genes.MaxHP;
@@ -41,9 +40,8 @@ public class Fish extends Entity implements IProfilable {
         CurrentState.Enter();
     }
 
-    public Fish(Processing graphicsHandle)
+    public Fish()
     {
-        this.graphics_handle = graphicsHandle;
         this.Position = RND.RandomVector2(0, SimManager.CanvasX, 0, SimManager.CanvasY);
         this.Attributes = new Genes();
         this.sex = RND.RandomBoolean() ? Sex.Male : Sex.Female;
@@ -138,7 +136,7 @@ public class Fish extends Entity implements IProfilable {
     public void Die()
     {
         super.Die();
-        SimManager.EntitiesToAdd.add(new Meat(graphics_handle, Position, Energy));
+        SimManager.EntitiesToAdd.add(new Meat(Position, Energy));
     }
 
     @Override

@@ -52,11 +52,6 @@ public final class Consts {
 	public static final float EGG_ENERGY_MUTATION_WEIGHT;
 	public static final float EGG_CHILDREN_MUTATION_WEIGHT;
 
-	public static final float GENE_EGG_ENERGY_MIN;
-	public static final float GENE_EGG_ENERGY_MAX;
-	public static final float GENE_EGG_CHILDREN_MIN;
-	public static final float GENE_EGG_CHILDREN_MAX;
-
 	public static final float GENE_SPEED_MIN;
 	public static final float GENE_SPEED_MAX;
 	public static final float GENE_MAX_HP_MIN;
@@ -80,13 +75,11 @@ public final class Consts {
 		SIDEBAR_WIDTH = parseInt(p, "SIDEBAR_WIDTH");
 
 		INITIAL_FISH_COUNT = parseInt(p, "INITIAL_FISH_COUNT");
-
 		SIM_DATA_GATHERING_RATE = parseInt(p, "SIM_DATA_GATHERING_RATE");
 
 		SHALLOW_BIOME_UPPER_BORDER = parseInt(p, "SHALLOW_BIOME_UPPER_BORDER");
 		MIDDLE_BIOME_UPPER_BORDER = parseInt(p, "MIDDLE_BIOME_UPPER_BORDER");
 		DEEP_BIOME_UPPER_BORDER = parseInt(p, "DEEP_BIOME_UPPER_BORDER");
-
 		SHALLOW_BIOME_ENERGY_MAX = parseFloat(p, "SHALLOW_BIOME_ENERGY_MAX");
 		MIDDLE_BIOME_ENERGY_MAX = parseFloat(p, "MIDDLE_BIOME_ENERGY_MAX");
 		DEEP_BIOME_ENERGY_MAX = parseFloat(p, "DEEP_BIOME_ENERGY_MAX");
@@ -94,7 +87,6 @@ public final class Consts {
 		SHALLOW_BIOME_PLANT_ENERGY = parseFloat(p, "SHALLOW_BIOME_PLANT_ENERGY");
 		MIDDLE_BIOME_PLANT_ENERGY = parseFloat(p, "MIDDLE_BIOME_PLANT_ENERGY");
 		DEEP_BIOME_PLANT_ENERGY = parseFloat(p, "DEEP_BIOME_PLANT_ENERGY");
-
 		SHALLOW_BIOME_COLOR = parseColor(p, "SHALLOW_BIOME_COLOR");
 		MIDDLE_BIOME_COLOR = parseColor(p, "MIDDLE_BIOME_COLOR");
 		DEEP_BIOME_COLOR = parseColor(p, "DEEP_BIOME_COLOR");
@@ -118,11 +110,6 @@ public final class Consts {
 		PLANT_TO_MEAT_DIGESTION_MUTATION_WEIGHT = parseFloat(p, "PLANT_TO_MEAT_DIGESTION_MUTATION_WEIGHT");
 		EGG_ENERGY_MUTATION_WEIGHT = parseFloat(p, "EGG_ENERGY_MUTATION_WEIGHT");
 		EGG_CHILDREN_MUTATION_WEIGHT = parseFloat(p, "EGG_CHILDREN_MUTATION_WEIGHT");
-
-		GENE_EGG_ENERGY_MIN = parseFloat(p, "GENE_EGG_ENERGY_MIN");
-		GENE_EGG_ENERGY_MAX = parseFloat(p, "GENE_EGG_ENERGY_MAX");
-		GENE_EGG_CHILDREN_MIN = parseFloat(p, "GENE_EGG_CHILDREN_MIN");
-		GENE_EGG_CHILDREN_MAX = parseFloat(p, "GENE_EGG_CHILDREN_MAX");
 
 		GENE_SPEED_MIN = parseFloat(p, "GENE_SPEED_MIN");
 		GENE_SPEED_MAX = parseFloat(p, "GENE_SPEED_MAX");
@@ -158,9 +145,12 @@ public final class Consts {
 			System.exit(1);
 			return 0;
 		}
-		try {
+
+		try
+		{
 			return Integer.parseInt(s.trim());
-		} catch (NumberFormatException ex) {
+		} catch (NumberFormatException ex)
+		{
 			System.err.println("Invalid integer for property '" + key + "': '" + s + "'");
 			ex.printStackTrace(System.err);
 			System.exit(1);

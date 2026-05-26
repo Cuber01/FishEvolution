@@ -22,10 +22,10 @@ public class Biome {
     public int upperBorder;
     public int lowerBorder;
 
-    public void SpawnPlants(Processing graphicsHandle) {
+    public void SpawnPlants() {
         if(energySpawned >= energyMax) return;
 
-        SimManager.EntitiesToAdd.add(new Plant(graphicsHandle,
+        SimManager.EntitiesToAdd.add(new Plant(
                 RND.RandomVector2(0, SimManager.CanvasX, upperBorder, lowerBorder),
                 this,
                 plantEnergy));

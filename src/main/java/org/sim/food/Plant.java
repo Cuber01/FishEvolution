@@ -7,8 +7,7 @@ import processing.core.PVector;
 public class Plant extends Food {
     private Biome spawnedBy;
 
-    public Plant(Processing graphicsHandle, PVector position, Biome spawnedBy, float energy) {
-        this.graphics_handle = graphicsHandle;
+    public Plant(PVector position, Biome spawnedBy, float energy) {
         this.Position = position;
         this.Energy = energy;
         this.spawnedBy = spawnedBy;

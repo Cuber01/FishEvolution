@@ -8,9 +8,8 @@ public class Meat extends Food {
     public static final float DefaultEnergy = 10f;
     public static final float drowningSpeed = 0.7f;
 
-    public Meat(Processing graphicsHandle, PVector position, float energy)
+    public Meat(PVector position, float energy)
     {
-        this.graphics_handle = graphicsHandle;
         this.Position= position;
         this.Energy = energy + DefaultEnergy;
     }
