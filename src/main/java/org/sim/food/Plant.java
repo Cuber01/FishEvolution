@@ -1,10 +1,10 @@
 package org.sim.food;
 
 import org.sim.Biome;
-import org.sim.Processing;
+import org.sim.Entity;
 import processing.core.PVector;
 
-public class Plant extends Food {
+public class Plant extends Entity {
     private Biome spawnedBy;
 
     public Plant(PVector position, Biome spawnedBy, float energy) {

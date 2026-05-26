@@ -22,12 +22,12 @@ class SearchState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Update() {
-        if (PVector.dist(actor.Position, followPoint) < Entity.DistTolerance * actor.Attributes.Speed) {
+        if (PVector.dist(actor.Position, followPoint) < Entity.DistTolerance * actor.Attributes.Speed()) {
             rerollPoint();
         } else {
             actor.Velocity = ( PVector.sub(followPoint, actor.Position)
                                            .normalize()
-                                           .mult(actor.Attributes.Speed)
+                                           .mult(actor.Attributes.Speed())
             );
             actor.Position.add(actor.Velocity);
         }
@@ -48,25 +48,25 @@ class SearchState extends State<Fish, FishStateTypes> {
 
         if( (actor.InFOV.SawFood && actor.Energy < Fish.BreedingEnergyMin) )
         {
-            actor.PursueFoodState.TargetType = EntityTypes.Food;
+            actor.TargetType = EntityTypes.Food;
             return FishStateTypes.PursuingFood;
         } else if ((actor.InFOV.SawEggs && actor.Energy <= Fish.StarvingEnergyMin))
         {
-            actor.PursueFoodState.TargetType = EntityTypes.Egg;
+            actor.TargetType = EntityTypes.Egg;
             return FishStateTypes.PursuingFood;
-        } else if ((actor.InFOV.SawFish && RND.Chance(actor.Attributes.Aggressiveness
-                                                      + actor.Attributes.PlantToMeatDigestion,
-                                            actor.Attributes.MaxHP-actor.HP)))
+        } else if ((actor.InFOV.SawFish && RND.Chance(actor.Attributes.Aggressiveness()
+                                                      + actor.Attributes.PlantToMeatDigestion(),
+                                            actor.Attributes.MaxHP() -actor.HP)))
         {
-            actor.PursueFoodState.TargetType = EntityTypes.Fish;
+            actor.TargetType = EntityTypes.Fish;
             return FishStateTypes.PursuingFood;
         }
 
 
         if (actor.InFOV.SawFish && RND.Chance(
-                 actor.HP / actor.Attributes.MaxHP,
-                actor.Attributes.Aggressiveness+
-                             actor.Attributes.Damage)
+                 actor.HP / actor.Attributes.MaxHP(),
+                actor.Attributes.Aggressiveness() +
+                        actor.Attributes.Damage())
                 )
         {
             return FishStateTypes.Fleeing;

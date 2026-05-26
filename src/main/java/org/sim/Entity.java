@@ -8,6 +8,7 @@ public class Entity {
     public PVector Position;
     public static final float DistTolerance = 1f;
     public boolean IsDead = false;
+    public float Energy;
 
     public void Update() {}
 
@@ -19,6 +20,6 @@ public class Entity {
     public void Die()
     {
         IsDead = true;
-        SimManager.EntitiesToRemove.add(this);
+        SimManager.DespawnEntity(this);
     }
 }

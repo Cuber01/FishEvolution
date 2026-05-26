@@ -34,10 +34,10 @@ class FertilizeEggsState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Update() {
-        actor.Velocity = PVector.sub(target.Position, actor.Position).normalize().mult(actor.Attributes.Speed);
+        actor.Velocity = PVector.sub(target.Position, actor.Position).normalize().mult(actor.Attributes.Speed());
         actor.Position.add(actor.Velocity);
 
-        if(PVector.sub(target.Position, actor.Position).magSq() < sq(Entity.DistTolerance * actor.Attributes.Speed)) {
+        if(PVector.sub(target.Position, actor.Position).magSq() < sq(Entity.DistTolerance * actor.Attributes.Speed())) {
             target.Fertilize(actor.Attributes);
             finished = true;
         } else if(target.Fertilized)

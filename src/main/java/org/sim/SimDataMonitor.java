@@ -30,16 +30,16 @@ public class SimDataMonitor {
         float sumAggressiveness = 0;
         float sumPlantToMeatDigestion = 0;
 
-        for (Entity e : SimManager.Entities) {
+        for (Entity e : SimManager.GetEntities()) {
             if(e instanceof Fish)
             {
                 Fish f = ((Fish) e);
-                sumSpeed += f.Attributes.Speed;
-                sumMaxHP += f.Attributes.MaxHP;
-                sumDamage += f.Attributes.Damage;
-                sumVisionRange += f.Attributes.VisionRange;
-                sumAggressiveness += f.Attributes.Aggressiveness;
-                sumPlantToMeatDigestion += f.Attributes.PlantToMeatDigestion;
+                sumSpeed += f.Attributes.Speed();
+                sumMaxHP += f.Attributes.MaxHP();
+                sumDamage += f.Attributes.Damage();
+                sumVisionRange += f.Attributes.VisionRange();
+                sumAggressiveness += f.Attributes.Aggressiveness();
+                sumPlantToMeatDigestion += f.Attributes.PlantToMeatDigestion();
             }
         }
 

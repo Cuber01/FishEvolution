@@ -5,15 +5,14 @@ import processing.core.PVector;
 
 import java.util.Map;
 
+import static org.sim.fish.EntityTypes.Egg;
+import static org.sim.fish.EntityTypes.Food;
 import static processing.core.PApplet.sq;
 
 class PursueFoodState extends State<Fish, FishStateTypes> {
-    public final static int timeUntilStopsPursuing = 10;
+    private final static int timeUntilStopsPursuing = 10;
     private int timeUntilLastSawFood = 0;
     private boolean ate = false;
-
-    public EntityTypes TargetType;
-    public Entity Target;
 
     public PursueFoodState(Fish actor, FishStateTypes type) {
         super(actor, type);
@@ -21,17 +20,17 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
 
     @Override
     public void Enter() {
-        switch (TargetType) {
+        switch (actor.TargetType) {
             case Fish:
                 findClosestInMap(actor.InFOV.FishDist, EntityTypes.Fish);
                 break;
 
             case Egg:
-                findClosestInMap(actor.InFOV.EggsDist, EntityTypes.Egg);
+                findClosestInMap(actor.InFOV.EggsDist, Egg);
                 break;
 
             case Food:
-                findClosestInMap(actor.InFOV.FoodsDist, EntityTypes.Food);
+                findClosestInMap(actor.InFOV.FoodsDist, Food);
                 break;
         }
     }
@@ -44,19 +43,19 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
             Float d = entry.getValue();
             if (d < bestDist) {
                 bestDist = d;
-                Target = ent;
-                TargetType = type;
+                actor.Target = ent;
+                actor.TargetType = type;
             }
         }
     }
 
     @Override
     public void Update() {
-        actor.Velocity = PVector.sub(Target.Position, actor.Position).normalize().mult(actor.Attributes.Speed);
+        actor.Velocity = PVector.sub(actor.Target.Position, actor.Position).normalize().mult(actor.Attributes.Speed());
         actor.Position.add(actor.Velocity);
 
-        if (TargetType == EntityTypes.Fish) {
-            if(!actor.InFOV.FishInFOV((Fish) Target))
+        if (actor.TargetType == EntityTypes.Fish) {
+            if(!actor.InFOV.FishInFOV((Fish) actor.Target))
             {
                 timeUntilLastSawFood += 1;
             } else if (reachedFood())
@@ -66,57 +65,57 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
             }
         } else if (reachedFood())
         {
-            actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, actor.Attributes.Damage);
+            actor.Energy += actor.Target.Bite(actor.Attributes.PlantToMeatDigestion(), actor.Attributes.Damage());
             ate = true;
         }
     }
 
     private void resolveFishEncounter()
     {
-        Fish prey = (Fish)Target;
+        Fish prey = (Fish)actor.Target;
 
         // TODO it would be nice if fish reacted to being attacked with fight or flee behavior
-        if(prey.CurrentState instanceof PursueFoodState p && p.Target == actor)
+        if(prey.Target == actor)
         {
             // Combat
 
-            float myRatio = actor.Attributes.Damage / prey.HP;
-            float enemyRatio = prey.Attributes.Damage / actor.HP;
+            float myRatio = actor.Attributes.Damage() / prey.HP;
+            float enemyRatio = prey.Attributes.Damage() / actor.HP;
             if(myRatio > enemyRatio)
             {
                 // TODO apply some damage to victor?
-                actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, prey.HP);
+                actor.Energy += actor.Target.Bite(actor.Attributes.PlantToMeatDigestion(), prey.HP);
             } else {
-                prey.Energy += actor.Bite(actor.Attributes.PlantToMeatDigestion, actor.HP);
+                prey.Energy += actor.Bite(actor.Attributes.PlantToMeatDigestion(), actor.HP);
             }
 
         } else if (prey.CurrentState.AssociatedType == FishStateTypes.Fleeing)
         {
             // Chase
-            actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, actor.Attributes.Damage/2);
+            actor.Energy += actor.Target.Bite(actor.Attributes.PlantToMeatDigestion(), actor.Attributes.Damage() /2);
         } else {
             // Harassment
-            actor.Energy += Target.Bite(actor.Attributes.PlantToMeatDigestion, actor.Attributes.Damage);
+            actor.Energy += actor.Target.Bite(actor.Attributes.PlantToMeatDigestion(), actor.Attributes.Damage());
         }
     }
 
     private boolean reachedFood() {
-        return PVector.sub(Target.Position, actor.Position).magSq() < sq(Entity.DistTolerance * actor.Attributes.Speed);
+        return PVector.sub(actor.Target.Position, actor.Position).magSq() < sq(Entity.DistTolerance * actor.Attributes.Speed());
     }
 
 
 
     @Override
     public void Exit() {
-        Target = null;
-        TargetType = null;
+        actor.Target = null;
+        actor.TargetType = null;
         timeUntilLastSawFood = 0;
         ate = false;
     }
 
     @Override
     public FishStateTypes CheckTransitions() {
-        if (Target.IsDead || timeUntilLastSawFood > timeUntilStopsPursuing || actor.Energy >= Fish.MaxEnergy || ate)
+        if (actor.Target.IsDead || timeUntilLastSawFood > timeUntilStopsPursuing || actor.Energy >= Fish.MaxEnergy || ate)
         {
             return FishStateTypes.Searching;
         }

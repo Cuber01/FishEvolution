@@ -1,12 +1,12 @@
 package org.sim.food;
 
-import org.sim.Processing;
+import org.sim.Entity;
 import org.sim.SimManager;
 import processing.core.PVector;
 
-public class Meat extends Food {
+public class Meat extends Entity {
     public static final float DefaultEnergy = 10f;
-    public static final float drowningSpeed = 0.7f;
+    private static final float drowningSpeed = 0.7f;
 
     public Meat(PVector position, float energy)
     {

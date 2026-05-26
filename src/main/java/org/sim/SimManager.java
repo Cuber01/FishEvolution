@@ -6,10 +6,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class SimManager {
-    public static ArrayList<Entity> EntitiesToAdd = new ArrayList<>(0);
-    public static ArrayList<Entity> EntitiesToRemove = new ArrayList<>(0);
-    public static final ArrayList<Entity> Entities = new ArrayList<>();
-    private static final ArrayList<Biome> biomes = new ArrayList<Biome>();
+    private static final ArrayList<Entity> Entities = new ArrayList<>();
+    private static final ArrayList<Entity> EntitiesToAdd = new ArrayList<>(0);
+    private static final ArrayList<Entity> EntitiesToRemove = new ArrayList<>(0);
+    private static final ArrayList<Biome> biomes = new ArrayList<>();
     private static Processing graphics_handle;
     private final SimDataMonitor dataMonitor;
 
@@ -94,8 +94,18 @@ public class SimManager {
         graphics_handle.draw_biomes(biomes);
         graphics_handle.draw_info(FishCount);
         graphics_handle.draw_entities(Entities);
+    }
 
+    public static java.util.List<Entity> GetEntities() {
+        return java.util.Collections.unmodifiableList(Entities);
+    }
 
+    public static void SpawnEntity(Entity entity) {
+        EntitiesToAdd.add(entity);
+    }
+
+    public static void DespawnEntity(Entity entity) {
+        EntitiesToRemove.add(entity);
     }
 
 }

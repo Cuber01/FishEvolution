@@ -1,16 +1,16 @@
 package org.sim.food;
 
+import org.sim.Entity;
 import org.sim.RND;
 import org.sim.fish.genes.Genes;
-import org.sim.Processing;
 import org.sim.fish.genes.Sex;
 import org.sim.SimManager;
 import org.sim.fish.Fish;
 import processing.core.PVector;
 
-public class Egg extends Food {
+public class Egg extends Entity {
     public Genes gene;
-    public float TimeTilDecay = 500f;
+    protected float TimeTilDecay = 500f;
     public float TimeTilHatch;
     public boolean Fertilized;
 
@@ -38,7 +38,7 @@ public class Egg extends Food {
         TimeTilDecay -= 1;
         if(TimeTilDecay <= 0)
         {
-            SimManager.EntitiesToAdd.add(new Meat(Position.copy(), Energy));
+            SimManager.SpawnEntity(new Meat(Position.copy(), Energy));
             Die();
         }
 
@@ -54,7 +54,7 @@ public class Egg extends Food {
 
     public void Hatch()
     {
-        SimManager.EntitiesToAdd.add(new Fish(Position.copy(), gene,
+        SimManager.SpawnEntity(new Fish(Position.copy(), gene,
                 RND.RandomBoolean() ? Sex.Male : Sex.Female));
         Die();
     }

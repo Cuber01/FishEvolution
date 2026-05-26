@@ -13,8 +13,7 @@ public class Fish extends Entity implements IProfilable {
     public FOVInfo InFOV = new FOVInfo();
     public PVector Velocity = new PVector();
 
-    // TODO Make this private
-    public final PursueFoodState PursueFoodState = new PursueFoodState(this, FishStateTypes.PursuingFood);
+    private final PursueFoodState PursueFoodState = new PursueFoodState(this, FishStateTypes.PursuingFood);
     private final FertilizeEggsState FertilizeEggs = new FertilizeEggsState(this, FishStateTypes.FertilizingEggs);
     private final LayEggsState LayEggs = new LayEggsState(this, FishStateTypes.LayingEggs);
     private final FleeState Flee = new FleeState(this, FishStateTypes.Fleeing);
@@ -28,14 +27,16 @@ public class Fish extends Entity implements IProfilable {
 
     public Sex sex;
     public float HP;
-    public float Energy = 50f;
+
+    public EntityTypes TargetType;
+    public Entity Target;
 
     public Fish(PVector position, Genes genes, Sex sex)
     {
         this.Position = position;
         this.Attributes = genes;
         this.sex = sex;
-        this.HP = genes.MaxHP;
+        this.HP = genes.MaxHP();
         this.Energy = ReproductionEnergyUse;
         CurrentState.Enter();
     }
@@ -45,7 +46,7 @@ public class Fish extends Entity implements IProfilable {
         this.Position = RND.RandomVector2(0, SimManager.CanvasX, 0, SimManager.CanvasY);
         this.Attributes = new Genes();
         this.sex = RND.RandomBoolean() ? Sex.Male : Sex.Female;
-        this.HP = Attributes.MaxHP;
+        this.HP = Attributes.MaxHP();
         this.Energy = MaxEnergy;
         CurrentState.Enter();
     }
@@ -96,7 +97,7 @@ public class Fish extends Entity implements IProfilable {
         }
 
         // Regeneration
-        if(HP < Attributes.MaxHP && Energy > StarvingEnergyMin)
+        if(HP < Attributes.MaxHP() && Energy > StarvingEnergyMin)
         {
             HP += 0.1f;
             Energy -= 1f;
@@ -110,7 +111,7 @@ public class Fish extends Entity implements IProfilable {
         for(Entity entity : entities)
         {
             float squaredDist = PVector.sub(entity.Position, this.Position).magSq();
-            if(entity != this && squaredDist < Attributes.VisionRange*Attributes.VisionRange)
+            if(entity != this && squaredDist < Attributes.VisionRange() * Attributes.VisionRange())
             {
                 InFOV.AddEntry(entity, squaredDist);
             }
@@ -126,7 +127,7 @@ public class Fish extends Entity implements IProfilable {
             Die();
         }
 
-        float energyLost = Energy * Math.min( damage / Attributes.MaxHP, 0.8f);
+        float energyLost = Energy * Math.min( damage / Attributes.MaxHP(), 0.8f);
         Energy -= energyLost;
 
         return plantToMeatDigestion * energyLost;
@@ -136,7 +137,7 @@ public class Fish extends Entity implements IProfilable {
     public void Die()
     {
         super.Die();
-        SimManager.EntitiesToAdd.add(new Meat(Position, Energy));
+        SimManager.SpawnEntity(new Meat(Position, Energy));
     }
 
     @Override
