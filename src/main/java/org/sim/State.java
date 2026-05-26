@@ -1,8 +1,8 @@
 package org.sim;
 
 public abstract class State<T, E> {
-    public T actor = null;
-    public E AssociatedType;
+  protected T actor = null;
+  public E AssociatedType;
 
     public State(T actor, E associatedType)
     {

@@ -91,7 +91,6 @@ public class Processing extends PApplet {
                     case PursuingFood -> fish_pursuing;
                     case Fleeing -> fish_fleeing;
                     case FertilizingEggs, LayingEggs -> fish_reproducing;
-                    default -> fish_searching;
                 };
             }
         } else {

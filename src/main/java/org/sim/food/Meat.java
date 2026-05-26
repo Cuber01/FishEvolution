@@ -5,7 +5,7 @@ import org.sim.SimManager;
 import processing.core.PVector;
 
 public class Meat extends Entity {
-    public static final float DefaultEnergy = 10f;
+    private static final float DefaultEnergy = 10f;
     private static final float drowningSpeed = 0.7f;
 
     public Meat(PVector position, float energy)

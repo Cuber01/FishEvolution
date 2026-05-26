@@ -11,14 +11,14 @@ import processing.core.PVector;
 public class Egg extends Entity {
     public Genes gene;
     protected float TimeTilDecay = 500f;
-    public float TimeTilHatch;
+    private float timeTilHatch;
     public boolean Fertilized;
 
     public Egg(PVector position, Genes motherGenes, float timeTilHatch, float energy)
     {
         this.Position = position.copy();
         this.gene = motherGenes.Copy();
-        this.TimeTilHatch = timeTilHatch;
+        this.timeTilHatch = timeTilHatch;
         this.Energy = energy;
     }
 
@@ -27,8 +27,8 @@ public class Egg extends Entity {
     {
         if(Fertilized)
         {
-            TimeTilHatch -= 1;
-            if(TimeTilHatch <= 0)
+            timeTilHatch -= 1;
+            if(timeTilHatch <= 0)
             {
                 Hatch();
                 return;
