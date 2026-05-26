@@ -2,7 +2,7 @@ package org.sim.food;
 
 import org.sim.RND;
 import org.sim.fish.genes.Genes;
-import org.sim.Graphics;
+import org.sim.Processing;
 import org.sim.fish.genes.Sex;
 import org.sim.SimManager;
 import org.sim.fish.Fish;
@@ -14,7 +14,7 @@ public class Egg extends Food {
     public float TimeTilHatch;
     public boolean Fertilized;
 
-    public Egg(Graphics graphicsHandle, PVector position, Genes motherGenes, float timeTilHatch, float energy)
+    public Egg(Processing graphicsHandle, PVector position, Genes motherGenes, float timeTilHatch, float energy)
     {
         this.graphics_handle = graphicsHandle;
         this.Position = position.copy();

@@ -10,7 +10,7 @@ public class SimManager {
     public static ArrayList<Entity> EntitiesToRemove = new ArrayList<>(0);
     public static final ArrayList<Entity> Entities = new ArrayList<>();
     private static final ArrayList<Biome> biomes = new ArrayList<Biome>();
-    private static Graphics graphics_handle;
+    private static Processing graphics_handle;
     private final SimDataMonitor dataMonitor;
 
     public static int Ticks = 0;
@@ -20,7 +20,7 @@ public class SimManager {
     public static final int CanvasX = Consts.CANVAS_WIDTH;
     public static final int CanvasY = Consts.CANVAS_HEIGHT;
 
-    public SimManager(Graphics gm, SimDataMonitor dataMonitor) {
+    public SimManager(Processing gm, SimDataMonitor dataMonitor) {
         graphics_handle=gm;
         this.dataMonitor = dataMonitor;
     }
@@ -33,27 +33,9 @@ public class SimManager {
         biomes.add(shallow);
         biomes.add(middle);
         biomes.add(deep);
+
         for(int i=0;i<Consts.INITIAL_FISH_COUNT;i++) Entities.add(new Fish(graphics_handle));
-
-        //MainLoop();
-        graphics_handle.draw();
     }
-
-//    public void MainLoop() {
-//        long lastTime = System.nanoTime();
-//        double delta = 0;
-//        while (true) {
-//            long now = System.nanoTime();
-//            delta += (now - lastTime) / timePerTick;
-//            lastTime = now;
-//
-//            if (delta >= 1) {
-//                Update();
-//                delta--;
-//            }
-//        }
-//    }
-
 
     public void Update(){
         if (Paused) {

@@ -14,19 +14,24 @@ import java.util.List;
 
 import static org.sim.SimManager.Entities;
 
-public class Graphics extends PApplet {
+public class Processing extends PApplet {
 
-    private final int CanvasX=SimManager.CanvasX;
-    private final int CanvasY=SimManager.CanvasY;
-    private PImage fish_searching, fish_fleeing, fish_pursuing, fish_reproducing,egg,meat,glon;
-    private PImage img;
+    private final int CanvasX = SimManager.CanvasX;
+    private final int CanvasY = SimManager.CanvasY;
+    private PImage fish_searching, fish_fleeing, fish_pursuing, fish_reproducing, egg, meat, glon;
     private SimManager manager;
     private final SimDataMonitor dataMonitor = new SimDataMonitor();
-    private boolean is_selected =false;
+
+    private boolean is_selected = false;
     private Fish selected_fish;
+
     private boolean paused = false;
     private float currentFrameRate = 60f;
-    public Graphics(){}
+
+
+    public static void main(String[] args) {
+        processing.core.PApplet.main("org.sim.Processing");
+    }
 
     @Override
     public void settings() {
@@ -35,7 +40,6 @@ public class Graphics extends PApplet {
 
     @Override
     public void setup() {
-        // preload images once
         fish_searching = loadImage("fish1 mini.png");
         fish_reproducing = loadImage("fish3 mini.png");
         fish_pursuing = loadImage("fish2 mini.png");
@@ -53,6 +57,8 @@ public class Graphics extends PApplet {
         frameRate(currentFrameRate);
     }
 
+    // ======================= DRAWING =========================
+
     public void draw(){
         background(0);
         manager.Update();
@@ -61,22 +67,6 @@ public class Graphics extends PApplet {
         textSize(12);
         String status = (SimManager.Paused ? "PAUSED" : "RUNNING") + " | FPS:" + (int) currentFrameRate;
         text(status, 10, 15);
-    }
-
-    @Override
-    public void keyPressed() {
-        if (key == ' ') {
-            paused = !paused;
-            SimManager.Paused = paused;
-        }
-
-        if (keyCode == RIGHT) {
-            currentFrameRate = Math.min(240f, currentFrameRate + 10f);
-            frameRate(currentFrameRate);
-        } else if (keyCode == LEFT) {
-            currentFrameRate = Math.max(1f, currentFrameRate - 10f);
-            frameRate(currentFrameRate);
-        }
     }
 
     public void draw_biomes(List<Biome> biomes){
@@ -101,6 +91,7 @@ public class Graphics extends PApplet {
 
         }
     }
+
     public void draw_fish(Fish f){
         PImage sprite = null;
         if (f.CurrentState != null && f.CurrentState.AssociatedType != null) {
@@ -140,6 +131,7 @@ public class Graphics extends PApplet {
             rect(f.Position.x,f.Position.y,20,20);
         }
     }
+
     private void draw_food(Food f){
         PImage sprite = null;
         if (f instanceof Egg) {
@@ -175,31 +167,6 @@ public class Graphics extends PApplet {
         }
     }
 
-    public void mousePressed()
-    {
-        if(mouseButton == RIGHT) return;
-
-        PVector mousePos = new PVector(mouseX, mouseY);
-        Fish nearestFish = null;
-        float minDistance = Float.MAX_VALUE;
-
-        for (Entity e : Entities) {
-            if (e instanceof Fish) {
-                Fish f = (Fish) e;
-
-                float d = mousePos.dist(f.Position);
-
-                if (d < minDistance) {
-                    minDistance = d;
-                    nearestFish = f;
-                }
-            }
-        }
-
-        if (nearestFish != null && minDistance<100) {
-            stats_display(mouseX, mouseY, nearestFish);
-        }else is_selected=false;
-    }
 
     public void draw_info(int fish_count){
         textSize(25);
@@ -236,6 +203,50 @@ public class Graphics extends PApplet {
     public void stats_display(int x,int y,Fish f) {
         is_selected =true;
         selected_fish=f;
+    }
+
+    // ================= PROCESSING OVERRIDES ===================
+
+    public void mousePressed()
+    {
+        if(mouseButton == RIGHT) return;
+
+        PVector mousePos = new PVector(mouseX, mouseY);
+        Fish nearestFish = null;
+        float minDistance = Float.MAX_VALUE;
+
+        for (Entity e : Entities) {
+            if (e instanceof Fish) {
+                Fish f = (Fish) e;
+
+                float d = mousePos.dist(f.Position);
+
+                if (d < minDistance) {
+                    minDistance = d;
+                    nearestFish = f;
+                }
+            }
+        }
+
+        if (nearestFish != null && minDistance<100) {
+            stats_display(mouseX, mouseY, nearestFish);
+        }else is_selected=false;
+    }
+
+    @Override
+    public void keyPressed() {
+        if (key == ' ') {
+            paused = !paused;
+            SimManager.Paused = paused;
+        }
+
+        if (keyCode == RIGHT) {
+            currentFrameRate = Math.min(240f, currentFrameRate + 10f);
+            frameRate(currentFrameRate);
+        } else if (keyCode == LEFT) {
+            currentFrameRate = Math.max(1f, currentFrameRate - 10f);
+            frameRate(currentFrameRate);
+        }
     }
 
     @Override
