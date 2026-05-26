@@ -2,13 +2,12 @@ package org.sim.fish;
 
 import org.sim.food.Egg;
 import org.sim.Entity;
-import org.sim.food.Food;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class FOVInfo {
-    public Map<Food, Float> FoodsDist = new LinkedHashMap<>();
+    public Map<Entity, Float> FoodsDist = new LinkedHashMap<>();
     public Map<Egg, Float> EggsDist = new LinkedHashMap<>();
     public Map<Fish, Float> FishDist = new LinkedHashMap<>();
 
@@ -29,15 +28,14 @@ public class FOVInfo {
                 SawUnfertilizedEggs = true;
             }
 
-        } else if(entity instanceof Food)
-        {
-            FoodsDist.put((Food)entity, distanceSquared);
-            SawFood = true;
         }
         else if(entity instanceof Fish)
         {
             FishDist.put((Fish)entity, distanceSquared);
             SawFish = true;
+        } else {
+            FoodsDist.put( entity, distanceSquared);
+            SawFood = true;
         }
     }
 
@@ -59,12 +57,7 @@ public class FOVInfo {
             return false;
         } else {
             Float p = FishDist.get(f);
-            if(p == null)
-            {
-                return false;
-            } else {
-                return true;   
-            }
+            return p != null;
         }
     }
 

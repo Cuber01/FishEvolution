@@ -14,18 +14,18 @@ public class Biome {
     }
 
     public Color Color;
-    public float plantEnergy = 10;
-    public float energyMax = 100;
-    public float energySpawned = 0;
+    private float plantEnergy = 10;
+    private float energyMax = 100;
+    private float energySpawned = 0;
 
     public float visionPenalty;
     public int upperBorder;
     public int lowerBorder;
 
-    public void SpawnPlants(Graphics graphicsHandle) {
+    public void SpawnPlants() {
         if(energySpawned >= energyMax) return;
 
-        SimManager.EntitiesToAdd.add(new Plant(graphicsHandle,
+        SimManager.SpawnEntity(new Plant(
                 RND.RandomVector2(0, SimManager.CanvasX, upperBorder, lowerBorder),
                 this,
                 plantEnergy));

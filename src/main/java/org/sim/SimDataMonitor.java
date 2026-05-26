@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimDataMonitor {
-    public static int GatheringFrequency = 100;
     private final List<List<String>> data = new ArrayList<>();
 
     public void BuildHeader()
@@ -31,16 +30,16 @@ public class SimDataMonitor {
         float sumAggressiveness = 0;
         float sumPlantToMeatDigestion = 0;
 
-        for (Entity e : SimManager.Entities) {
-            if(e instanceof Fish) // TODO this is expensive and dumb
+        for (Entity e : SimManager.GetEntities()) {
+            if(e instanceof Fish)
             {
                 Fish f = ((Fish) e);
-                sumSpeed += f.Attributes.Speed;
-                sumMaxHP += f.Attributes.MaxHP;
-                sumDamage += f.Attributes.Damage;
-                sumVisionRange += f.Attributes.VisionRange;
-                sumAggressiveness += f.Attributes.Aggressiveness;
-                sumPlantToMeatDigestion += f.Attributes.PlantToMeatDigestion;
+                sumSpeed += f.Attributes.Speed();
+                sumMaxHP += f.Attributes.MaxHP();
+                sumDamage += f.Attributes.Damage();
+                sumVisionRange += f.Attributes.VisionRange();
+                sumAggressiveness += f.Attributes.Aggressiveness();
+                sumPlantToMeatDigestion += f.Attributes.PlantToMeatDigestion();
             }
         }
 

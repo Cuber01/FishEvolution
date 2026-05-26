@@ -6,11 +6,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class SimManager {
-    public static ArrayList<Entity> EntitiesToAdd = new ArrayList<>(0);
-    public static ArrayList<Entity> EntitiesToRemove = new ArrayList<>(0);
-    public static final ArrayList<Entity> Entities = new ArrayList<>();
-    private static final ArrayList<Biome> biomes = new ArrayList<Biome>();
-    private static Graphics graphics_handle;
+    private static final ArrayList<Entity> Entities = new ArrayList<>();
+    private static final ArrayList<Entity> EntitiesToAdd = new ArrayList<>(0);
+    private static final ArrayList<Entity> EntitiesToRemove = new ArrayList<>(0);
+    private static final ArrayList<Biome> biomes = new ArrayList<>();
+    private static Processing graphics_handle;
     private final SimDataMonitor dataMonitor;
 
     public static int Ticks = 0;
@@ -20,7 +20,7 @@ public class SimManager {
     public static final int CanvasX = Consts.CANVAS_WIDTH;
     public static final int CanvasY = Consts.CANVAS_HEIGHT;
 
-    public SimManager(Graphics gm, SimDataMonitor dataMonitor) {
+    public SimManager(Processing gm, SimDataMonitor dataMonitor) {
         graphics_handle=gm;
         this.dataMonitor = dataMonitor;
     }
@@ -33,27 +33,9 @@ public class SimManager {
         biomes.add(shallow);
         biomes.add(middle);
         biomes.add(deep);
-        for(int i=0;i<Consts.INITIAL_FISH_COUNT;i++) Entities.add(new Fish(graphics_handle));
 
-        //MainLoop();
-        graphics_handle.draw();
+        for(int i=0;i<Consts.INITIAL_FISH_COUNT;i++) Entities.add(new Fish());
     }
-
-//    public void MainLoop() {
-//        long lastTime = System.nanoTime();
-//        double delta = 0;
-//        while (true) {
-//            long now = System.nanoTime();
-//            delta += (now - lastTime) / timePerTick;
-//            lastTime = now;
-//
-//            if (delta >= 1) {
-//                Update();
-//                delta--;
-//            }
-//        }
-//    }
-
 
     public void Update(){
         if (Paused) {
@@ -68,7 +50,7 @@ public class SimManager {
         Ticks += 1;
 
         for (Biome b : biomes) {
-            b.SpawnPlants(graphics_handle);
+            b.SpawnPlants();
         }
 
         // Multithread fov?
@@ -112,8 +94,18 @@ public class SimManager {
         graphics_handle.draw_biomes(biomes);
         graphics_handle.draw_info(FishCount);
         graphics_handle.draw_entities(Entities);
+    }
 
+    public static java.util.List<Entity> GetEntities() {
+        return java.util.Collections.unmodifiableList(Entities);
+    }
 
+    public static void SpawnEntity(Entity entity) {
+        EntitiesToAdd.add(entity);
+    }
+
+    public static void DespawnEntity(Entity entity) {
+        EntitiesToRemove.add(entity);
     }
 
 }

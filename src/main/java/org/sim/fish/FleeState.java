@@ -20,7 +20,7 @@ class FleeState extends State<Fish, FishStateTypes> {
 
         for(Map.Entry<Fish, Float> entry : actor.InFOV.FishDist.entrySet())
         {
-            if(entry.getKey().PursueFoodState.Target == actor)
+            if(entry.getKey().Target == actor)
             {
                 predator = entry.getKey();
                 break;
@@ -35,7 +35,7 @@ class FleeState extends State<Fish, FishStateTypes> {
 
         fleeDirection = PVector.mult(predator.Velocity, -1).normalize();
 
-        actor.Velocity = PVector.mult(fleeDirection, actor.Attributes.Speed);
+        actor.Velocity = PVector.mult(fleeDirection, actor.Attributes.Speed());
     }
 
     // TODO check for bounds and bounce off them
@@ -71,7 +71,7 @@ class FleeState extends State<Fish, FishStateTypes> {
 
         if (actor.InFOV.FishInFOV(predator)) {
             fleeDirection = PVector.sub(actor.Position, predator.Position).normalize();
-            actor.Velocity = PVector.mult(fleeDirection, actor.Attributes.Speed);
+            actor.Velocity = PVector.mult(fleeDirection, actor.Attributes.Speed());
         } else {
             timeUntilLastSawPredator += 1;
         }
