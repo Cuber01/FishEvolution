@@ -38,7 +38,6 @@ class FleeState extends State<Fish, FishStateTypes> {
         actor.Velocity = PVector.mult(fleeDirection, actor.Attributes.Speed());
     }
 
-    // TODO check for bounds and bounce off them
     @Override
     public void Update() {
 

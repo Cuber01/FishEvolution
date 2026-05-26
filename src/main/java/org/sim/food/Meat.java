@@ -14,7 +14,6 @@ public class Meat extends Entity {
         this.Energy = energy + DefaultEnergy;
     }
 
-    // TODO Allow fish to eat just a fragment of food if they're near max?
     @Override
     public void Update()
     {

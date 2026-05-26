@@ -83,7 +83,6 @@ class PursueFoodState extends State<Fish, FishStateTypes> {
             float enemyRatio = prey.Attributes.Damage() / actor.HP;
             if(myRatio > enemyRatio)
             {
-                // TODO apply some damage to victor?
                 actor.Energy += actor.Target.Bite(actor.Attributes.PlantToMeatDigestion(), prey.HP);
             } else {
                 prey.Energy += actor.Bite(actor.Attributes.PlantToMeatDigestion(), actor.HP);

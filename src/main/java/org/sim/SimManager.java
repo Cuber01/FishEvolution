@@ -53,10 +53,9 @@ public class SimManager {
             b.SpawnPlants();
         }
 
-        // Multithread fov?
         for (Entity e : Entities) {
-            e.Update(); // TODO get current biome
-            if(e instanceof Fish) // TODO this is expensive and dumb
+            e.Update();
+            if(e instanceof Fish)
             {
                 ((Fish)e).CalculateFOV(Entities);
                 FishCount++;
