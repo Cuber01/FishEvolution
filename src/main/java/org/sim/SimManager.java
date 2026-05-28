@@ -71,12 +71,6 @@ public class SimManager {
         EntitiesToRemove.clear();
         EntitiesToAdd.clear();
 
-        FishCount = 0;
-        for (Entity e : Entities) {
-            if (e instanceof Fish) {
-                FishCount++;
-            }
-        }
 
         if(Ticks % Consts.SIM_DATA_GATHERING_RATE == 0)
         {
@@ -85,6 +79,7 @@ public class SimManager {
 
         if (FishCount == 0) {
             dataMonitor.ExportCsv("simulation_data.csv");
+            Paused=true;
             return;
         }
 
