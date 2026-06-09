@@ -3,9 +3,12 @@ package org.sim.fish;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.sim.Consts;
 import org.sim.fish.genes.Sex;
 import org.sim.fish.genes.Genes;
 import processing.core.PVector;
+
+import java.lang.constant.Constable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +21,7 @@ class FishStatesTest {
         // Initialize default fish for testing
         fish = new Fish();
         fish.InFOV.Reset();
+        System.out.println(Consts.RANDOM_SEED);
     }
 
     // ========================================================
