@@ -21,7 +21,6 @@ class FishStatesTest {
         // Initialize default fish for testing
         fish = new Fish();
         fish.InFOV.Reset();
-        System.out.println(Consts.RANDOM_SEED);
     }
 
     // ========================================================
@@ -60,7 +59,7 @@ class FishStatesTest {
         SearchState searchState = new SearchState(fish, FishStateTypes.Searching);
 
         fish.InFOV.SawFood = true;
-        fish.Energy = Fish.BreedingEnergyMin - 10f; // e.g., 70f
+        fish.Energy = Fish.BreedingEnergyMin - 10f;
 
         FishStateTypes nextState = searchState.CheckTransitions();
 
@@ -74,7 +73,7 @@ class FishStatesTest {
         SearchState searchState = new SearchState(fish, FishStateTypes.Searching);
 
         fish.InFOV.SawEggs = true;
-        fish.Energy = Fish.StarvingEnergyMin; // Fish is starving
+        fish.Energy = Fish.StarvingEnergyMin;
 
         FishStateTypes nextState = searchState.CheckTransitions();
 
@@ -88,7 +87,7 @@ class FishStatesTest {
         SearchState searchState = new SearchState(fish, FishStateTypes.Searching);
 
         fish.sex = Sex.Female;
-        fish.Energy = Fish.BreedingEnergyMin + 5f; // e.g., 85f
+        fish.Energy = Fish.BreedingEnergyMin + 5f;
 
         FishStateTypes nextState = searchState.CheckTransitions();
         assertEquals(FishStateTypes.LayingEggs, nextState,
