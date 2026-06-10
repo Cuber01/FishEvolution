@@ -3,9 +3,12 @@ package org.sim.fish;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.sim.Consts;
 import org.sim.fish.genes.Sex;
 import org.sim.fish.genes.Genes;
 import processing.core.PVector;
+
+import java.lang.constant.Constable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,7 +59,7 @@ class FishStatesTest {
         SearchState searchState = new SearchState(fish, FishStateTypes.Searching);
 
         fish.InFOV.SawFood = true;
-        fish.Energy = Fish.BreedingEnergyMin - 10f; // e.g., 70f
+        fish.Energy = Fish.BreedingEnergyMin - 10f;
 
         FishStateTypes nextState = searchState.CheckTransitions();
 
@@ -70,7 +73,7 @@ class FishStatesTest {
         SearchState searchState = new SearchState(fish, FishStateTypes.Searching);
 
         fish.InFOV.SawEggs = true;
-        fish.Energy = Fish.StarvingEnergyMin; // Fish is starving
+        fish.Energy = Fish.StarvingEnergyMin;
 
         FishStateTypes nextState = searchState.CheckTransitions();
 
@@ -84,7 +87,7 @@ class FishStatesTest {
         SearchState searchState = new SearchState(fish, FishStateTypes.Searching);
 
         fish.sex = Sex.Female;
-        fish.Energy = Fish.BreedingEnergyMin + 5f; // e.g., 85f
+        fish.Energy = Fish.BreedingEnergyMin + 5f;
 
         FishStateTypes nextState = searchState.CheckTransitions();
         assertEquals(FishStateTypes.LayingEggs, nextState,
