@@ -15,8 +15,9 @@ public class Egg extends Entity {
     protected float TimeTilDecay = 500f;
     private float timeTilHatch;
     public boolean Fertilized;
+
     /**
-     * Creates a new egg containing the mother's genetic blueprints and a countdown timer.
+     * Creates a new egg containing the mother's DNA.
      */
     public Egg(PVector position, Genes motherGenes, float timeTilHatch, float energy)
     {
@@ -25,6 +26,7 @@ public class Egg extends Entity {
         this.timeTilHatch = timeTilHatch;
         this.Energy = energy;
     }
+
     /**
      * Manages the egg timer logic, counting down to hatching or organic decay.
      */
@@ -49,8 +51,10 @@ public class Egg extends Entity {
         }
 
     }
+
     /**
-     * Mixes maternal genes with the father's traits, applies mutations, and activates the hatching process.
+     * Mixes mother's genes with the father's genes, applies mutations, and activates the hatching process.
+     * Called by father fish.
      */
     public void Fertilize(Genes fatherGenes)
     {
@@ -59,6 +63,7 @@ public class Egg extends Entity {
         gene = gene.MutateGenes(fatherGenes);
         Fertilized = true;
     }
+
     /**
      * Spawns a new fish into the simulation world using the finalized genetic combination.
      */
@@ -68,6 +73,7 @@ public class Egg extends Entity {
                 RND.RandomBoolean() ? Sex.Male : Sex.Female));
         Die();
     }
+
     /**
      * Handles the event when a starving fish bites or eats this egg.
      * It instantly kills the egg and transfers its stored energy to the attacking fish.

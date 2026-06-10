@@ -55,7 +55,7 @@ public class Fish extends Entity implements IProfilable {
     }
     /**
      * Updates the internal life logic of the fish on every simulation tick.
-     * It subtracts continuous genetic energy upkeep, checks for starvation,
+     * It updates the state, subtracts continuous genetic energy upkeep, checks for starvation,
      * regenerates health points (HP) if the fish has enough energy,
      * and triggers the death sequence if energy drops below zero.
      */
@@ -111,6 +111,7 @@ public class Fish extends Entity implements IProfilable {
             Energy -= 1f;
         }
     }
+
     /**
      * Scans the world list to find which objects are close enough to be seen by this fish.
      */
@@ -127,6 +128,7 @@ public class Fish extends Entity implements IProfilable {
             }
         }
     }
+
     /**
      * Lowers the health of this fish when it gets bitten, and returns digested energy to the attacker.
      */
@@ -144,6 +146,7 @@ public class Fish extends Entity implements IProfilable {
 
         return plantToMeatDigestion * energyLost;
     }
+
     /**
      * Handles the fish death sequence by removing it and spawning a piece of meat in its place.
      */
@@ -153,8 +156,9 @@ public class Fish extends Entity implements IProfilable {
         super.Die();
         SimManager.SpawnEntity(new Meat(Position, Energy));
     }
+
     /**
-     * Provides a list of text strings containing current fish status for the interface.
+     * Provides a list of text strings containing current fish status for the IProfile interface.
      */
     @Override
     public List<String> GetProfile() {

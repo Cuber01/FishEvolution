@@ -8,6 +8,7 @@ import processing.core.PVector;
  */
 public class Plant extends Entity {
     private Biome spawnedBy;
+
     /**
      * Creates a new plant instance at a specific coordinate connected to its parent biome.
      */
@@ -16,6 +17,7 @@ public class Plant extends Entity {
         this.Energy = energy;
         this.spawnedBy = spawnedBy;
     }
+
     /**
      * Triggers plant destruction when eaten and returns energy calculated with herbivore digestion.
      */
@@ -27,6 +29,7 @@ public class Plant extends Entity {
         Die();
         return Energy * (1-plantToMeatDigestion);
     }
+
     /**
      * Destroys the plant and notifies the parent biome to allow new plants to grow.
      */

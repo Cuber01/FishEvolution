@@ -17,6 +17,7 @@ public class Entity {
      * Updates the inner logic and state of the entity during each simulation step.
      */
     public void Update() {}
+
     /**
      * Handles the event when another entity tries to bite or eat this object.
      * @param plantToMeatDigestion The digestion efficiency coefficient of the attacker.
@@ -27,8 +28,10 @@ public class Entity {
     {
         return -1;
     }
+
     /**
      * Changes the status of the entity to dead and triggers its removal from the simulation.
+     * Can be overwritten to introduce new death effects.
      */
     public void Die()
     {

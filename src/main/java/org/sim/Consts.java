@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 /**
- * Final configuration class that stores all global constants, configuration balance parameters,
- * and base numbers for the simulation engine.
+ * Configuration class that stores all global constants, configuration balance parameters,
+ * and base numbers for the simulation engine. Values are loaded from config.properties file.
  */
 public final class Consts {
 	public static final long RANDOM_SEED;

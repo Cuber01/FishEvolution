@@ -33,16 +33,12 @@ public class Processing extends PApplet {
     public static void main(String[] args) {
         processing.core.PApplet.main("org.sim.Processing");
     }
-    /**
-     * Configures window settings, including canvas size and sidebar width.
-     */
+
     @Override
     public void settings() {
         size(Consts.CANVAS_WIDTH + Consts.SIDEBAR_WIDTH, Consts.CANVAS_HEIGHT);
     }
-    /**
-     * Loads required images and textures, and initializes the simulation manager before running.
-     */
+
     @Override
     public void setup() {
         fish_searching = loadImage("fish1 mini.png");
@@ -62,7 +58,6 @@ public class Processing extends PApplet {
         frameRate(currentFrameRate);
     }
 
-    // ======================= DRAWING =========================
     /**
      * The core rendering loop executed automatically by the Processing engine.
      * It handles the background refreshing, triggers the simulation manager update
@@ -77,10 +72,11 @@ public class Processing extends PApplet {
         String status = (SimManager.Paused ? "PAUSED" : "RUNNING") + " | FPS:" + (int) currentFrameRate;
         text(status, 10, 15);
     }
+
     /**
      * Draws the background biomes (water depth layers) on the screen using
      * their specific boundary heights and colors.
-     * @param biomes The list of biome layers to be rendered on the canvas.
+     * @param biomes The list of biome layers to draw.
      */
     public void draw_biomes(List<Biome> biomes){
         for(Biome b : biomes){
@@ -90,10 +86,11 @@ public class Processing extends PApplet {
             rect(0, b.upperBorder, SimManager.CanvasX, height);
         }
     }
+
     /**
      * Renders all active simulation objects (including fish, plants, eggs, and meat)
      * at their current positions on the screen.
-     * @param entities_to_draw The list of all entities currently present in the simulation world.
+     * @param entities_to_draw The list of all entities to draw.
      */
     public void draw_entities(List<Entity> entities_to_draw){
         for(Entity e : entities_to_draw){
@@ -130,9 +127,9 @@ public class Processing extends PApplet {
     /**
      * Draws text statistics and general simulation information, such as
      * the current population of fish, on the user interface.
-     * @param fish_count The current number of active fish in the simulation.
+     * @param fish_count The number of active fish in the simulation to be displayed.
      */
-    public void draw_info(int fish_count){
+    public void draw_info(int fish_count) {
         textSize(25);
         fill(255,0,0);
         text("fish alive: "+fish_count, SimManager.CanvasX+10, 20);
@@ -163,6 +160,7 @@ public class Processing extends PApplet {
 
         return currentOffset;
     }
+
     /**
      * Selects a specific fish to display its detailed properties and genes in the UI sidebar.
      */
@@ -171,7 +169,6 @@ public class Processing extends PApplet {
         selected_fish=f;
     }
 
-    // ================= PROCESSING OVERRIDES ===================
     /**
      * Detects mouse clicks to select the nearest fish when the user interacts with the screen.
      */
@@ -199,8 +196,9 @@ public class Processing extends PApplet {
             stats_display(nearestFish);
         }else is_selected=false;
     }
+
     /**
-     * Listens to keyboard shortcuts to pause the simulation or modify the rendering speed.
+     * Listens to keyboard shortcuts to pause the simulation or modify the simulation speed.
      */
     @Override
     public void keyPressed() {
@@ -217,10 +215,9 @@ public class Processing extends PApplet {
             frameRate(currentFrameRate);
         }
     }
+
     /**
-     * Handles the proper shutdown of the application when the window is closed.
-     * It is used to clean up graphical resources and ensure that any remaining
-     * simulation data is safely saved or exported before the program exits.
+     * Exports simulation data when the window is closed.
      */
     @Override
     public void dispose() {

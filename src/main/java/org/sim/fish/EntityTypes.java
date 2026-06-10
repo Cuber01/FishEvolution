@@ -1,6 +1,6 @@
 package org.sim.fish;
 /**
- * Defines the core classification groups for entities in the simulation world.
+ * Defines the core type groups for entities in the simulation world.
  */
 public enum EntityTypes {
     Fish,

@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class SimDataMonitor {
     private final List<List<String>> data = new ArrayList<>();
+
     /**
      * Creates the column headers row for the statistics data table.
      */
@@ -23,6 +24,7 @@ public class SimDataMonitor {
                         "Average Damage", "Average Vision Range",
                         "Average Aggressiveness", "Average PlantToMeatDigestion"));
     }
+
     /**
      * Gathers current simulation parameters, calculates genetic averages, and stores them in memory.
      */
@@ -62,8 +64,9 @@ public class SimDataMonitor {
         ));
 
     }
+
     /**
-     * Saves all collected simulation statistics into a structured CSV text file.
+     * Saves all collected simulation statistics into a CSV file.
      */
     public void ExportCsv(String fileName)
     {

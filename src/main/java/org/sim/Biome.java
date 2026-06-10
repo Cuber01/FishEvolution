@@ -41,6 +41,7 @@ public class Biome {
     }
     /**
      * Decreases the biome's tracked energy count when a plant inside this zone is eaten.
+     * Called by plants on death.
      */
     public void PlantEaten(float energy)
     {
