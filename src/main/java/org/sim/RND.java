@@ -3,26 +3,38 @@ package org.sim;
 import processing.core.PVector;
 
 import java.util.Random;
-
+/**
+ * Static utility class providing convenient helper methods for random number generation
+ * and random vector positioning.
+ */
 public class RND {
     private static final Random RANDOM = new Random(Consts.RANDOM_SEED);
 
     // increaseTrue + decreaseTrue should be in the range -10 to 10
+    /**
+     * Returns true or false based on a customized probability scale.
+     */
     public static boolean Chance(float increaseTrue, float decreaseTrue)
     {
         return RANDOM.nextFloat() < 0.5f + ((increaseTrue + decreaseTrue)/20);
     }
-
+    /**
+     * Scales a raw number down to a proportional value based on a maximum limit.
+     */
     public static float Scale(float value, float maxValue)
     {
         return value / maxValue;
     }
-
+    /**
+     * Scales a raw number and applies an extra weight multiplier factor.
+     */
     public static float Scale(float value, float maxValue, float modifier)
     {
         return Scale(value, maxValue) * modifier;
     }
-
+    /**
+     * Generates a random 2D vector coordinate within specified boundary box coordinates.
+     */
     public static PVector RandomVector2(float minX, float maxX, float minY, float maxY)
     {
         float startX = Math.min(minX, maxX);
@@ -35,12 +47,16 @@ public class RND {
 
         return new PVector(x, y);
     }
-
+    /**
+     * Generates a random decimal float number between a minimum and a maximum value range.
+     */
     public static float RandomFloat(float min, float max)
     {
         return min + RANDOM.nextFloat() * (max - min);
     }
-
+    /**
+     * Generates a completely random boolean flag (true or false).
+     */
     public static boolean RandomBoolean()
     {
         return RANDOM.nextBoolean();

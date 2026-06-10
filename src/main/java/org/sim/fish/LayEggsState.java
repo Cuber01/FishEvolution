@@ -5,7 +5,9 @@ import org.sim.food.Egg;
 
 import static org.sim.fish.Fish.ReproductionEnergyUse;
 
-
+/**
+ * Implements the LayEggsState behavior for the fish state machine.
+ */
 class LayEggsState extends State<Fish, FishStateTypes> {
     private boolean finished = false;
 

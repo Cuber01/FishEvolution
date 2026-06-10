@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
+/**
+ * Final configuration class that stores all global constants, configuration balance parameters,
+ * and base numbers for the simulation engine.
+ */
 public final class Consts {
 	public static final long RANDOM_SEED;
 

@@ -4,7 +4,10 @@ import org.sim.fish.Fish;
 
 import java.awt.*;
 import java.util.ArrayList;
-
+/**
+ * Main manager class that controls the core simulation loop.
+ * It manages biomes, tracks entity lifecycles, and collects historical data.
+ */
 public class SimManager {
     private static final ArrayList<Entity> Entities = new ArrayList<>();
     private static final ArrayList<Entity> EntitiesToAdd = new ArrayList<>(0);
@@ -19,12 +22,16 @@ public class SimManager {
 
     public static final int CanvasX = Consts.CANVAS_WIDTH;
     public static final int CanvasY = Consts.CANVAS_HEIGHT;
-
+    /**
+     * Creates a new simulation manager with graphics and data collection modules.
+     */
     public SimManager(Processing gm, SimDataMonitor dataMonitor) {
         graphics_handle=gm;
         this.dataMonitor = dataMonitor;
     }
-
+    /**
+     * Sets up the environment, initializes the water biomes, and prepares starting settings.
+     */
     public void Setup()
     {
         Biome shallow =new Biome(Consts.SHALLOW_BIOME_UPPER_BORDER, Consts.MIDDLE_BIOME_UPPER_BORDER, Consts.SHALLOW_BIOME_COLOR, Consts.SHALLOW_BIOME_ENERGY_MAX, Consts.SHALLOW_BIOME_PLANT_ENERGY);
@@ -36,7 +43,12 @@ public class SimManager {
 
         for(int i=0;i<Consts.INITIAL_FISH_COUNT;i++) Entities.add(new Fish());
     }
-
+    /**
+     * Updates the entire simulation state on every single tick.
+     * It handles the simulation timer, asks biomes to spawn new plants, updates
+     * the logic of all alive entities, tracks population count, and triggers
+     * data gathering or exporting when needed.
+     */
     public void Update(){
         if (Paused) {
             graphics_handle.background(0);
@@ -89,15 +101,25 @@ public class SimManager {
         graphics_handle.draw_info(FishCount);
         graphics_handle.draw_entities(Entities);
     }
-
+    /**
+     * Returns an unmodifiable list of all active entities currently present in the simulation.
+     */
     public static java.util.List<Entity> GetEntities() {
         return java.util.Collections.unmodifiableList(Entities);
     }
-
+    /**
+     * Safely queues a new entity (such as a baby fish, a laid egg, or a piece of meat)
+     * to be added into the simulation world at the start of the next frame.
+     * @param entity The entity object that needs to be spawned.
+     */
     public static void SpawnEntity(Entity entity) {
         EntitiesToAdd.add(entity);
     }
-
+    /**
+     * Safely queues an existing entity to be removed from the simulation world
+     * (for example, when a plant is eaten or a fish decays), removing it from memory.
+     * @param entity The entity object that needs to be deleted.
+     */
     public static void DespawnEntity(Entity entity) {
         EntitiesToRemove.add(entity);
     }

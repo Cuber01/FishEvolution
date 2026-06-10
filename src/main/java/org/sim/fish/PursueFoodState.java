@@ -8,7 +8,9 @@ import java.util.Map;
 import static org.sim.fish.EntityTypes.Egg;
 import static org.sim.fish.EntityTypes.Food;
 import static processing.core.PApplet.sq;
-
+/**
+ * Implements the  PursueFoodState behavior for the fish state machine.
+ */
 class PursueFoodState extends State<Fish, FishStateTypes> {
     private final static int timeUntilStopsPursuing = 10;
     private int timeUntilLastSawFood = 0;

@@ -7,7 +7,10 @@ import org.sim.food.Meat;
 import processing.core.PVector;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Represents the main living actor of the simulation.
+ * It moves around, looks for targets via FOV, processes its AI state machine, and reproduces.
+ */
 public class Fish extends Entity implements IProfilable {
     public Genes Attributes;
     public FOVInfo InFOV = new FOVInfo();
@@ -50,7 +53,12 @@ public class Fish extends Entity implements IProfilable {
         this.Energy = MaxEnergy;
         CurrentState.Enter();
     }
-
+    /**
+     * Updates the internal life logic of the fish on every simulation tick.
+     * It subtracts continuous genetic energy upkeep, checks for starvation,
+     * regenerates health points (HP) if the fish has enough energy,
+     * and triggers the death sequence if energy drops below zero.
+     */
     @Override
     public void Update()
     {
@@ -103,7 +111,9 @@ public class Fish extends Entity implements IProfilable {
             Energy -= 1f;
         }
     }
-
+    /**
+     * Scans the world list to find which objects are close enough to be seen by this fish.
+     */
     public void CalculateFOV(ArrayList<Entity> entities)
     {
         InFOV.Reset();
@@ -117,7 +127,9 @@ public class Fish extends Entity implements IProfilable {
             }
         }
     }
-
+    /**
+     * Lowers the health of this fish when it gets bitten, and returns digested energy to the attacker.
+     */
     @Override
     public float Bite(float plantToMeatDigestion, float damage)
     {
@@ -132,14 +144,18 @@ public class Fish extends Entity implements IProfilable {
 
         return plantToMeatDigestion * energyLost;
     }
-
+    /**
+     * Handles the fish death sequence by removing it and spawning a piece of meat in its place.
+     */
     @Override
     public void Die()
     {
         super.Die();
         SimManager.SpawnEntity(new Meat(Position, Energy));
     }
-
+    /**
+     * Provides a list of text strings containing current fish status for the interface.
+     */
     @Override
     public List<String> GetProfile() {
         List<String> info = new ArrayList<>();

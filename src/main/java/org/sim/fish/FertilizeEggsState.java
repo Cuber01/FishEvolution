@@ -8,7 +8,9 @@ import processing.core.PVector;
 import java.util.Map;
 
 import static processing.core.PApplet.sq;
-
+/**
+ * Implements the FertilizeEggsStates behavior for the fish state machine.
+ */
 class FertilizeEggsState extends State<Fish, FishStateTypes> {
     private boolean finished = false;
     private Egg target;

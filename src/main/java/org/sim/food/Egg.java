@@ -7,13 +7,17 @@ import org.sim.fish.genes.Sex;
 import org.sim.SimManager;
 import org.sim.fish.Fish;
 import processing.core.PVector;
-
+/**
+ * Represents a fish egg that can be fertilized by males and eventually hatches into a new fish.
+ */
 public class Egg extends Entity {
     public Genes gene;
     protected float TimeTilDecay = 500f;
     private float timeTilHatch;
     public boolean Fertilized;
-
+    /**
+     * Creates a new egg containing the mother's genetic blueprints and a countdown timer.
+     */
     public Egg(PVector position, Genes motherGenes, float timeTilHatch, float energy)
     {
         this.Position = position.copy();
@@ -21,7 +25,9 @@ public class Egg extends Entity {
         this.timeTilHatch = timeTilHatch;
         this.Energy = energy;
     }
-
+    /**
+     * Manages the egg timer logic, counting down to hatching or organic decay.
+     */
     @Override
     public void Update()
     {
@@ -43,7 +49,9 @@ public class Egg extends Entity {
         }
 
     }
-
+    /**
+     * Mixes maternal genes with the father's traits, applies mutations, and activates the hatching process.
+     */
     public void Fertilize(Genes fatherGenes)
     {
         if(Fertilized) return;
@@ -51,14 +59,22 @@ public class Egg extends Entity {
         gene = gene.MutateGenes(fatherGenes);
         Fertilized = true;
     }
-
+    /**
+     * Spawns a new fish into the simulation world using the finalized genetic combination.
+     */
     public void Hatch()
     {
         SimManager.SpawnEntity(new Fish(Position.copy(), gene,
                 RND.RandomBoolean() ? Sex.Male : Sex.Female));
         Die();
     }
-
+    /**
+     * Handles the event when a starving fish bites or eats this egg.
+     * It instantly kills the egg and transfers its stored energy to the attacking fish.
+     * @param plantToMeatDigestion The digestion efficiency coefficient of the attacker.
+     * @param damage The amount of damage dealt to the egg.
+     * @return The amount of energy converted and returned to the attacker.
+     */
     @Override
     public float Bite(float plantToMeatDigestion, float damage)
     {

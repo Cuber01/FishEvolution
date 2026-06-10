@@ -5,7 +5,10 @@ import org.sim.Entity;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
+/**
+ * Helper class that stores structured information about everything a fish can see.
+ * It separates detected objects into categorized maps sorted by distance.
+ */
 public class FOVInfo {
     public Map<Entity, Float> FoodsDist = new LinkedHashMap<>();
     public Map<Egg, Float> EggsDist = new LinkedHashMap<>();
@@ -15,7 +18,9 @@ public class FOVInfo {
     public boolean SawEggs = false;
     public boolean SawUnfertilizedEggs = false;
     public boolean SawFish = false;
-
+    /**
+     * Categorizes a visible entity and records its squared distance from the observing fish.
+     */
     public void AddEntry(Entity entity, float distanceSquared)
     {
         if(entity instanceof Egg)
@@ -38,7 +43,9 @@ public class FOVInfo {
             SawFood = true;
         }
     }
-
+    /**
+     * Clears all vision data and resets detection flags before the next scan step.
+     */
     public void Reset()
     {
         FoodsDist.clear();
@@ -49,7 +56,9 @@ public class FOVInfo {
         SawFish = false;
         SawUnfertilizedEggs = false;
     }
-
+    /**
+     * Checks if a specific fish is currently present in the detected field of view list.
+     */
     public boolean FishInFOV(Fish f)
     {
         if(!SawFish)

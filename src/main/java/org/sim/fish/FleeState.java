@@ -4,7 +4,9 @@ import org.sim.*;
 import processing.core.PVector;
 
 import java.util.Map;
-
+/**
+ * Implements the FleeState behavior for the fish state machine.
+ */
 class FleeState extends State<Fish, FishStateTypes> {
     public static int timeUntilStopsFleeing = 10;
     private int timeUntilLastSawPredator = 0;

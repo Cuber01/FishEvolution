@@ -6,23 +6,30 @@ import org.sim.RND;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
+ * A data record that stores the genetic traits of a fish.
+ * It controls attributes like speed or vision range, and handles gene mutations during reproduction.
  * @param Aggressiveness       These values are 0-1
  * @param PlantToMeatDigestion Where 0 = full plant no meat, 1 = full meat no plant
  */
 public record Genes(float Speed, float MaxHP, float Damage, float VisionRange, float Aggressiveness,
                     float PlantToMeatDigestion) implements IProfilable {
     // Possible additions: Lifespan, Color (teams), Egg amount vs Hatch time, Armor, MaxEnergy, Energy at birth
-
+    /**
+     * Creates an independent copy of the current genetic traits.
+     */
     public Genes Copy() {
         return new Genes(this.Speed, this.MaxHP, this.Damage, this.VisionRange, this.Aggressiveness, this.PlantToMeatDigestion);
     }
-
+    /**
+     * Generates a default set of genes with completely random traits within valid limits.
+     */
     public Genes() {
         this(RND.RandomFloat(Consts.GENE_SPEED_MIN, Consts.GENE_SPEED_MAX), RND.RandomFloat(Consts.GENE_MAX_HP_MIN, Consts.GENE_MAX_HP_MAX), RND.RandomFloat(Consts.GENE_DAMAGE_MIN, Consts.GENE_DAMAGE_MAX), RND.RandomFloat(Consts.GENE_VISION_RANGE_MIN, Consts.GENE_VISION_RANGE_MAX), RND.RandomFloat(Consts.GENE_AGGRESSIVENESS_MIN, Consts.GENE_AGGRESSIVENESS_MAX), RND.RandomFloat(Consts.GENE_PLANT_TO_MEAT_DIGESTION_MIN, Consts.GENE_PLANT_TO_MEAT_DIGESTION_MAX));
     }
-
+    /**
+     * Combines current traits with another fish's traits and applies random mutations to create new genes.
+     */
     public Genes MutateGenes(Genes otherGene) {
         float newSpeed = mutateAttribute(this.Speed, otherGene.Speed, Consts.SPEED_MUTATION_WEIGHT);
         float newMaxHP = mutateAttribute(this.MaxHP, otherGene.MaxHP, Consts.MAX_HP_MUTATION_WEIGHT);
@@ -33,7 +40,9 @@ public record Genes(float Speed, float MaxHP, float Damage, float VisionRange, f
 
         return new Genes(newSpeed, newMaxHP, newDamage, newVision, newAggressiveness, newPlantToMeatDigestion);
     }
-
+    /**
+     * Calculates the continuous energy cost needed to support these biological traits.
+     */
     public float GetGeneticEnergyUpkeep() {
         float sum = 0;
         sum += Speed * Consts.SPEED_COST_MODIFIER;
@@ -46,7 +55,9 @@ public record Genes(float Speed, float MaxHP, float Damage, float VisionRange, f
     private static float mutateAttribute(float attributeA, float attributeB, float mutationWeight) {
         return (attributeA + attributeB) / 2 + RND.RandomFloat(-mutationWeight, mutationWeight);
     }
-
+    /**
+     * Prepares a list of formatted text lines displaying genetic traits for the user interface.
+     */
     @Override
     public List<String> GetProfile() {
         List<String> info = new ArrayList<>();

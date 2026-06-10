@@ -8,17 +8,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Collects population statistics and genetic averages during the simulation.
+ * It is responsible for preparing and writing this data into an external CSV file.
+ */
 public class SimDataMonitor {
     private final List<List<String>> data = new ArrayList<>();
-
+    /**
+     * Creates the column headers row for the statistics data table.
+     */
     public void BuildHeader()
     {
         data.add(List.of("Ticks", "Fish population", "Average Speed", "Average MaxHP",
                         "Average Damage", "Average Vision Range",
                         "Average Aggressiveness", "Average PlantToMeatDigestion"));
     }
-
+    /**
+     * Gathers current simulation parameters, calculates genetic averages, and stores them in memory.
+     */
     public void GatherData()
     {
         if(SimManager.FishCount == 0) return;
@@ -55,7 +62,9 @@ public class SimDataMonitor {
         ));
 
     }
-
+    /**
+     * Saves all collected simulation statistics into a structured CSV text file.
+     */
     public void ExportCsv(String fileName)
     {
 

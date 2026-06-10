@@ -11,7 +11,10 @@ import processing.core.PVector;
 
 import java.util.List;
 
-
+/**
+ * Main graphical engine of the application based on the Processing library.
+ * It is responsible for opening the window, drawing objects, and capturing user input.
+ */
 public class Processing extends PApplet {
 
     private PImage fish_searching, fish_fleeing, fish_pursuing, fish_reproducing, egg, meat, glon;
@@ -24,16 +27,22 @@ public class Processing extends PApplet {
     private boolean paused = false;
     private float currentFrameRate = 60f;
 
-
+    /**
+     * Main entry point of the program that starts the Processing application.
+     */
     public static void main(String[] args) {
         processing.core.PApplet.main("org.sim.Processing");
     }
-
+    /**
+     * Configures window settings, including canvas size and sidebar width.
+     */
     @Override
     public void settings() {
         size(Consts.CANVAS_WIDTH + Consts.SIDEBAR_WIDTH, Consts.CANVAS_HEIGHT);
     }
-
+    /**
+     * Loads required images and textures, and initializes the simulation manager before running.
+     */
     @Override
     public void setup() {
         fish_searching = loadImage("fish1 mini.png");
@@ -54,7 +63,11 @@ public class Processing extends PApplet {
     }
 
     // ======================= DRAWING =========================
-
+    /**
+     * The core rendering loop executed automatically by the Processing engine.
+     * It handles the background refreshing, triggers the simulation manager update
+     * if the program is not paused, and coordinates the drawing of biomes, entities, and UI.
+     */
     public void draw(){
         background(0);
         manager.Update();
@@ -64,7 +77,11 @@ public class Processing extends PApplet {
         String status = (SimManager.Paused ? "PAUSED" : "RUNNING") + " | FPS:" + (int) currentFrameRate;
         text(status, 10, 15);
     }
-
+    /**
+     * Draws the background biomes (water depth layers) on the screen using
+     * their specific boundary heights and colors.
+     * @param biomes The list of biome layers to be rendered on the canvas.
+     */
     public void draw_biomes(List<Biome> biomes){
         for(Biome b : biomes){
             fill(b.Color.getRed(), b.Color.getGreen(), b.Color.getBlue());
@@ -73,7 +90,11 @@ public class Processing extends PApplet {
             rect(0, b.upperBorder, SimManager.CanvasX, height);
         }
     }
-
+    /**
+     * Renders all active simulation objects (including fish, plants, eggs, and meat)
+     * at their current positions on the screen.
+     * @param entities_to_draw The list of all entities currently present in the simulation world.
+     */
     public void draw_entities(List<Entity> entities_to_draw){
         for(Entity e : entities_to_draw){
             draw_entity(e);
@@ -106,7 +127,11 @@ public class Processing extends PApplet {
         image(sprite, e.Position.x, e.Position.y);
     }
 
-
+    /**
+     * Draws text statistics and general simulation information, such as
+     * the current population of fish, on the user interface.
+     * @param fish_count The current number of active fish in the simulation.
+     */
     public void draw_info(int fish_count){
         textSize(25);
         fill(255,0,0);
@@ -138,14 +163,18 @@ public class Processing extends PApplet {
 
         return currentOffset;
     }
-
+    /**
+     * Selects a specific fish to display its detailed properties and genes in the UI sidebar.
+     */
     public void stats_display(Fish f) {
         is_selected =true;
         selected_fish=f;
     }
 
     // ================= PROCESSING OVERRIDES ===================
-
+    /**
+     * Detects mouse clicks to select the nearest fish when the user interacts with the screen.
+     */
     public void mousePressed()
     {
         if(mouseButton == RIGHT) return;
@@ -170,7 +199,9 @@ public class Processing extends PApplet {
             stats_display(nearestFish);
         }else is_selected=false;
     }
-
+    /**
+     * Listens to keyboard shortcuts to pause the simulation or modify the rendering speed.
+     */
     @Override
     public void keyPressed() {
         if (key == ' ') {
@@ -186,7 +217,11 @@ public class Processing extends PApplet {
             frameRate(currentFrameRate);
         }
     }
-
+    /**
+     * Handles the proper shutdown of the application when the window is closed.
+     * It is used to clean up graphical resources and ensure that any remaining
+     * simulation data is safely saved or exported before the program exits.
+     */
     @Override
     public void dispose() {
         dataMonitor.ExportCsv("raport.csv");
